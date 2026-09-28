@@ -1,0 +1,37 @@
+name: ci
+
+on:
+  push:
+    branches: [master, main, "feat/**", "fix/**"]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ["3.11", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          python-version: ${{ matrix.python }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: uv sync --frozen
+      # Pyflakes (undefined names, unused imports) gates every file; the
+      # wider style baseline is tracked separately and not enforced yet.
+      - run: uv run ruff check --select F,E9 .
+      - run: uv run pytest -m "not live"
+
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker build -t tiktok-apis:ci .
+      - run: docker run --rm tiktok-apis:ci
