@@ -16,6 +16,8 @@ class Limits:
     # Live WS: (method, message_id) dedup window; a busy room pushes tens of
     # events per second for hours.
     LIVE_SEEN_WINDOW = 20_000
+    # IM push: (conversation_id, server_message_id) dedup window.
+    IM_SEEN_WINDOW = 20_000
     # Used only when neither the fetch nor a frame supplies heartbeat_duration.
     LIVE_DEFAULT_HEARTBEAT_S = 10.0
 

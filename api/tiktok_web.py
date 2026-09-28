@@ -1590,8 +1590,20 @@ class TiktokWebAPI:
         if not notify.HasField("message"):
             return None
         message = notify.message
-        if int(message.message_type) != 7:
-            return None  # only browser-confirmed text IM is in scope
+        base = {
+            "conversation_id": str(message.conversation_id),
+            "conversation_short_id": int(message.conversation_short_id),
+            "server_message_id": int(message.server_message_id),
+            "message_type": int(message.message_type),
+            "sender": int(message.sender),
+            "sec_sender": str(message.sec_sender),
+            "create_time": int(message.create_time),
+            "frame_seqid": int(frame.seqid),
+        }
+        if int(message.message_type) != TiktokWebAPI.IM_TEXT_MESSAGE_TYPE:
+            # Media/sticker/share types are not decoded yet (no capture); say
+            # so instead of dropping the notification.
+            return {**base, "type": "unsupported", "content_raw": str(message.content)}
         try:
             content = json.loads(message.content)
             text = content["text"]
@@ -1599,55 +1611,67 @@ class TiktokWebAPI:
                 raise ValueError("text 非字符串")
         except (ValueError, KeyError, TypeError) as exc:
             raise BrowserEvidenceError("私信文本推送 content 缺少 text") from exc
-        return {
-            "conversation_id": str(message.conversation_id),
-            "conversation_short_id": int(message.conversation_short_id),
-            "server_message_id": int(message.server_message_id),
-            "message_type": int(message.message_type),
-            "sender": int(message.sender),
-            "sec_sender": str(message.sec_sender),
-            "text": text,
-            "content": content,
-            "create_time": int(message.create_time),
-            "frame_seqid": int(frame.seqid),
-        }
+        return {**base, "type": "text", "text": text, "content": content}
 
     def iter_im_ws_messages(self, *, auth=None, wid: str | None = None,
-                            stop_event=None, timeout: float = 2):
-        """Yield text DMs from Chrome's fpid=9 IM WebSocket push channel."""
+                            stop_event=None, timeout: float = 2,
+                            include_unsupported: bool = False):
+        """Yield DMs from Chrome's fpid=9 IM WebSocket push channel.
+
+        Text DMs have ``type == "text"``.  Other message types are yielded as
+        ``type == "unsupported"`` only with ``include_unsupported=True``; an
+        undecodable push yields ``type == "decode_error"`` (when requested)
+        instead of ending the stream.  A server close raises TransportError.
+        """
         auth = self._auth(auth)
         auth.require_browser_profile()
         ws_url = self._im_ws_url(auth, wid)
+        import websocket  # a missing package is an ImportError, not a network error
         try:
-            import websocket
             ws = websocket.create_connection(
                 ws_url, timeout=timeout, origin=self.origin,
                 cookie=auth.cookie_str,
                 header=["User-Agent: " + str(auth.user_agent)],
             )
-        except Exception as exc:
-            raise BrowserEvidenceError("私信接收 WS 连接失败") from exc
-        seen = set()
+        except (websocket.WebSocketException, OSError) as exc:
+            raise TransportError(f"私信接收 WS 连接失败: {type(exc).__name__}",
+                                 method="WS", url=ws_url) from None
+        seen: OrderedDict = OrderedDict()
         try:
             while stop_event is None or not stop_event.is_set():
                 try:
                     raw = ws.recv()
                 except websocket.WebSocketTimeoutException:
                     continue
+                except (websocket.WebSocketConnectionClosedException, OSError) as exc:
+                    raise TransportError(f"私信接收 WS 已断开: {type(exc).__name__}",
+                                         method="WS", url=ws_url) from None
                 if raw == "hi":
                     ws.send("hi")
                     continue
-                if raw in ("", b""):
-                    raise BrowserEvidenceError("私信接收 WS 已关闭")
-                message = self.decode_im_ws_notification(raw)
+                try:
+                    message = self.decode_im_ws_notification(raw)
+                except BrowserEvidenceError as exc:
+                    if include_unsupported:
+                        yield {"type": "decode_error", "error": str(exc)}
+                    continue
                 if message is None:
                     continue
+                if message["type"] == "unsupported" and not include_unsupported:
+                    continue
                 key = (message["conversation_id"], message["server_message_id"])
-                if key not in seen:
-                    seen.add(key)
-                    yield message
+                if key in seen:
+                    continue
+                seen[key] = None
+                if len(seen) > Limits.IM_SEEN_WINDOW:
+                    seen.popitem(last=False)
+                yield message
         finally:
-            ws.close()
+            try:
+                ws.close()
+            except (websocket.WebSocketException, OSError):
+                # Closing a dead socket is not a second failure worth raising.
+                pass
 
     @staticmethod
     def _upload_random_s() -> str:
