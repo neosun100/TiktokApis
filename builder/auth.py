@@ -186,6 +186,20 @@ class TiktokAuth:
         return hashlib.md5(source.encode("utf-8")).hexdigest()
 
     @property
+    def im_region(self) -> str:
+        """Region label for the ``im-api-{r}`` / ``im-ws-{r}`` hosts.
+
+        It is interpolated into a hostname that receives the full Cookie
+        header, so anything but a short lowercase label is rejected.
+        """
+        region = str(self.region or "").lower()
+        if not re.fullmatch(r"[a-z]{2,8}", region):
+            raise BrowserEvidenceError(
+                f"region 必须是 2-8 位字母的区域标签，实际为 {self.region!r}"
+            )
+        return region
+
+    @property
     def verify_fp(self) -> str:
         return self.cookie.get("s_v_web_id", "")
 

@@ -11,6 +11,8 @@ import subprocess
 from typing import Iterable, Mapping
 from urllib.parse import quote, unquote
 
+from .node_runner import minimal_env
+
 from .pure import encode_x_bogus
 
 
@@ -96,8 +98,7 @@ class ShopBSIDSigner:
             "expected_ms_token_length": len(ms_token),
             "x_bogus": x_bogus,
         }
-        environment = os.environ.copy()
-        environment["TIKTOK_BSID_QUIET"] = "1"
+        environment = minimal_env(TIKTOK_BSID_QUIET="1")
         try:
             completed = subprocess.run(
                 [self.node, str(self.script)],

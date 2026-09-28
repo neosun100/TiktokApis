@@ -829,8 +829,7 @@ class TiktokWebAPI:
             ("sec-fetch-mode", "cors"),
             ("sec-fetch-site", "same-site"),
         ))
-        region = str(auth.region or "SG").lower()
-        url = f"https://im-api-{region}.tiktok.com{path}"
+        url = f"https://im-api-{auth.im_region}.tiktok.com{path}"
         response = http_client.request(
             "POST", url, headers=request_headers, data=raw, timeout=self.timeout,
         )
@@ -991,7 +990,7 @@ class TiktokWebAPI:
         if not ttwid:
             raise BrowserEvidenceError("私信 WebSocket 缺少当前浏览器 ttwid")
         return (
-            "wss://im-ws-" + str(auth.region or "SG").lower()
+            "wss://im-ws-" + auth.im_region
             + ".tiktok.com/ws/v2?device_platform=web"
             + "&version_code=fws_1.0.0&access_key=" + access_key
             + "&fpid=9&aid=1459&ttwid=" + quote(ttwid, safe="|~-._")

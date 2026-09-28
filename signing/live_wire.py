@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-import gzip
+import zlib
 
 from .protobuf import ProtobufWireError, field_bytes, field_string, field_varint
 
@@ -138,6 +138,25 @@ def decode_response(raw: bytes) -> dict:
     }
 
 
+# A LiveResponse batch is a few KiB to a few hundred KiB; anything past this
+# is a malformed or hostile frame (gzip bomb), not a busier room.
+MAX_DECOMPRESSED_BYTES = 16 * 1024 * 1024
+
+
+def gunzip_bounded(payload: bytes, limit: int = MAX_DECOMPRESSED_BYTES) -> bytes:
+    decoder = zlib.decompressobj(16 + zlib.MAX_WBITS)
+    try:
+        out = decoder.decompress(payload, limit)
+    except zlib.error as exc:
+        raise ProtobufWireError(f"PushFrame gzip 无法解压: {exc}") from None
+    if decoder.unconsumed_tail:
+        raise ProtobufWireError(
+            f"PushFrame 解压后超过上限 {limit} 字节（压缩体 {len(payload)} 字节）")
+    if not decoder.eof:
+        raise ProtobufWireError("PushFrame gzip 数据被截断")
+    return out
+
+
 def decode_push_frame(raw: bytes) -> dict:
     """Decode a live WS PushFrame and its optional gzip LiveResponse."""
     tree = fields(raw)
@@ -150,7 +169,7 @@ def decode_push_frame(raw: bytes) -> dict:
             pair = fields(item)
             headers[string(pair, 1)] = string(pair, 2)
     if headers.get("compress_type") == "gzip" or payload.startswith(b"\x1f\x8b"):
-        payload = gzip.decompress(payload)
+        payload = gunzip_bounded(payload)
     kind = string(tree, 7)
     return {
         "seq_id": integer(tree, 1), "log_id": integer(tree, 2),

@@ -17,6 +17,7 @@ from pathlib import Path
 from typing import Mapping, Optional
 from urllib.parse import urlsplit
 
+from signing.node_runner import minimal_env
 from signing.pure import (
     _hash_url_state, encode_dynosaur_current, encode_gnarly_current,
     encode_gnarly_project, encode_x_bogus,
@@ -103,7 +104,7 @@ class TiktokSigner:
             process = subprocess.run(
                 [self.node, str(self.script)], input=json.dumps(request) + "\n",
                 text=True, capture_output=True, timeout=self.timeout,
-                check=False,
+                check=False, env=minimal_env(),
             )
             replies = [line for line in process.stdout.splitlines()
                        if line.startswith('{"ok":')]
