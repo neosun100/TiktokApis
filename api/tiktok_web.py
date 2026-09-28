@@ -977,10 +977,29 @@ class TiktokWebAPI:
             result.update({
                 "message_status": int(body.status),
                 "server_message_id": int(body.server_message_id),
+                "client_message_id": str(body.client_message_id),
                 "check_code": int(body.check_code),
+                "check_message": str(body.check_message),
+                "filter_reason": int(body.filter_reason),
                 "is_async_send": bool(body.is_async_send),
             })
         return result
+
+    @staticmethod
+    def _raise_for_im_send(response: Mapping) -> None:
+        """Fail closed on a command-100 reply that did not deliver the DM."""
+        path = "im-ws/ws/v2#cmd100"
+        if response.get("status_code"):
+            raise BusinessError(path=path, code=response["status_code"],
+                                message=str(response.get("error_desc") or ""),
+                                payload=response)
+        # check_code/filter_reason non-zero = content moderation rejected or
+        # filtered the message.  Exact semantics per value need captures;
+        # treating any non-zero as delivered would hide the rejection.
+        if response.get("check_code") or response.get("filter_reason"):
+            raise BusinessError(path=path, code=response.get("check_code"),
+                                message=str(response.get("check_message") or "消息被审核拦截"),
+                                payload=response)
 
     @staticmethod
     def _im_ws_url(auth: TiktokAuth, wid: str | None = None) -> str:
@@ -1078,36 +1097,57 @@ class TiktokWebAPI:
         )
         # Web-Sdk-Ms-Token lives in the Frame header map, not this URL.
         ws_url = self._im_ws_url(auth, wid)
+        import websocket  # a missing package is an ImportError, not a network error
+        budget = float(timeout if timeout is not None else self.timeout)
         try:
-            import websocket
             ws = websocket.create_connection(
-                ws_url, timeout=float(timeout if timeout is not None else self.timeout),
+                ws_url, timeout=budget,
                 origin=self.origin, cookie=auth.cookie_str,
                 header=["User-Agent: " + str(auth.user_agent)],
             )
-        except Exception as exc:
-            raise BrowserEvidenceError("私信 WebSocket 连接失败") from exc
+        except (websocket.WebSocketException, OSError) as exc:
+            raise TransportError(f"私信 WebSocket 连接失败: {type(exc).__name__}",
+                                 method="WS", url=ws_url) from None
+        undecodable = 0
         try:
             ws.send(frame, opcode=websocket.ABNF.OPCODE_BINARY)
-            deadline = time.monotonic() + float(
-                timeout if timeout is not None else self.timeout
-            )
+            deadline = time.monotonic() + budget
             while time.monotonic() < deadline:
+                ws.settimeout(max(0.05, deadline - time.monotonic()))
                 try:
-                    response = self._decode_im_send_response(ws.recv())
-                except Exception:
+                    raw = ws.recv()
+                except websocket.WebSocketTimeoutException:
+                    break
+                except (websocket.WebSocketConnectionClosedException, OSError) as exc:
+                    raise TransportError(f"私信 WebSocket 在回包前断开: {type(exc).__name__}",
+                                         method="WS", url=ws_url) from None
+                try:
+                    response = self._decode_im_send_response(raw)
+                except BrowserEvidenceError:
+                    undecodable += 1
                     continue
-                if response.get("heartbeat"):
+                if response.get("heartbeat") or response.get("text_frame"):
                     continue
-                if response.get("cmd") == 100:
-                    response["wire_frame_length"] = len(frame)
-                    response["wire_body_length"] = len(body)
-                    return response
-            raise BrowserEvidenceError("私信 WebSocket 未收到 command-100 回包")
+                # Another tab of the same account can push its own cmd-100
+                # replies on this socket; only ours carries our sequence id.
+                if response.get("cmd") != 100 or response.get("sequence_id") not in (0, sequence):
+                    continue
+                self._raise_for_im_send(response)
+                if sequence_id is None:
+                    # The id came from browser_metrics: advance it so the next
+                    # send does not reuse the same Request.sequence_id.
+                    auth.browser_metrics["im_ws_sequence_id"] = sequence + 1
+                response["wire_frame_length"] = len(frame)
+                response["wire_body_length"] = len(body)
+                return response
+            raise TransportError(
+                f"私信 WebSocket 在 {budget:.0f}s 内未收到本次 command-100 回包"
+                f"（另有 {undecodable} 帧无法解码）", method="WS", url=ws_url)
         finally:
             try:
                 ws.close()
-            except Exception:
+            except (websocket.WebSocketException, OSError):
+                # Closing a dead socket is not a second failure worth raising.
                 pass
 
     def get_im_messages_per_user_combo(self, inboxes, *,
