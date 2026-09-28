@@ -72,6 +72,8 @@ class TiktokWebAPI:
         "user_is_login", "data_collection_enabled", "from_appID", "locale",
         "user_agent", "Web-Sdk-Ms-Token",
     )
+    # MessageBody.message_type of a plain text DM (Chrome-captured send wire).
+    IM_TEXT_MESSAGE_TYPE = 7
     CONFIRMED_READ_ENDPOINTS = {
         "/api/post/item_list/",
         "/tiktok/creator/manage/item_list/v1/",
@@ -1359,11 +1361,17 @@ class TiktokWebAPI:
             raise BrowserEvidenceError("私信 protobuf 回包无法解码") from exc
 
         def scalar(value):
-            if not isinstance(value, bytes):
-                return value
-            try:
-                text = value.decode("utf-8")
-            except UnicodeDecodeError:
+            # bbpb returns valid-UTF-8 length-delimited fields as ``str``;
+            # older blackboxprotobuf builds returned ``bytes``.  Both carry
+            # the MessageBody.content JSON, so both must reach json.loads.
+            if isinstance(value, bytes):
+                try:
+                    text = value.decode("utf-8")
+                except UnicodeDecodeError:
+                    return value
+            elif isinstance(value, str):
+                text = value
+            else:
                 return value
             if text[:1] in ("{", "["):
                 try:
@@ -1379,8 +1387,10 @@ class TiktokWebAPI:
                 return [normalize(item) for item in value]
             return scalar(value)
 
+        self_text_type = cls.IM_TEXT_MESSAGE_TYPE
         wire = normalize(decoded)
         messages = []
+        unsupported = []
         seen = set()
 
         def visit(value):
@@ -1391,7 +1401,18 @@ class TiktokWebAPI:
             if not isinstance(value, Mapping):
                 return
             content = value.get("8")
-            if isinstance(content, Mapping) and isinstance(content.get("text"), str):
+            is_text = (value.get("6") == self_text_type
+                       and isinstance(content, Mapping)
+                       and isinstance(content.get("text"), str))
+            if (not is_text and isinstance(content, Mapping)
+                    and isinstance(value.get("6"), int) and "3" in value):
+                # A MessageBody of a type outside the confirmed registry.
+                # Report it so "no text" is distinguishable from "not parsed".
+                marker = {"server_message_id": value.get("3"),
+                          "message_type": value.get("6")}
+                if marker not in unsupported:
+                    unsupported.append(marker)
+            if is_text:
                 key = (
                     str(value.get("3", "")), str(value.get("5", "")),
                     str(value.get("7", "")), str(value.get("10", "")),
@@ -1418,6 +1439,7 @@ class TiktokWebAPI:
             "wire": wire,
             "wire_type": typedef,
             "messages": messages,
+            "unsupported": unsupported,
         }
 
     def receive_im_messages(
