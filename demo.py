@@ -27,7 +27,7 @@ PROFILE_FIELDS = frozenset({
     "ticket_guard_private_key",
     "ticket_guard_encrypt_ticket", "ticket_guard_ts_sign",
     "passport_csrf_token", "tt_csrf_token", "secsdk_csrf_token",
-    "ttwid_ticket",
+    "ttwid_ticket", "profile",
 })
 REQUIRED_PROFILE_FIELDS = (
     "document_cookie", "device_id", "odin_id", "user_agent",

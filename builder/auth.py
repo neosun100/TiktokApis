@@ -12,6 +12,7 @@ from typing import Iterable, Mapping, Optional
 from urllib.parse import unquote
 
 from .errors import BrowserEvidenceError
+from .profile import BrowserProfile
 from .signer import SignerError, TiktokSigner, required_signature_keys
 
 
@@ -97,6 +98,8 @@ class TiktokAuth:
         self.signature_lengths = dict(signature_lengths or {})
         self.signer = signer or runtime.get("signer") or TiktokSigner()
         self.browser_metrics = dict(runtime.get("browser_metrics") or {})
+        # Explicit fingerprint overrides; see builder.profile for precedence.
+        self.profile_overrides = dict(runtime.get("profile") or {})
         self.shared_cache = dict(runtime.get("shared_cache") or {})
         self.local_storage = dict(runtime.get("local_storage") or {})
         self.session_storage = dict(runtime.get("session_storage") or {})
@@ -184,6 +187,13 @@ class TiktokAuth:
         app_key = "e1bd35ec9db7b8d846de66ed140b1ad9"
         source = f"9{app_key}{current_wid}f8a69f1719916z"
         return hashlib.md5(source.encode("utf-8")).hexdigest()
+
+    @property
+    def profile(self) -> BrowserProfile:
+        """Browser fingerprint for query/body builders (resolved on access,
+        so later browser_metrics updates are honoured)."""
+        return BrowserProfile.resolve(explicit=self.profile_overrides,
+                                      metrics=self.browser_metrics)
 
     @property
     def im_region(self) -> str:

@@ -468,15 +468,15 @@ class TiktokWebAPI:
             raise BrowserEvidenceError("Creator 作品列表缺少 Chrome tt-csrf-token")
         country = str(auth.cookie.get("store-country-code") or auth.region).upper()
         params = Params([
-            ("locale", "zh-Hans"), ("aid", "1988"),
+            ("locale", auth.profile.app_language), ("aid", "1988"),
             ("priority_region", country), ("region", country),
-            ("tz_name", "Asia/Shanghai"),
+            ("tz_name", auth.profile.tz_name),
             ("app_name", "tiktok_creator_center"),
-            ("app_language", "zh-Hans"), ("device_platform", "web_pc"),
+            ("app_language", auth.profile.app_language), ("device_platform", "web_pc"),
             ("channel", "tiktok_web"), ("device_id", auth.device_id),
-            ("os", "win"), ("screen_width", "2560"),
-            ("screen_height", "1440"), ("browser_language", "zh-CN"),
-            ("browser_platform", "Win32"), ("browser_name", "Mozilla"),
+            ("os", auth.profile.creator_os), ("screen_width", auth.profile.screen_width),
+            ("screen_height", auth.profile.screen_height), ("browser_language", auth.profile.browser_language),
+            ("browser_platform", auth.profile.browser_platform), ("browser_name", "Mozilla"),
             ("browser_version", auth.user_agent.split("Mozilla/", 1)[-1]),
         ], space_plus_keys=("browser_version",))
         body = json.dumps(OrderedDict((
@@ -503,14 +503,16 @@ class TiktokWebAPI:
             ),
         )
 
-    def get_cookie_privacy_config(self, *, locale: str = "zh-Hans",
+    def get_cookie_privacy_config(self, *, locale: str | None = None,
                                   app_id: str = "1988", theme: str = "default",
                                   tea: str = "1", auth=None,
                                   referer: str = f"{origin}/"):
         """Read the unsigned privacy config used to resolve the web wid."""
+        auth = self._auth(auth)
         return self.request_captured(
-        "/api/v1/web-cookie-privacy/config",
-            {"locale": locale, "appId": app_id, "theme": theme, "tea": tea},
+            "/api/v1/web-cookie-privacy/config",
+            {"locale": locale or auth.profile.app_language, "appId": app_id,
+             "theme": theme, "tea": tea},
             auth=auth, referer=referer, signed=False,
             accept="application/json, text/plain, */*",
         )
@@ -628,17 +630,17 @@ class TiktokWebAPI:
             ("priority_region", str(auth.priority_region)),
             ("referer", ""),
             ("cookie_enabled", True),
-            ("screen_width", 2560),
-            ("screen_height", 1440),
-            ("browser_language", "zh-CN"),
-            ("browser_platform", "Win32"),
+            ("screen_width", int(auth.profile.screen_width)),
+            ("screen_height", int(auth.profile.screen_height)),
+            ("browser_language", auth.profile.browser_language),
+            ("browser_platform", auth.profile.browser_platform),
             ("browser_name", "Mozilla"),
             ("browser_version", auth.user_agent.split("Mozilla/", 1)[-1]),
             ("browser_online", True),
             ("verifyFp", auth.verify_fp),
-            ("app_language", "zh-Hans"),
-            ("webcast_language", "zh-Hans"),
-            ("tz_name", "Asia/Shanghai"),
+            ("app_language", auth.profile.app_language),
+            ("webcast_language", auth.profile.webcast_language),
+            ("tz_name", auth.profile.tz_name),
             ("is_fullscreen", False),
             ("history_len", str(history_len)),
         ))
@@ -3014,7 +3016,7 @@ class TiktokWebAPI:
                         slots: Mapping[str, object] | None = None,
                         aid: str = "1988",
                         device_platform: str = "web_pc",
-                        app_language: str = "zh-Hans",
+                        app_language: str | None = None,
                         history_len: str = "2",
                         include_from_page: bool = True,
                         include_user_is_login: bool = True,
@@ -3043,14 +3045,14 @@ class TiktokWebAPI:
         add("aid", aid)
         add_slot("after_aid")
         add_slot("before_app_language")
-        add("app_language", app_language)
+        add("app_language", app_language or auth.profile.app_language)
         add("app_name", "tiktok_web")
         add_slot("after_app_name")
-        add("browser_language", "zh-CN")
+        add("browser_language", auth.profile.browser_language)
         add("browser_name", "Mozilla")
         add("browser_online", "true")
         add_slot("after_browser_online")
-        add("browser_platform", "Win32")
+        add("browser_platform", auth.profile.browser_platform)
         add("browser_version", auth.user_agent.split("Mozilla/", 1)[-1])
         add_slot("after_browser_version")
         add("channel", "tiktok_web")
@@ -3075,7 +3077,7 @@ class TiktokWebAPI:
         add_slot("after_is_page_visible")
         if include_odin_id:
             add("odinId", auth.odin_id)
-        add("os", "windows")
+        add("os", auth.profile.os)
         add_slot("after_os")
         add("priority_region", auth.priority_region)
         add_slot("after_priority_region")
@@ -3084,16 +3086,16 @@ class TiktokWebAPI:
         add_slot("after_region")
         add("root_referer", root)
         add_slot("after_root_referer")
-        add("screen_height", "1440")
-        add("screen_width", "2560")
+        add("screen_height", auth.profile.screen_height)
+        add("screen_width", auth.profile.screen_width)
         add_slot("after_screen")
-        add("tz_name", "Asia/Shanghai")
+        add("tz_name", auth.profile.tz_name)
         add_slot("after_tz")
         if include_user_is_login:
             add("user_is_login", "true" if auth.logged_in else "false")
         add("verifyFp", auth.verify_fp)
         add_slot("after_verify_fp")
-        add("webcast_language", "zh-Hans")
+        add("webcast_language", auth.profile.webcast_language)
         add_slot("after_webcast_language")
         return Params(values)
 
@@ -3146,7 +3148,7 @@ class TiktokWebAPI:
             ("app_name", "tiktok_web"),
             ("channel", "tiktok_web"),
             ("device_platform", "web"),
-            ("tz_name", "Asia/Shanghai"),
+            ("tz_name", auth.profile.tz_name),
             ("aid", "1988"),
         ])
         body_bytes = body.encode("utf-8")
@@ -3259,13 +3261,13 @@ class TiktokWebAPI:
                 "after_channel": [("clientABVersions", auth.client_ab_versions)],
                 "after_cookie": [
                     ("count", count), ("coverFormat", cover_format),
-                    ("cpu_core_number", "20"), ("dark_mode", "false"),
+                    ("cpu_core_number", auth.profile.cpu_core_number), ("dark_mode", "false"),
                 ],
                 "after_data_collection": [("day_of_week", day_of_week)],
                 "after_device_platform": [("enable_cache", "false")],
                 "after_history": [("isNonPersonalized", "false")],
                 "after_fullscreen": [("is_new_user", "true")],
-                "after_is_page_visible": [("language", "zh-Hans")],
+                "after_is_page_visible": [("language", auth.profile.language)],
                 "after_screen": [
                     ("showAboutThisAd", "true"), ("showAds", "true"),
                     ("time_of_day", time_of_day),
@@ -3347,7 +3349,7 @@ class TiktokWebAPI:
                 "after_channel": [("clientABVersions", auth.client_ab_versions)],
                 "after_cookie": [
                     ("count", count), ("coverFormat", cover_format),
-                    ("cpu_core_number", "20"), ("dark_mode", "false"),
+                    ("cpu_core_number", auth.profile.cpu_core_number), ("dark_mode", "false"),
                 ],
                 "after_data_collection": [("day_of_week", day_of_week)],
                 "after_device_platform": [
@@ -3356,7 +3358,7 @@ class TiktokWebAPI:
                 "after_history": [("isNonPersonalized", "false")],
                 "after_fullscreen": [("is_new_user", is_new_user)],
                 "after_is_page_visible": [
-                    ("language", "zh-Hans"), ("itemID", item_id),
+                    ("language", auth.profile.language), ("itemID", item_id),
                     ("launch_mode", launch_mode), ("network", network),
                 ],
                 "after_screen": [
@@ -3543,7 +3545,7 @@ class TiktokWebAPI:
                     ("isNonPersonalized", is_non_personalized),
                     ("isResetCounterUsed", is_reset_counter_used),
                 ],
-                "after_is_page_visible": [("language", "zh-Hans"),
+                "after_is_page_visible": [("language", auth.profile.language),
                                             ("level", level)],
                 "after_priority_region": [("pullType", pull_type)],
             },
@@ -3640,7 +3642,7 @@ class TiktokWebAPI:
                 "priority_region": auth.priority_region,
                 "aid": "1988",
                 "device_id": auth.device_id,
-                "app_language": "zh-Hans",
+                "app_language": auth.profile.app_language,
                 "device_platform": "web_pc",
                 "WebIdLastTime": auth.web_id_last_time,
                 "scene": scene,
@@ -3763,7 +3765,7 @@ class TiktokWebAPI:
 
     def get_report_inbox_notice(self, *, carrier_region: str | None = None,
                                 current_region: str | None = None,
-                                locale: str = "zh-Hans",
+                                locale: str | None = None,
                                 request_tag_from: str = "pc",
                                 sys_region: str | None = None,
                                 referer: str | None = None, auth=None):
@@ -3779,7 +3781,7 @@ class TiktokWebAPI:
             slots={
                 "after_browser_version": [("carrier_region", carrier_region)],
                 "after_cookie": [("current_region", current_region)],
-                "after_is_page_visible": [("locale", locale)],
+                "after_is_page_visible": [("locale", locale or auth.profile.app_language)],
                 "after_region": [("request_tag_from", request_tag_from)],
                 "after_screen": [("sys_region", sys_region)],
             },
@@ -4051,7 +4053,7 @@ class TiktokWebAPI:
             slots={
                 "after_channel": [("collectionName", str(name)),
                                    ("collectionStatus", str(collection_status))],
-                "after_is_page_visible": [("language", "zh-Hans")],
+                "after_is_page_visible": [("language", auth.profile.language)],
             },
         )
         return self._request_json(
@@ -4083,7 +4085,7 @@ class TiktokWebAPI:
                 "after_channel": [("collectionId", str(collection_id)),
                                    ("collectionName", str(collection_name)),
                                    ("collectionStatus", str(collection_status))],
-                "after_is_page_visible": [("language", "zh-Hans")],
+                "after_is_page_visible": [("language", auth.profile.language)],
             },
         )
         return self._request_json(
@@ -4201,9 +4203,9 @@ class TiktokWebAPI:
     ) -> Params:
         pairs = [
             ("WebIdLastTime", auth.web_id_last_time), ("aid", "1988"),
-            ("app_language", "zh-Hans"), ("app_name", "tiktok_web"),
-            ("browser_language", "zh-CN"), ("browser_name", "Mozilla"),
-            ("browser_online", "true"), ("browser_platform", "Win32"),
+            ("app_language", auth.profile.app_language), ("app_name", "tiktok_web"),
+            ("browser_language", auth.profile.browser_language), ("browser_name", "Mozilla"),
+            ("browser_online", "true"), ("browser_platform", auth.profile.browser_platform),
             ("browser_version", auth.user_agent.split("Mozilla/", 1)[-1]),
             ("channel", "tiktok_web"),
         ]
@@ -4225,18 +4227,18 @@ class TiktokWebAPI:
         if operation == "move":
             pairs.append(("itemIDs", item_ids))
         pairs.extend((
-            ("language", "zh-Hans"), ("odinId", auth.odin_id),
-            ("os", "windows"), ("priority_region", auth.priority_region),
+            ("language", auth.profile.language), ("odinId", auth.odin_id),
+            ("os", auth.profile.os), ("priority_region", auth.priority_region),
             ("referer", profile_url), ("region", auth.region),
-            ("root_referer", profile_url), ("screen_height", "1440"),
-            ("screen_width", "2560"),
+            ("root_referer", profile_url), ("screen_height", auth.profile.screen_height),
+            ("screen_width", auth.profile.screen_width),
         ))
         if operation == "move":
             pairs.append(("targetCollectionID", target_collection_id))
         pairs.extend((
-            ("tz_name", "Asia/Shanghai"),
+            ("tz_name", auth.profile.tz_name),
             ("user_is_login", "true" if auth.logged_in else "false"),
-            ("verifyFp", auth.verify_fp), ("webcast_language", "zh-Hans"),
+            ("verifyFp", auth.verify_fp), ("webcast_language", auth.profile.webcast_language),
         ))
         return Params(pairs)
 
@@ -4310,9 +4312,9 @@ class TiktokWebAPI:
         """Build the captured detail/item collection query order."""
         pairs = [
             ("WebIdLastTime", auth.web_id_last_time), ("aid", "1988"),
-            ("app_language", "zh-Hans"), ("app_name", "tiktok_web"),
-            ("browser_language", "zh-CN"), ("browser_name", "Mozilla"),
-            ("browser_online", "true"), ("browser_platform", "Win32"),
+            ("app_language", auth.profile.app_language), ("app_name", "tiktok_web"),
+            ("browser_language", auth.profile.browser_language), ("browser_name", "Mozilla"),
+            ("browser_online", "true"), ("browser_platform", auth.profile.browser_platform),
             ("browser_version", auth.user_agent.split("Mozilla/", 1)[-1]),
             ("channel", "tiktok_web"), ("clientABVersions", auth.client_ab_versions),
             ("collectionId", str(collection_id)), ("cookie_enabled", "true"),
@@ -4324,22 +4326,22 @@ class TiktokWebAPI:
             ("device_platform", "web_pc"), ("focus_state", "true"),
             ("from_page", "user"), ("history_len", str(history_len)),
             ("is_fullscreen", "false"), ("is_page_visible", "true"),
-            ("language", "zh-Hans"),
-            ("odinId", auth.odin_id), ("os", "windows"),
+            ("language", auth.profile.language),
+            ("odinId", auth.odin_id), ("os", auth.profile.os),
             ("priority_region", auth.priority_region), ("referer", referer),
             ("region", auth.region), ("root_referer", ""),
         ])
         if scene is not None:
             pairs.append(("scene", str(scene)))
         pairs.extend([
-            ("screen_height", "1440"), ("screen_width", "2560"),
+            ("screen_height", auth.profile.screen_height), ("screen_width", auth.profile.screen_width),
         ])
         if source_type is not None:
             pairs.append(("sourceType", str(source_type)))
         pairs.extend([
-            ("tz_name", "Asia/Shanghai"),
+            ("tz_name", auth.profile.tz_name),
             ("user_is_login", "true" if auth.logged_in else "false"),
-            ("verifyFp", auth.verify_fp), ("webcast_language", "zh-Hans"),
+            ("verifyFp", auth.verify_fp), ("webcast_language", auth.profile.webcast_language),
         ])
         return Params(pairs)
 
@@ -4367,12 +4369,12 @@ class TiktokWebAPI:
         if include_app_id:
             pairs.append(("appId", "1988"))
         pairs.extend([
-            ("app_language", "zh-Hans"),
+            ("app_language", auth.profile.app_language),
             ("app_name", "tiktok_web"),
-            ("browser_language", "zh-CN"),
+            ("browser_language", auth.profile.browser_language),
             ("browser_name", "Mozilla"),
             ("browser_online", "true"),
-            ("browser_platform", "Win32"),
+            ("browser_platform", auth.profile.browser_platform),
             ("browser_version", auth.user_agent.split("Mozilla/", 1)[-1]),
             ("channel", "tiktok_web"),
         ])
@@ -4391,10 +4393,10 @@ class TiktokWebAPI:
             ("history_len", "6"),
             ("is_fullscreen", "false"),
             ("is_page_visible", "true"),
-            ("language", "zh-Hans"),
+            ("language", auth.profile.language),
             ("needPinnedItemIds", "true"),
             ("odinId", auth.odin_id),
-            ("os", "windows"),
+            ("os", auth.profile.os),
             ("post_item_list_request_type", "0"),
             ("priority_region", auth.priority_region),
         ])
@@ -4404,14 +4406,14 @@ class TiktokWebAPI:
             ("referer", root_referer),
             ("region", auth.region),
             ("root_referer", ""),
-            ("screen_height", "1440"),
-            ("screen_width", "2560"),
+            ("screen_height", auth.profile.screen_height),
+            ("screen_width", auth.profile.screen_width),
             ("secUid", sec_uid),
-            ("tz_name", "Asia/Shanghai"),
+            ("tz_name", auth.profile.tz_name),
             ("user_is_login", "true" if auth.logged_in else "false"),
             ("verifyFp", auth.verify_fp),
             ("video_encoding", "dash"),
-            ("webcast_language", "zh-Hans"),
+            ("webcast_language", auth.profile.webcast_language),
         ])
         for key, value in extra_after_root or ():
             index = next(i for i, (name, _value) in enumerate(pairs)
@@ -4540,11 +4542,11 @@ class TiktokWebAPI:
                 "after_channel": [("clientABVersions", auth.client_ab_versions)],
                 "after_cookie": [
                     ("count", count), ("coverFormat", "2"),
-                    ("cpu_core_number", "20"), ("dark_mode", "false"),
+                    ("cpu_core_number", auth.profile.cpu_core_number), ("dark_mode", "false"),
                 ],
                 "after_data_collection": [("day_of_week", day_of_week)],
                 "after_history": [("isNonPersonalized", "false")],
-                "after_is_page_visible": [("language", "zh-Hans")],
+                "after_is_page_visible": [("language", auth.profile.language)],
                 "after_screen": [("time_of_day", time_of_day)],
                 "after_verify_fp": [
                     ("video_encoding", "dash"), ("vv_count", "0"),
@@ -4560,7 +4562,7 @@ class TiktokWebAPI:
     def post_prefetch_explore_item_list(
         self, *, auth=None, referer: str | None = None,
         category_type: str = "120", pull_type: str = "1",
-        is_new_user: str = "false", language: str = "zh-Hans",
+        is_new_user: str = "false", language: str | None = None,
         video_encoding: str = "dash",
         expected_signature_lengths: Mapping[str, int] | None = None,
     ):
@@ -4588,7 +4590,7 @@ class TiktokWebAPI:
                 "after_browser_version": [("categoryType", category_type)],
                 "after_channel": [("clientABVersions", auth.client_ab_versions)],
                 "after_fullscreen": [("is_new_user", is_new_user)],
-                "after_is_page_visible": [("language", language)],
+                "after_is_page_visible": [("language", language or auth.profile.language)],
                 "after_priority_region": [("pullType", pull_type)],
                 "after_verify_fp": [("video_encoding", video_encoding)],
             },
@@ -4893,12 +4895,12 @@ class TiktokWebAPI:
             ("CategoryType", category_type),
             ("WebIdLastTime", auth.web_id_last_time),
             ("aid", "1988"),
-            ("app_language", "zh-Hans"),
+            ("app_language", auth.profile.app_language),
             ("app_name", "tiktok_web"),
-            ("browser_language", "zh-CN"),
+            ("browser_language", auth.profile.browser_language),
             ("browser_name", "Mozilla"),
             ("browser_online", "true"),
-            ("browser_platform", "Win32"),
+            ("browser_platform", auth.profile.browser_platform),
             ("browser_version", auth.user_agent.split("Mozilla/", 1)[-1]),
             ("channel", "tiktok_web"),
             ("clientABVersions", auth.client_ab_versions),
@@ -4916,21 +4918,21 @@ class TiktokWebAPI:
             ("is_fullscreen", "false"),
             ("is_page_visible", "true"),
             ("itemID", item_id),
-            ("language", "zh-Hans"),
+            ("language", auth.profile.language),
             ("launch_mode", launch_mode),
             ("odinId", auth.odin_id),
-            ("os", "windows"),
+            ("os", auth.profile.os),
             ("priority_region", auth.priority_region),
             ("referer", referer),
             ("region", auth.region),
             ("root_referer", query_referer),
-            ("screen_height", "1440"),
-            ("screen_width", "2560"),
-            ("tz_name", "Asia/Shanghai"),
+            ("screen_height", auth.profile.screen_height),
+            ("screen_width", auth.profile.screen_width),
+            ("tz_name", auth.profile.tz_name),
             ("user_is_login", "true" if auth.logged_in else "false"),
             ("verifyFp", auth.verify_fp),
             ("video_encoding", video_encoding),
-            ("webcast_language", "zh-Hans"),
+            ("webcast_language", auth.profile.webcast_language),
         ]
         return self._request_json(
             auth, method="GET", path="/api/related/item_list/",
@@ -5058,7 +5060,7 @@ class TiktokWebAPI:
             ("priority_region", auth.priority_region),
             ("aid", "1988"),
             ("device_id", auth.device_id),
-            ("app_language", "zh-Hans"),
+            ("app_language", auth.profile.app_language),
             ("device_platform", "web_pc"),
             ("WebIdLastTime", auth.web_id_last_time),
         ))
@@ -5119,7 +5121,7 @@ class TiktokWebAPI:
         self, unique_id: str, *, sec_uid: str = "",
         user: str = "[object Object]",
         ab_test_version: str = "[object Object]", app_type: str = "t",
-        need_audience_control: str = "true", language: str = "zh-Hans",
+        need_audience_control: str = "true", language: str | None = None,
         history_len: str, query_referer: str, root_referer: str,
         auth=None, referer: str | None = None,
         expected_signature_lengths: Mapping[str, int] | None = None,
@@ -5150,7 +5152,7 @@ class TiktokWebAPI:
                 "before_aid": [("abTestVersion", ab_test_version)],
                 "after_aid": [("appType", app_type)],
                 "after_is_page_visible": [
-                    ("language", language),
+                    ("language", language or auth.profile.language),
                     ("needAudienceControl", need_audience_control),
                 ],
                 "after_screen": [("secUid", sec_uid)],
@@ -5659,7 +5661,7 @@ class TiktokWebAPI:
             ("app_name", "tiktok_web"),
             ("live_id", live_id),
             ("version_code", "270000"),
-            ("app_language", "zh-Hans"),
+            ("app_language", auth.profile.app_language),
             ("client_enter", "1"),
             ("room_id", room_id),
             ("identity", "audience"),
@@ -5671,7 +5673,7 @@ class TiktokWebAPI:
             ("sup_ws_ds_opt", "1"),
             ("resp_content_type", "protobuf"),
             ("did_rule", "3"),
-            ("webcast_language", "zh-Hans"),
+            ("webcast_language", auth.profile.webcast_language),
         ]
         params = Params()
         for key, value in pairs:
@@ -5731,9 +5733,9 @@ class TiktokWebAPI:
             ("browser_online", "true"), ("tz_name", metrics["tz_name"]),
             ("app_name", "tiktok_web"), ("sup_ws_ds_opt", "1"),
             ("update_version_code", "2.0.0"), ("compress", "gzip"),
-            ("webcast_language", "zh-Hans"), ("ws_direct", "1"),
+            ("webcast_language", auth.profile.webcast_language), ("ws_direct", "1"),
             ("aid", "1988"), ("live_id", live_id),
-            ("version_code", "270000"), ("app_language", "zh-Hans"),
+            ("version_code", "270000"), ("app_language", auth.profile.app_language),
             ("client_enter", "1"), ("room_id", room_id),
             ("identity", "audience"), ("history_comment_count", "6"),
             ("last_rtt", "0"), ("heartbeat_duration", "10000"),

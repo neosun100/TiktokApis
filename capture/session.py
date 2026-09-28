@@ -48,6 +48,10 @@ _QUERY_FIELDS = {
     "clientABVersions": "client_ab_versions",
 }
 
+# Fingerprint keys copied from the captured query into browser_metrics.web_query.
+_PROFILE_QUERY_KEYS = ("screen_width", "screen_height", "browser_language", "browser_platform",
+                       "tz_name", "app_language", "language", "os", "webcast_language")
+
 # Storage keys that hold the security-sdk ticket-guard state.  Discovered by
 # content, not by a fixed key name, because the key names are not yet
 # confirmed on the current bundle; each hit is reported with its source key.
@@ -136,7 +140,12 @@ def profile_from_snapshot(snapshot: Mapping) -> dict:
     browser_metrics = {k: metrics[k] for k in (
         "screen_width", "screen_height", "browser_language", "browser_platform", "tz_name",
         "device_pixel_ratio", "inner_width", "inner_height", "cpu_core_number") if metrics.get(k)}
-    put("browser_metrics", browser_metrics, "page.navigator/screen")
+    # The captured query is the strongest fingerprint evidence: builder.profile
+    # prefers it over navigator values (it is what the web bundle really sent).
+    web_query = {k: query[k] for k in _PROFILE_QUERY_KEYS if query.get(k)}
+    if web_query:
+        browser_metrics["web_query"] = web_query
+    put("browser_metrics", browser_metrics, "page.navigator/screen + api_request.query")
     for field, hit in find_ticket_guard_state({"local": storage.get("local") or {},
                                               "session": storage.get("session") or {}}).items():
         put(field, hit["value"], hit["source"])

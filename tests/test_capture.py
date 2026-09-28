@@ -29,7 +29,8 @@ def snapshot():
     return {
         "api_request": {
             "url": "https://www.tiktok.com/api/x/?WebIdLastTime=17&device_id=7000000000000000001"
-                   "&odinId=7000000000000000002&region=HK&priority_region=HK",
+                   "&odinId=7000000000000000002&region=HK&priority_region=HK"
+                   "&app_language=en&os=mac&tz_name=Asia%2FHong_Kong",
             "headers": {"cookie": "sessionid=s; msToken=m", "user-agent": "UA/153",
                         "sec-ch-ua": '"Chrome";v="153"', "sec-ch-ua-platform": '"macOS"',
                         "accept-language": "en-US"},
@@ -56,6 +57,8 @@ def test_profile_mapping_complete():
     assert p["ticket_guard_private_key"] == PEM
     assert p["ticket_guard_ts_sign"] == "ts.1" and p["ticket_guard_encrypt_ticket"] == "enc"
     assert out["sources"]["ticket_guard_private_key"].startswith("local:security-sdk/")
+    assert p["browser_metrics"]["web_query"] == {"app_language": "en", "os": "mac",
+                                                 "tz_name": "Asia/Hong_Kong"}
 
 
 def test_profile_mapping_reports_missing_instead_of_defaulting():
@@ -73,6 +76,8 @@ def test_profile_loads_into_auth():
     auth = TiktokAuth.from_cookie(p.pop("cookie"), **p)
     assert auth.device_id == "7000000000000000001"
     assert auth.browser_metrics["screen_width"] == "1512"
+    assert auth.profile.app_language == "en" and auth.profile.os == "mac"
+    assert auth.profile.defaulted <= {"language", "cpu_core_number"}
 
 
 def test_private_json_permissions(tmp_path):
