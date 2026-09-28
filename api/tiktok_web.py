@@ -1979,6 +1979,9 @@ class TiktokWebAPI:
         user_id = str(user_id or auth.odin_id)
         if not user_id:
             raise BrowserEvidenceError("TOS 上传缺少浏览器 user_id/x-storage-u")
+        if not re.fullmatch(r'[^"\r\n\\]{1,255}', str(filename)):
+            # It is interpolated into a quoted content-disposition header.
+            raise ValueError(f"filename 含非法字符或长度超限: {filename!r:.80}")
         uri = str(store["StoreUri"])
         url = f"https://{host}/upload/v1/{uri}"
         payload = raw
@@ -2035,9 +2038,25 @@ class TiktokWebAPI:
             ("sec-fetch-site", "cross-site"),
         ))
         response = http_client.request(
-            "POST", url, headers=headers, data=payload, timeout=self.timeout,
+            "POST", url, headers=headers, data=payload,
+            timeout=self._upload_timeout(len(payload)),
         )
-        return self._json_response(response)
+        result = self._json_response(response, path=url)
+        # TOS reports its own outcome as {"code": 2000, "message": "Success"}.
+        # Any other code is a failed upload even under HTTP 200; without this
+        # check the flow continued and died 90 s later in the transcode poll.
+        if isinstance(result, Mapping) and "code" in result and str(result["code"]) != "2000":
+            raise BusinessError(path=url, code=result.get("code"),
+                                message=str(result.get("message") or ""), payload=result)
+        return result
+
+    # curl_cffi's timeout is the whole-request budget.  Uploads get the normal
+    # timeout plus one second per UPLOAD_MIN_BYTES_PER_SECOND of payload, so
+    # a 200 MB clip on a slow uplink is not cut off at 30 s.
+    UPLOAD_MIN_BYTES_PER_SECOND = 256 * 1024
+
+    def _upload_timeout(self, size: int) -> float:
+        return float(self.timeout) + size / self.UPLOAD_MIN_BYTES_PER_SECOND
 
     def commit_upload_inner(self, session_key: str, *, functions=None,
                             space_name: str = "tiktok", auth=None,
@@ -2261,8 +2280,17 @@ class TiktokWebAPI:
                 auth=auth, referer=referer,
             )
             rows = result.get("transcode_result") or []
-            if rows and int(rows[0].get("transcode_status", 0)) == 3:
-                return result
+            if rows:
+                row = rows[0]
+                try:
+                    status = int(row.get("transcode_status", 0)) if isinstance(row, Mapping) else None
+                except (TypeError, ValueError):
+                    status = None
+                if status is None:
+                    raise BrowserEvidenceError(
+                        f"transcode/result 状态字段无法解析: {row!r:.120}")
+                if status == 3:
+                    return result
             if time.monotonic() >= deadline:
                 raise TimeoutError("TikTok 视频转码在限定时间内未完成")
             time.sleep(max(0.05, float(interval)))
@@ -2296,14 +2324,19 @@ class TiktokWebAPI:
             asset_name = filename or os.path.basename(path)
         elif isinstance(media, (bytes, bytearray, memoryview)):
             raw = bytes(media)
+            if not raw:
+                raise ValueError("media 不能为空")
             suffix = os.path.splitext(filename or "upload.mp4")[1] or ".mp4"
             handle = tempfile.NamedTemporaryFile(suffix=suffix, delete=False)
+            # Record the name before writing so a failed write is cleaned up.
+            temporary = path = handle.name
             try:
                 handle.write(raw)
-                path = handle.name
-            finally:
+            except OSError:
                 handle.close()
-            temporary = path
+                os.unlink(temporary)
+                raise
+            handle.close()
             asset_name = filename or "upload.mp4"
         else:
             raise TypeError("media 必须是 bytes-like 或本地视频路径")
@@ -2320,8 +2353,15 @@ class TiktokWebAPI:
                 check=False, timeout=30,
             )
             stderr = process.stderr.decode("utf-8", errors="replace")
+            # ffmpeg autorotates, so the rawvideo *output* stream carries the
+            # display size (what Chrome's <video>.videoWidth/Height report).
+            # The input stream's size is the coded size: a phone portrait
+            # clip is coded 1920x1080 with a 90-degree display matrix.
+            if "Output #0" not in stderr:
+                raise BrowserEvidenceError("ffmpeg 未输出首帧流信息，无法确定显示尺寸")
+            output_section = stderr.split("Output #0", 1)[1]
             dimension = re.search(
-                r"Video:.*?\b(\d{2,5})x(\d{2,5})(?:\D|$)", stderr,
+                r"Video:.*?\b(\d{2,5})x(\d{2,5})(?:\D|$)", output_section,
             )
             duration = re.search(
                 r"Duration:\s*(\d+):(\d+):(\d+(?:\.\d+)?)", stderr,
@@ -2351,7 +2391,7 @@ class TiktokWebAPI:
                 zip_stream, "w", compression=zipfile.ZIP_DEFLATED,
             ) as archive:
                 archive.writestr("0.jpeg", jpeg_stream.getvalue())
-        except (KeyError, ValueError, subprocess.SubprocessError) as exc:
+        except (KeyError, ValueError, OSError, subprocess.SubprocessError) as exc:
             raise BrowserEvidenceError("无法从视频读取完整首帧/尺寸/时长证据") from exc
         finally:
             if temporary is not None:
