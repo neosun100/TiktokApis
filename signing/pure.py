@@ -12,7 +12,7 @@ from __future__ import annotations
 import hashlib
 import secrets
 import time
-from typing import Iterable, Mapping, Sequence
+from typing import Mapping, Sequence
 
 
 _GNARLY_ALPHABET = "u09tbS3UvgDEe6r-ZVMXzLpsAohTn7mdINQlW412GqBjfYiyk8JORCF5/xKHwacP="

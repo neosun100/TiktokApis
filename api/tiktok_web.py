@@ -28,7 +28,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from collections import OrderedDict
 from datetime import datetime, timezone
 from typing import Callable, Mapping, Optional
-from urllib.parse import quote, urlencode, urlparse
+from urllib.parse import quote, urlencode, urljoin, urlparse
 
 from bs4 import BeautifulSoup
 
@@ -45,7 +45,6 @@ from builder.pagination import paginate
 from builder.params import Params
 from signing.protobuf import (
     ProtobufWireError,
-    field_bytes,
     field_message,
     field_string,
     field_varint,
@@ -518,7 +517,7 @@ class TiktokWebAPI:
         try:
             return data["body"]["consent"]["wid"]
         except (KeyError, TypeError) as exc:
-            raise RuntimeError("TikTok privacy config 缺少 body.consent.wid") from exc
+            raise BrowserEvidenceError("TikTok privacy config 缺少 body.consent.wid") from exc
 
     def request_captured(self, path: str, query: Mapping[str, str], *,
                          method: str = "GET", body=None, auth=None,
@@ -6069,6 +6068,35 @@ class TiktokWebAPI:
         return response.text
 
     @staticmethod
+    def _shop_product_id(product_url: str) -> str:
+        parsed = urlparse(str(product_url))
+        if parsed.scheme != "https" or parsed.netloc != "shop.tiktok.com":
+            raise BrowserEvidenceError("商品 URL 必须来自 https://shop.tiktok.com")
+        match = re.search(r"/pdp/(?:[^/?]+/)?(\d+)(?:/)?$", parsed.path)
+        if not match:
+            raise BrowserEvidenceError("商品 URL 缺少 PDP product_id")
+        return match.group(1)
+
+    @staticmethod
+    def _script_json(html: str, script_id: str, *, page: str):
+        """Parse the JSON body of ``<script id=script_id>`` or fail loudly.
+
+        Every SSR/hydration parser goes through here so that "the page layout
+        changed" always surfaces as the same BrowserEvidenceError naming the
+        missing script, instead of None / a bare JSONDecodeError.
+        """
+        soup = BeautifulSoup(html, "html.parser")
+        state = soup.find("script", attrs={"id": script_id})
+        text = (state.string or state.get_text()) if state is not None else None
+        if not text:
+            raise BrowserEvidenceError(
+                f"{page}中没有 {script_id}；请保存该页面后再分析新的 hydration 数据结构")
+        try:
+            return json.loads(text)
+        except json.JSONDecodeError:
+            raise BrowserEvidenceError(f"{page}的 {script_id} 不是合法 JSON") from None
+
+    @staticmethod
     def _shop_product_detail_from_html(
         html: str, *, expected_product_id: str | None = None,
     ) -> dict:
@@ -6080,22 +6108,10 @@ class TiktokWebAPI:
         detail source; it does not require replaying the later OEC BSID-signed
         recommendation request.
         """
-        soup = BeautifulSoup(html, "html.parser")
-        state = soup.find("script", attrs={"id": "__MODERN_ROUTER_DATA__"})
-        state_text = state.string if state is not None else None
-        if not state_text and state is not None:
-            state_text = state.get_text()
-        if not state_text:
-            raise RuntimeError(
-                "TikTok Shop 页面中没有 __MODERN_ROUTER_DATA__"
-            )
-        try:
-            payload = json.loads(state_text)
-            loader_data = payload["loaderData"]
-        except (json.JSONDecodeError, KeyError, TypeError) as exc:
-            raise RuntimeError("TikTok Shop SSR loaderData 无法解析") from exc
+        payload = TiktokWebAPI._script_json(html, "__MODERN_ROUTER_DATA__", page="TikTok Shop 页面")
+        loader_data = payload.get("loaderData") if isinstance(payload, Mapping) else None
         if not isinstance(loader_data, Mapping):
-            raise RuntimeError("TikTok Shop SSR loaderData 不是对象")
+            raise BrowserEvidenceError("TikTok Shop SSR loaderData 缺失或不是对象")
         component = None
         for route_data in loader_data.values():
             if not isinstance(route_data, Mapping):
@@ -6116,13 +6132,13 @@ class TiktokWebAPI:
                 break
         data = component.get("component_data") if component else None
         if not isinstance(data, Mapping):
-            raise RuntimeError("TikTok Shop SSR 中没有 product_info.component_data")
+            raise BrowserEvidenceError("TikTok Shop SSR 中没有 product_info.component_data")
         try:
             product_id = str(data["product_info"]["product_model"]["product_id"])
         except (KeyError, TypeError) as exc:
-            raise RuntimeError("TikTok Shop 商品数据缺少 product_id") from exc
+            raise BrowserEvidenceError("TikTok Shop 商品数据缺少 product_id") from exc
         if expected_product_id is not None and product_id != str(expected_product_id):
-            raise RuntimeError(
+            raise BrowserEvidenceError(
                 "TikTok Shop SSR product_id 与 URL 不一致："
                 f"期望 {expected_product_id}，实际 {product_id}"
             )
@@ -6130,12 +6146,7 @@ class TiktokWebAPI:
 
     def get_shop_product_detail(self, product_url: str, *, auth=None) -> dict:
         """Read a TikTok Shop PDP using the exact captured document shape."""
-        parsed = urlparse(str(product_url))
-        if parsed.scheme != "https" or parsed.netloc != "shop.tiktok.com":
-            raise BrowserEvidenceError("商品 URL 必须来自 https://shop.tiktok.com")
-        match = re.search(r"/pdp/(?:[^/?]+/)?(\d+)(?:/)?$", parsed.path)
-        if not match:
-            raise BrowserEvidenceError("商品 URL 缺少 PDP product_id")
+        product_id = self._shop_product_id(product_url)
         auth = self._auth(auth)
         # Chrome 153 direct navigation (req 52): pseudo headers are generated
         # by HTTP/2; these are all normal headers in their captured order.
@@ -6163,7 +6174,7 @@ class TiktokWebAPI:
         auth.apply_set_cookie(response.headers)
         http_client.ensure_ok(response)
         return self._shop_product_detail_from_html(
-            response.text, expected_product_id=match.group(1),
+            response.text, expected_product_id=product_id,
         )
 
     def get_shop_product_reviews(self, product_url: str, *, auth=None) -> dict:
@@ -6171,7 +6182,7 @@ class TiktokWebAPI:
         detail = self.get_shop_product_detail(product_url, auth=auth)
         reviews = detail.get("review_info")
         if not isinstance(reviews, Mapping):
-            raise RuntimeError("TikTok Shop 商品数据缺少 review_info")
+            raise BrowserEvidenceError("TikTok Shop 商品数据缺少 review_info")
         return dict(reviews)
 
     def get_shop_product_review_page(
@@ -6186,19 +6197,14 @@ class TiktokWebAPI:
         signer executes the immutable official unisec loader/core locally;
         no captured signature is accepted or replayed.
         """
-        parsed = urlparse(str(product_url))
-        if parsed.scheme != "https" or parsed.netloc != "shop.tiktok.com":
-            raise BrowserEvidenceError("商品 URL 必须来自 https://shop.tiktok.com")
-        match = re.search(r"/pdp/(?:[^/?]+/)?(\d+)(?:/)?$", parsed.path)
-        if not match:
-            raise BrowserEvidenceError("商品 URL 缺少 PDP product_id")
+        product_id = self._shop_product_id(product_url)
         if int(page_start) < 2:
             raise ValueError("page_start=1 来自 PDP SSR；翻页接口从 2 开始")
         if int(page_size) != 3:
             raise BrowserEvidenceError("Chrome 证据只支持 page_size=3")
         auth = self._auth(auth)
         body_map = OrderedDict((
-            ("product_id", match.group(1)),
+            ("product_id", product_id),
             ("page_start", int(page_start)),
             ("page_size", 3),
             ("sort_rule", int(sort_rule)),
@@ -6326,31 +6332,17 @@ class TiktokWebAPI:
         that observed structure instead of treating ``related/item_list`` as
         the detail endpoint.
         """
-        soup = BeautifulSoup(html, "html.parser")
-        state = soup.find(
-            "script", attrs={"id": "__UNIVERSAL_DATA_FOR_REHYDRATION__"}
-        )
-        state_text = state.string if state is not None else None
-        if not state_text and state is not None:
-            state_text = state.get_text()
-        if not state_text:
-            raise RuntimeError(
-                "视频页中没有 __UNIVERSAL_DATA_FOR_REHYDRATION__；"
-                "请保存该页面后再分析新的 hydration 数据结构"
-            )
+        data = TiktokWebAPI._script_json(html, "__UNIVERSAL_DATA_FOR_REHYDRATION__", page="视频页")
         try:
-            data = json.loads(state_text)
-            item = data["__DEFAULT_SCOPE__"]["webapp.video-detail"][
-                "itemInfo"
-            ]["itemStruct"]
-        except (json.JSONDecodeError, KeyError, TypeError) as exc:
-            raise RuntimeError(
+            item = data["__DEFAULT_SCOPE__"]["webapp.video-detail"]["itemInfo"]["itemStruct"]
+        except (KeyError, TypeError):
+            raise BrowserEvidenceError(
                 "视频页 hydration 中没有 webapp.video-detail.itemInfo.itemStruct"
-            ) from exc
+            ) from None
         if not isinstance(item, dict) or not item.get("id"):
-            raise RuntimeError("视频页 hydration 的 itemStruct 缺少 id")
+            raise BrowserEvidenceError("视频页 hydration 的 itemStruct 缺少 id")
         if expected_item_id is not None and str(item["id"]) != str(expected_item_id):
-            raise RuntimeError(
+            raise BrowserEvidenceError(
                 "视频页 hydration 的 item id 与 URL 不一致："
                 f"期望 {expected_item_id}，实际 {item.get('id')}"
             )
@@ -6364,35 +6356,63 @@ class TiktokWebAPI:
         expected_item_id = match.group(1) if match else None
         return self._video_detail_from_html(html, expected_item_id=expected_item_id)
 
+    @staticmethod
+    def _user_detail_from_html(html: str) -> dict:
+        """``__DEFAULT_SCOPE__["webapp.user-detail"]`` from a profile page.
+
+        The previous regex required ``webapp.user-detail`` to be immediately
+        followed by ``webapp.a-b`` in the serialized JSON; any key inserted
+        between them made a valid page look like a missing one.
+        """
+        data = TiktokWebAPI._script_json(html, "__UNIVERSAL_DATA_FOR_REHYDRATION__", page="主页")
+        try:
+            detail = data["__DEFAULT_SCOPE__"]["webapp.user-detail"]
+        except (KeyError, TypeError):
+            raise BrowserEvidenceError("主页 hydration 中没有 webapp.user-detail") from None
+        if not isinstance(detail, dict):
+            raise BrowserEvidenceError("主页 webapp.user-detail 不是对象")
+        return detail
+
     def get_user_info(self, user_url: str, *, auth=None) -> dict:
-        html = self.get_user_html(user_url, auth=auth)
-        match = re.search(r'"webapp\.user-detail":(.*?),"webapp\.a-b"', html)
-        if not match:
-            raise RuntimeError("页面中没有 webapp.user-detail；请保存该页面后再分析新的 SSR 数据结构")
-        return json.loads(match.group(1))
+        return self._user_detail_from_html(self.get_user_html(user_url, auth=auth))
+
+    # Hosts TikTok uses for share short links (redirect to the canonical URL).
+    SHORT_LINK_HOSTS = frozenset({"vt.tiktok.com", "vm.tiktok.com"})
+
+    def _resolve_short_link(self, url: str) -> str:
+        if urlparse(url).netloc not in self.SHORT_LINK_HOSTS:
+            return url
+        response = http_client.get(url, allow_redirects=False, timeout=self.timeout)
+        location = response.headers.get("location")
+        if not (300 <= int(response.status_code) < 400 and location):
+            raise BrowserEvidenceError(f"短链未返回跳转 (HTTP {response.status_code})")
+        return urljoin(url, location)
+
+    @staticmethod
+    def _live_room_from_html(html: str) -> dict:
+        data = TiktokWebAPI._script_json(html, "SIGI_STATE", page="直播页")
+        try:
+            user = data["LiveRoom"]["liveRoomUserInfo"]["user"]
+            return {key: user[key] for key in ("id", "secUid", "uniqueId", "roomId", "status")}
+        except (KeyError, TypeError):
+            raise BrowserEvidenceError("直播页 SIGI_STATE 缺少 LiveRoom.liveRoomUserInfo.user") from None
 
     def get_live_room_info(self, live_url: str, *, auth=None):
+        """Return ``(id, secUid, uniqueId, roomId, status, resolved_url)``.
+
+        Raises BrowserEvidenceError when the page carries no live-room state;
+        it used to return None, indistinguishable from "not live".
+        """
         auth = self._auth(auth)
-        if "vt.tiktok.com" in live_url:
-            response = http_client.get(live_url, allow_redirects=False, timeout=self.timeout)
-            live_url = response.headers.get("location", live_url)
+        live_url = self._resolve_short_link(live_url)
         response = http_client.get(
             live_url,
             headers=HeaderBuilder.build(HeaderType.DOC, auth, referer=live_url).get(),
             timeout=self.timeout,
         )
         http_client.ensure_ok(response)
-        soup = BeautifulSoup(response.text, "html.parser")
-        state = soup.find("script", attrs={"id": "SIGI_STATE"})
-        if not state or not state.text:
-            return None
-        data = json.loads(state.text)
-        try:
-            user = data["LiveRoom"]["liveRoomUserInfo"]["user"]
-            return (user["id"], user["secUid"], user["uniqueId"],
-                    user["roomId"], user["status"], live_url)
-        except (KeyError, TypeError):
-            return None
+        room = self._live_room_from_html(response.text)
+        return (room["id"], room["secUid"], room["uniqueId"], room["roomId"], room["status"], live_url)
 
 
 # A spelling-compatible alias for callers that prefer the shorter name.

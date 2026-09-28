@@ -6,6 +6,7 @@ through the evidence-driven ``TiktokAuth``/``Params`` pipeline.
 """
 
 from api.tiktok_web import TiktokWebAPI
+from builder.errors import BrowserEvidenceError
 
 
 class TiktokAPI(TiktokWebAPI):
