@@ -5667,18 +5667,19 @@ class TiktokWebAPI:
         if not live_id or not room_id:
             raise ValueError("webcast/im/fetch 需要 live_id 和 room_id")
         auth = self._auth(auth)
+        metrics = self._live_metrics(auth)
         pairs = [
             ("version_code", "180800"),
             ("device_platform", "web"),
             ("cookie_enabled", "true"),
-            ("screen_width", "2560"),
-            ("screen_height", "1440"),
-            ("browser_language", "zh-CN"),
-            ("browser_platform", "Win32"),
+            ("screen_width", metrics["screen_width"]),
+            ("screen_height", metrics["screen_height"]),
+            ("browser_language", metrics["browser_language"]),
+            ("browser_platform", metrics["browser_platform"]),
             ("browser_name", "Mozilla"),
             ("browser_version", auth.user_agent.split("Mozilla/", 1)[-1]),
             ("browser_online", "true"),
-            ("tz_name", "Asia/Shanghai"),
+            ("tz_name", metrics["tz_name"]),
             ("ws_direct", "1"),
             ("aid", "1988"),
             ("app_name", "tiktok_web"),
@@ -5721,18 +5722,30 @@ class TiktokWebAPI:
                                         cursor=cursor, referer=page)
         return self.decode_live_response(raw)
 
+    _LIVE_METRIC_KEYS = ("screen_width", "screen_height", "browser_language",
+                         "browser_platform", "tz_name")
+
+    @staticmethod
+    def _live_metrics(auth: TiktokAuth) -> dict:
+        """Browser runtime fields shared by the live HTTP fetch and WS URL.
+
+        Both requests declare the same screen/locale/timezone; they must come
+        from the same browser snapshot, never from Win32/Asia-Shanghai
+        literals (the fetch used to hard-code them while the WS read metrics).
+        """
+        metrics = auth.browser_metrics
+        missing = [key for key in TiktokWebAPI._LIVE_METRIC_KEYS if not metrics.get(key)]
+        if missing:
+            raise BrowserEvidenceError("直播请求缺少浏览器运行时字段: " + ", ".join(missing))
+        return {key: str(metrics[key]) for key in TiktokWebAPI._LIVE_METRIC_KEYS}
+
     @staticmethod
     def _live_ws_url(auth: TiktokAuth, live_id: str, room_id: str,
                      marker: str) -> str:
         """Preserve the exact ordered/duplicate Chrome WS query contract."""
         if len(marker) != 16:
             raise BrowserEvidenceError("直播 WS X-Bogus 长度必须为 16")
-        metrics = auth.browser_metrics
-        required = ("screen_width", "screen_height", "browser_language",
-                    "browser_platform", "tz_name")
-        missing = [key for key in required if not metrics.get(key)]
-        if missing:
-            raise BrowserEvidenceError("直播 WS 缺少浏览器运行时字段: " + ", ".join(missing))
+        metrics = TiktokWebAPI._live_metrics(auth)
         pairs = [
             ("version_code", "180800"), ("device_platform", "web"),
             ("cookie_enabled", "true"), ("screen_width", metrics["screen_width"]),
@@ -5762,15 +5775,33 @@ class TiktokWebAPI:
                    + "&".join(f"{key}={value}" for key, value in pairs))
         return raw_url.replace(" ", "%20")
 
+    LIVE_DEFAULT_EVENT_TYPES = frozenset({"chat", "like", "gift"})
+    # Dedup window for (method, message_id).  A busy room pushes tens of
+    # events per second; an unbounded set grows for the whole stream.
+    LIVE_SEEN_LIMIT = 20_000
+    # Used only when neither the fetch nor a frame supplies heartbeat_duration.
+    LIVE_DEFAULT_HEARTBEAT_S = 10.0
+
     def iter_live_ws_events(self, live_id: str, room_id: str, *, auth=None,
                             referer: str | None = None, stop_event=None,
-                            include_history: bool = True):
-        """Yield live chat, like and gift events from the captured WS protocol.
+                            include_history: bool = True,
+                            types: frozenset[str] | set[str] | None = LIVE_DEFAULT_EVENT_TYPES,
+                            recv_timeout: float = 2.0):
+        """Yield live events from the captured WS protocol.
+
+        ``types`` filters on the decoded ``type``; ``None`` yields everything,
+        including ``other`` (unknown method, body untouched) and
+        ``decode_error`` events, so new message kinds stay visible.
 
         HTTP fetch supplies the browser cursor, while the local WebMssdk
         calculates a fresh 16-character frontier marker. Incoming ACKs echo
         the server's own internal_ext instead of inventing JSON fields.
+        The stream ends with :class:`TransportError` when the server closes
+        the socket; reconnecting needs a fresh cursor and marker, which the
+        caller does by calling this method again.
         """
+        if not str(live_id).isdigit() or not str(room_id).isdigit():
+            raise ValueError("live_id 和 room_id 必须是数字 ID")
         auth = self._auth(auth)
         auth.require_browser_profile()
         page = referer or f"{self.origin}/live"
@@ -5784,56 +5815,83 @@ class TiktokWebAPI:
             metrics=auth.browser_metrics,
         )
         ws_url = self._live_ws_url(auth, live_id, room_id, marker)
+        import websocket  # a missing package is an ImportError, not a network error
         try:
-            import websocket
             ws = websocket.create_connection(
-                ws_url, timeout=2, origin=self.origin, cookie=auth.cookie_str,
+                ws_url, timeout=recv_timeout, origin=self.origin, cookie=auth.cookie_str,
                 header=["User-Agent: " + auth.user_agent],
             )
-        except Exception as exc:
-            raise BrowserEvidenceError("直播 WS 连接失败") from exc
-        seen = set()
+        except (websocket.WebSocketException, OSError) as exc:
+            raise TransportError(f"直播 WS 连接失败: {type(exc).__name__}",
+                                 method="WS", url=ws_url) from None
+
+        seen: OrderedDict = OrderedDict()
+
+        def fresh(event) -> bool:
+            key = (event["method"], event["message_id"])
+            if key in seen:
+                return False
+            seen[key] = None
+            if len(seen) > self.LIVE_SEEN_LIMIT:
+                seen.popitem(last=False)
+            return True
+
+        def wanted(event) -> bool:
+            return types is None or event["type"] in types
+
+        heartbeat_s = (initial.get("heartbeat_duration") or 0) / 1000 or self.LIVE_DEFAULT_HEARTBEAT_S
+        room = int(room_id)
         try:
-            ws.send(live_wire.encode_heartbeat(int(room_id)),
+            ws.send(live_wire.encode_heartbeat(room), opcode=websocket.ABNF.OPCODE_BINARY)
+            ws.send(live_wire.encode_enter_room(room, int(live_id), initial["cursor"]),
                     opcode=websocket.ABNF.OPCODE_BINARY)
-            ws.send(live_wire.encode_enter_room(int(room_id), int(live_id),
-                                                initial["cursor"]),
-                    opcode=websocket.ABNF.OPCODE_BINARY)
-            if include_history:
-                for event in initial["events"]:
-                    seen.add((event["method"], event["message_id"]))
-                    if event["type"] in ("chat", "like", "gift"):
-                        yield event
-            next_heartbeat = time.monotonic() + 10
+            # Record the initial batch even when not yielding it: the WS can
+            # replay the same history_comment_count messages after enter.
+            for event in initial["events"]:
+                if fresh(event) and include_history and wanted(event):
+                    yield event
+            next_heartbeat = time.monotonic() + heartbeat_s
             while stop_event is None or not stop_event.is_set():
-                if time.monotonic() >= next_heartbeat:
-                    ws.send(live_wire.encode_heartbeat(int(room_id)),
-                            opcode=websocket.ABNF.OPCODE_BINARY)
-                    next_heartbeat = time.monotonic() + 10
                 try:
+                    if time.monotonic() >= next_heartbeat:
+                        ws.send(live_wire.encode_heartbeat(room),
+                                opcode=websocket.ABNF.OPCODE_BINARY)
+                        next_heartbeat = time.monotonic() + heartbeat_s
                     raw = ws.recv()
                 except websocket.WebSocketTimeoutException:
                     continue
+                except (websocket.WebSocketConnectionClosedException, OSError) as exc:
+                    raise TransportError(f"直播 WS 已断开: {type(exc).__name__}",
+                                         method="WS", url=ws_url) from None
                 if not isinstance(raw, bytes):
                     continue
-                frame = live_wire.decode_push_frame(raw)
+                try:
+                    frame = live_wire.decode_push_frame(raw)
+                except ProtobufWireError as exc:
+                    event = {"type": "decode_error", "method": "", "message_id": 0,
+                             "error": str(exc), "payload_length": len(raw)}
+                    if wanted(event):
+                        yield event
+                    continue
                 response = frame["response"]
                 if response is None:
                     continue
+                if response["heartbeat_duration"]:
+                    heartbeat_s = response["heartbeat_duration"] / 1000
                 if response["need_ack"]:
                     ws.send(live_wire.encode_frame(
                         "ack", response["internal_ext"].encode("utf-8"),
                         log_id=frame["log_id"]),
                         opcode=websocket.ABNF.OPCODE_BINARY)
                 for event in response["events"]:
-                    key = (event["method"], event["message_id"])
-                    if key in seen:
-                        continue
-                    seen.add(key)
-                    if event["type"] in ("chat", "like", "gift"):
+                    if fresh(event) and wanted(event):
                         yield event
         finally:
-            ws.close()
+            try:
+                ws.close()
+            except (websocket.WebSocketException, OSError):
+                # Closing a dead socket is not a second failure worth raising.
+                pass
 
     def post_live_chat(self, room_id: str, content: str, *, auth=None,
                        emotes_with_index: str = "", input_type: int = 0,

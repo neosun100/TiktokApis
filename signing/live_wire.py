@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 import zlib
 
 from .protobuf import ProtobufWireError, field_bytes, field_string, field_varint
@@ -100,8 +101,50 @@ def _user(tree: dict) -> dict:
     }
 
 
+_DECODERS = {}
+
+
+def _decoder(method: str):
+    def register(func):
+        _DECODERS[method] = func
+        return func
+    return register
+
+
+@_decoder("WebcastChatMessage")
+def _chat(body: dict) -> dict:
+    return {"type": "chat", "user": _user(nested(body, 2)), "text": string(body, 3)}
+
+
+@_decoder("WebcastLikeMessage")
+def _like(body: dict) -> dict:
+    return {"type": "like", "count": integer(body, 2), "total": integer(body, 3),
+            "user": _user(nested(body, 5))}
+
+
+@_decoder("WebcastGiftMessage")
+def _gift(body: dict) -> dict:
+    gift = nested(body, 15)
+    return {"type": "gift", "gift_id": integer(body, 2), "combo_count": integer(body, 6),
+            "user": _user(nested(body, 7)),
+            "gift": {"id": integer(gift, 5), "name": string(gift, 16)}}
+
+
 def decode_response(raw: bytes) -> dict:
-    """Decode one HTTP fetch or uncompressed WS LiveResponse."""
+    """Decode one HTTP fetch or uncompressed WS LiveResponse.
+
+    One malformed message yields a ``decode_error`` event instead of losing
+    the whole batch; unknown methods are passed through as ``other`` without
+    parsing their body (their layout is unconfirmed and may not parse).
+    """
+    if bytes(raw[:1]) == b"{":
+        # Risk control answers the protobuf endpoint with a JSON status body;
+        # 0x7b would otherwise surface as a misleading "wire type 3" error.
+        try:
+            status = json.loads(bytes(raw)).get("status_code")
+        except (ValueError, AttributeError):
+            status = None
+        raise ProtobufWireError(f"直播接口返回 JSON 而非 protobuf（status_code={status!r}）")
     tree = fields(raw)
     events = []
     for item in tree.get(1, []):
@@ -113,19 +156,14 @@ def decode_response(raw: bytes) -> dict:
         if not isinstance(payload, bytes):
             raise ProtobufWireError("直播事件 payload 不是 bytes")
         event = {"method": method, "message_id": integer(envelope, 3)}
-        body = fields(payload)
-        if method == "WebcastChatMessage":
-            event.update(type="chat", user=_user(nested(body, 2)), text=string(body, 3))
-        elif method == "WebcastLikeMessage":
-            event.update(type="like", count=integer(body, 2), total=integer(body, 3),
-                         user=_user(nested(body, 5)))
-        elif method == "WebcastGiftMessage":
-            gift = nested(body, 15)
-            event.update(type="gift", gift_id=integer(body, 2),
-                         combo_count=integer(body, 6), user=_user(nested(body, 7)),
-                         gift={"id": integer(gift, 5), "name": string(gift, 16)})
-        else:
+        decoder = _DECODERS.get(method)
+        if decoder is None:
             event.update(type="other", payload_length=len(payload))
+        else:
+            try:
+                event.update(decoder(fields(payload)))
+            except ProtobufWireError as exc:
+                event.update(type="decode_error", error=str(exc), payload_length=len(payload))
         events.append(event)
     return {
         "events": events,
