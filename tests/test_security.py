@@ -8,6 +8,7 @@ import pytest
 
 from builder.auth import TiktokAuth
 from builder.errors import BrowserEvidenceError
+from builder.limits import Limits
 from signing import live_wire
 from signing.node_runner import minimal_env
 from signing.protobuf import ProtobufWireError
@@ -52,7 +53,7 @@ def test_frontier_signer_passes_minimal_env(monkeypatch):
 
 
 def test_gzip_bomb_is_rejected():
-    bomb = gzip.compress(b"\0" * (live_wire.MAX_DECOMPRESSED_BYTES + 1))
+    bomb = gzip.compress(b"\0" * (Limits.MAX_DECOMPRESSED_FRAME_BYTES + 1))
     with pytest.raises(ProtobufWireError):
         live_wire.gunzip_bounded(bomb)
 

@@ -5,6 +5,8 @@ from __future__ import annotations
 import json
 import zlib
 
+from builder.limits import Limits
+
 from .protobuf import ProtobufWireError, field_bytes, field_string, field_varint
 
 
@@ -176,12 +178,7 @@ def decode_response(raw: bytes) -> dict:
     }
 
 
-# A LiveResponse batch is a few KiB to a few hundred KiB; anything past this
-# is a malformed or hostile frame (gzip bomb), not a busier room.
-MAX_DECOMPRESSED_BYTES = 16 * 1024 * 1024
-
-
-def gunzip_bounded(payload: bytes, limit: int = MAX_DECOMPRESSED_BYTES) -> bytes:
+def gunzip_bounded(payload: bytes, limit: int = Limits.MAX_DECOMPRESSED_FRAME_BYTES) -> bytes:
     decoder = zlib.decompressobj(16 + zlib.MAX_WBITS)
     try:
         out = decoder.decompress(payload, limit)

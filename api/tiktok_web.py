@@ -40,6 +40,8 @@ from builder.errors import (
     VerificationRequired,
 )
 from builder.header import HeaderBuilder, HeaderType
+from builder.limits import Limits
+from builder.pagination import paginate
 from builder.params import Params
 from signing.protobuf import (
     ProtobufWireError,
@@ -2090,13 +2092,8 @@ class TiktokWebAPI:
                                 message=str(result.get("message") or ""), payload=result)
         return result
 
-    # curl_cffi's timeout is the whole-request budget.  Uploads get the normal
-    # timeout plus one second per UPLOAD_MIN_BYTES_PER_SECOND of payload, so
-    # a 200 MB clip on a slow uplink is not cut off at 30 s.
-    UPLOAD_MIN_BYTES_PER_SECOND = 256 * 1024
-
     def _upload_timeout(self, size: int) -> float:
-        return float(self.timeout) + size / self.UPLOAD_MIN_BYTES_PER_SECOND
+        return float(self.timeout) + size / Limits.UPLOAD_MIN_BYTES_PER_SECOND
 
     def commit_upload_inner(self, session_key: str, *, functions=None,
                             space_name: str = "tiktok", auth=None,
@@ -4682,33 +4679,12 @@ class TiktokWebAPI:
         max_pages: int | None = None, auth=None, referer: str | None = None,
     ) -> dict:
         """Read every top-level work comment through the captured list API."""
-        if max_pages is not None and int(max_pages) <= 0:
-            raise ValueError("max_pages 必须大于 0")
-        current = str(cursor)
-        seen = set()
-        rows = []
-        pages = 0
-        while True:
-            if current in seen:
-                raise BrowserEvidenceError("comment/list 返回了重复 cursor")
-            seen.add(current)
-            response = self.get_comments(
-                aweme_id, cursor=current, count=count, auth=auth,
-                referer=referer,
-            )
-            comments, next_cursor, has_more = self._comment_page_values(
-                response, endpoint="comment/list",
-            )
-            rows.extend(comments)
-            pages += 1
-            if not has_more or (max_pages is not None and pages >= int(max_pages)):
-                return {
-                    "comments": rows,
-                    "page_count": pages,
-                    "cursor": next_cursor,
-                    "has_more": has_more,
-                }
-            current = str(next_cursor)
+        return paginate(
+            lambda current: self.get_comments(aweme_id, cursor=current, count=count,
+                                              auth=auth, referer=referer),
+            lambda page: self._comment_page_values(page, endpoint="comment/list"),
+            start=cursor, max_pages=max_pages, endpoint="comment/list", rows_key="comments",
+        )
 
     def get_all_comment_replies(
         self, item_id: str, comment_id: str, *, cursor: str = "1",
@@ -4716,33 +4692,14 @@ class TiktokWebAPI:
         referer: str, root_referer: str,
     ) -> dict:
         """Read every child reply while preserving the captured reply wire."""
-        if max_pages is not None and int(max_pages) <= 0:
-            raise ValueError("max_pages 必须大于 0")
-        current = str(cursor)
-        seen = set()
-        rows = []
-        pages = 0
-        while True:
-            if current in seen:
-                raise BrowserEvidenceError("comment/list/reply 返回了重复 cursor")
-            seen.add(current)
-            response = self.get_comment_replies(
+        return paginate(
+            lambda current: self.get_comment_replies(
                 item_id, comment_id, cursor=current, count=count, auth=auth,
-                referer=referer, root_referer=root_referer,
-            )
-            comments, next_cursor, has_more = self._comment_page_values(
-                response, endpoint="comment/list/reply",
-            )
-            rows.extend(comments)
-            pages += 1
-            if not has_more or (max_pages is not None and pages >= int(max_pages)):
-                return {
-                    "comments": rows,
-                    "page_count": pages,
-                    "cursor": next_cursor,
-                    "has_more": has_more,
-                }
-            current = str(next_cursor)
+                referer=referer, root_referer=root_referer),
+            lambda page: self._comment_page_values(page, endpoint="comment/list/reply"),
+            start=cursor, max_pages=max_pages, endpoint="comment/list/reply",
+            rows_key="comments",
+        )
 
     def post_comment(self, aweme_id: str, text: str, *, text_extra: str = "[]",
                      auth=None, referer: str | None = None,
@@ -5776,11 +5733,6 @@ class TiktokWebAPI:
         return raw_url.replace(" ", "%20")
 
     LIVE_DEFAULT_EVENT_TYPES = frozenset({"chat", "like", "gift"})
-    # Dedup window for (method, message_id).  A busy room pushes tens of
-    # events per second; an unbounded set grows for the whole stream.
-    LIVE_SEEN_LIMIT = 20_000
-    # Used only when neither the fetch nor a frame supplies heartbeat_duration.
-    LIVE_DEFAULT_HEARTBEAT_S = 10.0
 
     def iter_live_ws_events(self, live_id: str, room_id: str, *, auth=None,
                             referer: str | None = None, stop_event=None,
@@ -5832,14 +5784,14 @@ class TiktokWebAPI:
             if key in seen:
                 return False
             seen[key] = None
-            if len(seen) > self.LIVE_SEEN_LIMIT:
+            if len(seen) > Limits.LIVE_SEEN_WINDOW:
                 seen.popitem(last=False)
             return True
 
         def wanted(event) -> bool:
             return types is None or event["type"] in types
 
-        heartbeat_s = (initial.get("heartbeat_duration") or 0) / 1000 or self.LIVE_DEFAULT_HEARTBEAT_S
+        heartbeat_s = (initial.get("heartbeat_duration") or 0) / 1000 or Limits.LIVE_DEFAULT_HEARTBEAT_S
         room = int(room_id)
         try:
             ws.send(live_wire.encode_heartbeat(room), opcode=websocket.ABNF.OPCODE_BINARY)
@@ -6327,43 +6279,39 @@ class TiktokWebAPI:
         page_size: int = 3, sort_rule: int = 1, filter_type: int = 1,
         filter_value: int = 6,
     ) -> dict:
-        """Read SSR page 1 and every response-owned Shop review page."""
+        """Read SSR page 1 and every response-owned Shop review page.
+
+        ``page_size`` is kept for signature compatibility; the captured
+        review endpoint only accepts 3 (validated by the page method).
+        """
         auth = self._auth(auth)
         initial = self.get_shop_product_reviews(product_url, auth=auth)
-        initial_reviews = initial.get("product_reviews")
-        if not isinstance(initial_reviews, list):
-            raise RuntimeError("TikTok Shop 首屏评价缺少 product_reviews")
-        reviews = list(initial_reviews)
-        pages = [dict(initial)]
-        has_more = initial.get("has_more")
-        if not isinstance(has_more, bool):
-            raise RuntimeError("TikTok Shop 首屏评价缺少布尔 has_more")
-        page_start = 2
-        while has_more and (max_pages is None or len(pages) < int(max_pages)):
-            page = self.get_shop_product_review_page(
-                product_url,
-                page_start=page_start,
-                page_size=page_size,
-                sort_rule=sort_rule,
-                filter_type=filter_type,
-                filter_value=filter_value,
-                auth=auth,
+        pages: list[dict] = []
+
+        def fetch(cursor: str) -> Mapping:
+            if cursor == "1":
+                return initial
+            return self.get_shop_product_review_page(
+                product_url, page_start=int(cursor), page_size=page_size,
+                sort_rule=sort_rule, filter_type=filter_type,
+                filter_value=filter_value, auth=auth,
             )
-            current = page.get("product_reviews")
-            if not isinstance(current, list):
-                raise RuntimeError("TikTok Shop 翻页评价缺少 product_reviews")
-            next_has_more = page.get("has_more")
-            if not isinstance(next_has_more, bool):
-                raise RuntimeError("TikTok Shop 翻页评价缺少布尔 has_more")
-            reviews.extend(current)
+
+        def validate(page) -> tuple[list, str, bool]:
+            reviews = page.get("product_reviews") if isinstance(page, Mapping) else None
+            has_more = page.get("has_more") if isinstance(page, Mapping) else None
+            if not isinstance(reviews, list) or not isinstance(has_more, bool):
+                raise BrowserEvidenceError("TikTok Shop 评价页缺少 product_reviews 数组或布尔 has_more")
             pages.append(dict(page))
-            has_more = next_has_more
-            page_start += 1
+            return reviews, str(len(pages) + 1), has_more
+
+        out = paginate(fetch, validate, start="1", max_pages=max_pages,
+                       endpoint="shop/product_reviews", rows_key="product_reviews")
         return {
-            "product_reviews": reviews,
+            "product_reviews": out["product_reviews"],
             "review_ratings": initial.get("review_ratings"),
             "total_reviews": initial.get("total_reviews"),
-            "has_more": has_more,
+            "has_more": out["has_more"],
             "pages": pages,
         }
 
