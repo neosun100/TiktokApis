@@ -32,6 +32,7 @@ from urllib.parse import quote, urlencode, urljoin, urlparse
 
 from bs4 import BeautifulSoup
 
+from builder.action_gate import ActionGate, gated
 from builder.auth import TiktokAuth
 from builder.errors import (
     BrowserEvidenceError,
@@ -174,10 +175,13 @@ class TiktokWebAPI:
     }
 
     def __init__(self, auth: Optional[TiktokAuth] = None, *, timeout: int = 30,
-                 shop_signer=None):
+                 shop_signer=None, gate: ActionGate | None = None):
         self.auth = auth
         self.timeout = timeout
         self.shop_signer = shop_signer or ShopBSIDSigner(timeout=timeout)
+        # Every write goes through the gate (human-scale defaults); pass
+        # ActionGate.unlimited() to opt out, or dry_run=True to rehearse.
+        self.gate = gate if gate is not None else ActionGate()
 
     def _auth(self, auth_or_cookie=None) -> TiktokAuth:
         if isinstance(auth_or_cookie, TiktokAuth):
@@ -1017,6 +1021,7 @@ class TiktokWebAPI:
             + "&xsack=1&xaack=1&xsqos=0"
         )
 
+    @gated("dm")
     def send_im_message(
         self, conversation_id: str, conversation_short_id: int, text: str, *,
         conversation_type: int = 1, message_type: int = 7,
@@ -2776,6 +2781,7 @@ class TiktokWebAPI:
         ))
         return json.dumps(body, ensure_ascii=False, separators=(",", ":"))
 
+    @gated("publish")
     def creator_publish_photos(
         self, images, text: str, *, title: str = "",
         visibility_type: int = 1, allow_comment: int = 1,
@@ -2838,6 +2844,7 @@ class TiktokWebAPI:
             "publish": published,
         }
 
+    @gated("publish")
     def publish_media(
         self, media, *, project_body: str | Callable[[Mapping], str],
         ticket_guard: Mapping[str, str] | None = None,
@@ -2899,6 +2906,7 @@ class TiktokWebAPI:
         )
         return {"upload": upload, "publish": published}
 
+    @gated("publish")
     def creator_publish(
         self, media, text: str, *, filename: str | None = None,
         visibility_type: int = 1, allow_comment: int = 1,
@@ -3089,6 +3097,7 @@ class TiktokWebAPI:
         add_slot("after_webcast_language")
         return Params(values)
 
+    @gated("publish")
     def post_project(self, body: str, *, ticket_guard: Mapping[str, str], auth=None,
                      referer: str = f"{origin}/tiktokstudio/upload?from=webapp&lang=zh-Hans"):
         """Publish one captured Creator Studio project request.
@@ -4025,6 +4034,7 @@ class TiktokWebAPI:
                                "X-Bogus": 1, "X-Gnarly": 332},
         )
 
+    @gated("collection")
     def post_collection_create(self, name: str, *, collection_status: str = "1",
                                auth=None, referer: str | None = None):
         """Create a collection using Chrome's empty form body."""
@@ -4053,6 +4063,7 @@ class TiktokWebAPI:
                                "X-Bogus": 1, "X-Gnarly": 332},
         )
 
+    @gated("collection")
     def post_collection_modify_info(
         self, collection_id: str, collection_name: str, *,
         collection_status: str = "1", auth=None, referer: str | None = None,
@@ -4084,6 +4095,7 @@ class TiktokWebAPI:
                                "X-Bogus": 1, "X-Gnarly": 332},
         )
 
+    @gated("collection")
     def post_collection_modify_items(
         self, collection_id: str, commit_ids: str, *, referer: str,
         profile_url: str, auth=None,
@@ -4112,6 +4124,7 @@ class TiktokWebAPI:
                               "X-Bogus": 1, "X-Gnarly": 332},
         )
 
+    @gated("collection")
     def post_collection_move_items(
         self, from_collection_id: str, target_collection_id: str,
         item_ids: str, *, referer: str, profile_url: str, auth=None,
@@ -4700,6 +4713,7 @@ class TiktokWebAPI:
             rows_key="comments",
         )
 
+    @gated("comment")
     def post_comment(self, aweme_id: str, text: str, *, text_extra: str = "[]",
                      auth=None, referer: str | None = None,
                          query_referer: str | None = None):
@@ -4732,6 +4746,7 @@ class TiktokWebAPI:
             ticket_guard=True,
         )
 
+    @gated("comment")
     def post_comment_reply(self, aweme_id: str, reply_id: str, text: str, *,
                            reply_to_reply_id: str = "0", text_extra: str = "[]",
                            auth=None, referer: str | None = None,
@@ -4770,6 +4785,7 @@ class TiktokWebAPI:
             ticket_guard=True,
         )
 
+    @gated("like")
     def post_item_digg(self, aweme_id: str, *, digg_type: str = "1",
                        auth=None, referer: str | None = None,
                        query_referer: str | None = None):
@@ -4791,6 +4807,7 @@ class TiktokWebAPI:
             ticket_guard=True, ticket_guard_sec_csrf=False,
         )
 
+    @gated("collect")
     def post_item_collect(self, item_id: str, sec_uid: str, *, action: str = "1",
                           auth=None, referer: str | None = None,
                           query_referer: str | None = None):
@@ -4817,6 +4834,7 @@ class TiktokWebAPI:
             ticket_guard=True, ticket_guard_sec_csrf=False,
         )
 
+    @gated("follow")
     def post_follow_user(self, user_id: str, sec_user_id: str, *,
                          action_type: str = "1", follow_type: str = "1",
                          from_code: str = "18", channel_id: str = "0",
@@ -5844,6 +5862,7 @@ class TiktokWebAPI:
                 # Closing a dead socket is not a second failure worth raising.
                 pass
 
+    @gated("live_chat")
     def post_live_chat(self, room_id: str, content: str, *, auth=None,
                        emotes_with_index: str = "", input_type: int = 0,
                        client_start_timestamp_millisecond: int | None = None,
@@ -5904,6 +5923,7 @@ class TiktokWebAPI:
             allow_empty=True,
         )
 
+    @gated("live_like")
     def post_live_like(self, to_uid: str, room_id: str, *, count: int = 1,
                        enter_from: str = "live", auth=None,
                        referer: str = f"{origin}/"):
