@@ -1,0 +1,2178 @@
+{
+ "apply_image_upload": {
+  "skipped": "needs non-dummy args"
+ },
+ "apply_upload_inner": {
+  "skipped": "needs non-dummy args"
+ },
+ "bootstrap_transcode_csrf": {
+  "body": null,
+  "headers": [
+   "x-secsdk-csrf-request",
+   "sec-ch-ua-platform",
+   "referer",
+   "user-agent",
+   "x-secsdk-csrf-version",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "cookie",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "HEAD",
+  "url": "https://www.tiktok.com/api/v1/video/transcode/enable/"
+ },
+ "build_creator_photo_project_body": {
+  "skipped": "needs non-dummy args"
+ },
+ "build_creator_project_body": {
+  "skipped": "needs non-dummy args"
+ },
+ "check_live_rooms": {
+  "body": null,
+  "headers": [
+   "sec-ch-ua-platform",
+   "referer",
+   "user-agent",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "cookie",
+   "origin",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "GET",
+  "url": "https://webcast.tiktok.com/webcast/room/check_alive/?WebIdLastTime=1700000000&aid=1988&app_language=zh-Hans&app_name=tiktok_web&browser_language=zh-CN&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%20NT%2010.0%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F153.0.0.0%20Safari%2F537.36&channel=tiktok_web&cookie_enabled=true&data_collection_enabled=true&device_id=7000000000000000002&device_platform=web_pc&focus_state=true&from_page=&history_len=2&is_fullscreen=false&is_page_visible=true&odinId=7000000000000000003&os=windows&priority_region=SG&referer=&region=SG&room_ids=7300000000000000001&root_referer=&screen_height=1440&screen_width=2560&tz_name=Asia%2FShanghai&user_is_login=true&verifyFp=verify_x&webcast_language=zh-Hans&X-Dynosaur=D&msToken=mtok&X-Bogus=B&X-Gnarly=G"
+ },
+ "check_playlist_name": {
+  "body": null,
+  "headers": [
+   "sec-ch-ua-platform",
+   "referer",
+   "user-agent",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "cookie",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "GET",
+  "url": "https://www.tiktok.com/api/playlist/name_check?WebIdLastTime=1700000000&aid=1988&app_language=zh-Hans&app_name=tiktok_web&browser_language=zh-CN&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%20NT%2010.0%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F153.0.0.0%20Safari%2F537.36&channel=tiktok_web&cookie_enabled=true&data_collection_enabled=true&device_id=7000000000000000002&device_platform=web_pc&focus_state=true&from_page=user&history_len=7&is_fullscreen=false&is_page_visible=true&name=fav&odinId=7000000000000000003&os=windows&priority_region=SG&referer=https%3A%2F%2Fwww.tiktok.com%2F%40tiktok%3Flang%3Dzh-Hans&region=SG&root_referer=&screen_height=1440&screen_width=2560&tz_name=Asia%2FShanghai&user_is_login=true&verifyFp=verify_x&webcast_language=zh-Hans&X-Dynosaur=D&msToken=mtok&X-Bogus=B&X-Gnarly=G"
+ },
+ "commit_image_upload": {
+  "skipped": "needs non-dummy args"
+ },
+ "commit_upload_inner": {
+  "skipped": "needs non-dummy args"
+ },
+ "decode_im_ws_notification": {
+  "error": "TypeError"
+ },
+ "decode_live_response": {
+  "error": "TypeError"
+ },
+ "enable_video_transcode": {
+  "body": null,
+  "headers": [
+   "sec-ch-ua-platform",
+   "referer",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "tt-csrf-token",
+   "user-agent",
+   "accept",
+   "x-secsdk-csrf-token",
+   "accept-encoding",
+   "accept-language",
+   "content-length",
+   "cookie",
+   "origin",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "POST",
+  "url": "https://www.tiktok.com/api/v1/video/transcode/enable/?video_id=v0&aid=1988"
+ },
+ "enter_live_room": {
+  "body": "enter_source=recommend-suggested_others_photo&room_id=7300000000000000001",
+  "headers": [
+   "sec-ch-ua-platform",
+   "referer",
+   "user-agent",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "content-type",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "cookie",
+   "origin",
+   "content-length",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "POST",
+  "url": "https://webcast.tiktok.com/webcast/room/enter/?WebIdLastTime=1700000000&aid=1988&app_language=zh-Hans&app_name=tiktok_web&browser_language=zh-CN&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%20NT%2010.0%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F153.0.0.0%20Safari%2F537.36&channel=tiktok_web&cookie_enabled=true&data_collection_enabled=true&device_id=7000000000000000002&device_platform=web_pc&device_type=web_h265&focus_state=true&from_page=&history_len=4&is_fullscreen=false&is_page_visible=true&odinId=7000000000000000003&os=windows&priority_region=SG&referer=&region=SG&root_referer=&screen_height=1440&screen_width=2560&tz_name=Asia%2FShanghai&user_is_login=true&verifyFp=verify_x&webcast_language=zh-Hans&X-Dynosaur=D&msToken=mtok&X-Bogus=B&X-Gnarly=G"
+ },
+ "get_business_permission_list": {
+  "body": null,
+  "headers": [
+   "sec-ch-ua-platform",
+   "referer",
+   "user-agent",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "cookie",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "GET",
+  "url": "https://www.tiktok.com/api/ba/business/suite/permission/list/?WebIdLastTime=1700000000&aid=1988&app_language=zh-Hans&app_name=tiktok_web&browser_language=zh-CN&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%20NT%2010.0%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F153.0.0.0%20Safari%2F537.36&channel=tiktok_web&cookie_enabled=true&data_collection_enabled=true&device_id=7000000000000000002&device_platform=web_pc&focus_state=true&from_page=user&history_len=2&is_fullscreen=false&is_page_visible=true&odinId=7000000000000000003&os=windows&priority_region=SG&referer=https%3A%2F%2Fwww.tiktok.com%2F%40tiktok%3Flang%3Dzh-Hans&region=SG&root_referer=https%3A%2F%2Fwww.tiktok.com%2F%40tiktok%3Flang%3Dzh-Hans&permissionList=1&screen_height=1440&screen_width=2560&tz_name=Asia%2FShanghai&user_is_login=true&verifyFp=verify_x&webcast_language=zh-Hans&X-Dynosaur=D&msToken=mtok&X-Bogus=B&X-Gnarly=G"
+ },
+ "get_collected_item_list": {
+  "body": null,
+  "headers": [
+   "sec-ch-ua-platform",
+   "referer",
+   "user-agent",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "cookie",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "GET",
+  "url": "https://www.tiktok.com/api/user/collect/item_list/?WebIdLastTime=1700000000&aid=1988&app_language=zh-Hans&app_name=tiktok_web&browser_language=zh-CN&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%20NT%2010.0%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F153.0.0.0%20Safari%2F537.36&channel=tiktok_web&clientABVersions=70508271%2C72437276%2C73720540%2C75360573%2C75657507%2C75843653%2C75878361%2C76074824%2C76122410%2C76179551%2C76403724%2C76499369%2C76626930%2C76651230%2C76669176%2C76713103%2C76740102%2C76792575%2C76805936%2C76813520%2C76815102%2C76826749%2C76839930%2C76840792%2C76887350%2C76889673%2C76907405%2C76933422%2C76945954%2C76950455%2C77005875%2C77011497%2C77014490%2C77056281%2C77064650%2C77071444%2C77093404%2C77120364%2C77141446%2C77150562%2C77155134%2C70138197%2C70156809%2C70405643%2C71057832%2C71200802%2C71381811%2C71803300%2C72360691%2C72408100%2C72854054%2C72892778%2C73171280%2C73208420%2C73989921%2C74276218%2C74844724%2C75330961&cookie_enabled=true&count=16&coverFormat=2&cursor=0&data_collection_enabled=true&device_id=7000000000000000002&device_platform=web_pc&focus_state=true&from_page=user&history_len=6&is_fullscreen=false&is_page_visible=true&language=zh-Hans&needPinnedItemIds=true&odinId=7000000000000000003&os=windows&post_item_list_request_type=0&priority_region=SG&referer=https%3A%2F%2Fwww.tiktok.com%2F%40MS4wSEC%3Flang%3Dzh-Hans&region=SG&root_referer=&screen_height=1440&screen_width=2560&secUid=MS4wSEC&tz_name=Asia%2FShanghai&user_is_login=true&verifyFp=verify_x&video_encoding=dash&webcast_language=zh-Hans&X-Dynosaur=D&msToken=mtok&X-Bogus=B&X-Gnarly=G"
+ },
+ "get_collection_candidate_item_list": {
+  "body": null,
+  "headers": [
+   "sec-ch-ua-platform",
+   "referer",
+   "user-agent",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "cookie",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "GET",
+  "url": "https://www.tiktok.com/api/collection/candidate/item_list/?WebIdLastTime=1700000000&aid=1988&appId=1988&app_language=zh-Hans&app_name=tiktok_web&browser_language=zh-CN&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%20NT%2010.0%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F153.0.0.0%20Safari%2F537.36&channel=tiktok_web&cookie_enabled=true&count=30&coverFormat=2&cursor=0&data_collection_enabled=true&device_id=7000000000000000002&device_platform=web_pc&focus_state=true&from_page=user&history_len=6&is_fullscreen=false&is_page_visible=true&language=zh-Hans&needPinnedItemIds=true&odinId=7000000000000000003&os=windows&post_item_list_request_type=0&priority_region=SG&referer=https%3A%2F%2Fwww.tiktok.com%2F%40MS4wSEC%3Flang%3Dzh-Hans&region=SG&root_referer=&scene=155&screen_height=1440&screen_width=2560&secUid=MS4wSEC&tz_name=Asia%2FShanghai&user_is_login=true&verifyFp=verify_x&video_encoding=dash&webcast_language=zh-Hans&X-Dynosaur=D&msToken=mtok&X-Bogus=B&X-Gnarly=G"
+ },
+ "get_collection_detail": {
+  "body": null,
+  "headers": [
+   "sec-ch-ua-platform",
+   "referer",
+   "user-agent",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "cookie",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "GET",
+  "url": "https://www.tiktok.com/api/collection/detail/?WebIdLastTime=1700000000&aid=1988&app_language=zh-Hans&app_name=tiktok_web&browser_language=zh-CN&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%20NT%2010.0%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F153.0.0.0%20Safari%2F537.36&channel=tiktok_web&clientABVersions=70508271%2C72437276%2C73720540%2C75360573%2C75657507%2C75843653%2C75878361%2C76074824%2C76122410%2C76179551%2C76403724%2C76499369%2C76626930%2C76651230%2C76669176%2C76713103%2C76740102%2C76792575%2C76805936%2C76813520%2C76815102%2C76826749%2C76839930%2C76840792%2C76887350%2C76889673%2C76907405%2C76933422%2C76945954%2C76950455%2C77005875%2C77011497%2C77014490%2C77056281%2C77064650%2C77071444%2C77093404%2C77120364%2C77141446%2C77150562%2C77155134%2C70138197%2C70156809%2C70405643%2C71057832%2C71200802%2C71381811%2C71803300%2C72360691%2C72408100%2C72854054%2C72892778%2C73171280%2C73208420%2C73989921%2C74276218%2C74844724%2C75330961&collectionId=7400000000000000001&cookie_enabled=true&data_collection_enabled=true&device_id=7000000000000000002&device_platform=web_pc&focus_state=true&from_page=user&history_len=7&is_fullscreen=false&is_page_visible=true&language=zh-Hans&odinId=7000000000000000003&os=windows&priority_region=SG&referer=https%3A%2F%2Fwww.tiktok.com%2F%40tiktok%2Fcollection%2F7400000000000000001&region=SG&root_referer=&scene=116&screen_height=1440&screen_width=2560&tz_name=Asia%2FShanghai&user_is_login=true&verifyFp=verify_x&webcast_language=zh-Hans&X-Dynosaur=D&msToken=mtok&X-Bogus=B&X-Gnarly=G"
+ },
+ "get_collection_item_list": {
+  "body": null,
+  "headers": [
+   "sec-ch-ua-platform",
+   "referer",
+   "user-agent",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "cookie",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "GET",
+  "url": "https://www.tiktok.com/api/collection/item_list/?WebIdLastTime=1700000000&aid=1988&app_language=zh-Hans&app_name=tiktok_web&browser_language=zh-CN&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%20NT%2010.0%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F153.0.0.0%20Safari%2F537.36&channel=tiktok_web&clientABVersions=70508271%2C72437276%2C73720540%2C75360573%2C75657507%2C75843653%2C75878361%2C76074824%2C76122410%2C76179551%2C76403724%2C76499369%2C76626930%2C76651230%2C76669176%2C76713103%2C76740102%2C76792575%2C76805936%2C76813520%2C76815102%2C76826749%2C76839930%2C76840792%2C76887350%2C76889673%2C76907405%2C76933422%2C76945954%2C76950455%2C77005875%2C77011497%2C77014490%2C77056281%2C77064650%2C77071444%2C77093404%2C77120364%2C77141446%2C77150562%2C77155134%2C70138197%2C70156809%2C70405643%2C71057832%2C71200802%2C71381811%2C71803300%2C72360691%2C72408100%2C72854054%2C72892778%2C73171280%2C73208420%2C73989921%2C74276218%2C74844724%2C75330961&collectionId=7400000000000000001&cookie_enabled=true&count=30&cursor=0&data_collection_enabled=true&device_id=7000000000000000002&device_platform=web_pc&focus_state=true&from_page=user&history_len=7&is_fullscreen=false&is_page_visible=true&language=zh-Hans&odinId=7000000000000000003&os=windows&priority_region=SG&referer=https%3A%2F%2Fwww.tiktok.com%2F%40tiktok%2Fcollection%2F7400000000000000001&region=SG&root_referer=&screen_height=1440&screen_width=2560&sourceType=113&tz_name=Asia%2FShanghai&user_is_login=true&verifyFp=verify_x&webcast_language=zh-Hans&X-Dynosaur=D&msToken=mtok&X-Bogus=B&X-Gnarly=G"
+ },
+ "get_collection_list": {
+  "body": null,
+  "headers": [
+   "sec-ch-ua-platform",
+   "referer",
+   "user-agent",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "cookie",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "GET",
+  "url": "https://www.tiktok.com/api/user/collection_list/?WebIdLastTime=1700000000&aid=1988&appId=1988&app_language=zh-Hans&app_name=tiktok_web&browser_language=zh-CN&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%20NT%2010.0%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F153.0.0.0%20Safari%2F537.36&channel=tiktok_web&cookie_enabled=true&count=30&coverFormat=2&cursor=0&data_collection_enabled=true&device_id=7000000000000000002&device_platform=web_pc&focus_state=true&from_page=user&history_len=6&is_fullscreen=false&is_page_visible=true&language=zh-Hans&needPinnedItemIds=true&odinId=7000000000000000003&os=windows&post_item_list_request_type=0&priority_region=SG&publicOnly=true&referer=https%3A%2F%2Fwww.tiktok.com%2F%40MS4wSEC%3Flang%3Dzh-Hans&region=SG&root_referer=&screen_height=1440&screen_width=2560&secUid=MS4wSEC&tz_name=Asia%2FShanghai&user_is_login=true&verifyFp=verify_x&video_encoding=dash&webcast_language=zh-Hans&X-Dynosaur=D&msToken=mtok&X-Bogus=B&X-Gnarly=G"
+ },
+ "get_comment_replies": {
+  "error": "BrowserEvidenceError"
+ },
+ "get_comments": {
+  "body": null,
+  "headers": [
+   "sec-ch-ua-platform",
+   "referer",
+   "user-agent",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "cookie",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "GET",
+  "url": "https://www.tiktok.com/api/comment/list/?WebIdLastTime=1700000000&aid=1988&app_language=ja-JP&app_name=tiktok_web&aweme_id=7100000000000000001&browser_language=zh-CN&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%20NT%2010.0%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F153.0.0.0%20Safari%2F537.36&channel=tiktok_web&cookie_enabled=true&count=20&current_region=SG&cursor=0&data_collection_enabled=true&device_id=7000000000000000002&device_platform=web_pc&enter_from=tiktok_web&focus_state=true&fromWeb=1&from_page=video&history_len=3&is_fullscreen=false&is_non_personalized=false&is_page_visible=true&odinId=7000000000000000003&os=windows&priority_region=SG&referer=https%3A%2F%2Fwww.tiktok.com%2F%40tiktok%3Flang%3Dzh-Hans&region=SG&root_referer=https%3A%2F%2Fwww.tiktok.com%2F%40tiktok%3Flang%3Dzh-Hans&screen_height=1440&screen_width=2560&tz_name=Asia%2FShanghai&user_is_login=true&verifyFp=verify_x&webcast_language=zh-Hans&X-Dynosaur=D&msToken=mtok&X-Bogus=B&X-Gnarly=G"
+ },
+ "get_community_notes_intake": {
+  "body": null,
+  "headers": [
+   "sec-ch-ua-platform",
+   "referer",
+   "user-agent",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "cookie",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "GET",
+  "url": "https://www.tiktok.com/tiktok/v1/community_notes/intake/check/?WebIdLastTime=1700000000&aid=1988&app_language=zh-Hans&app_name=tiktok_web&browser_language=zh-CN&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%20NT%2010.0%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F153.0.0.0%20Safari%2F537.36&channel=tiktok_web&cookie_enabled=true&data_collection_enabled=true&device_id=7000000000000000002&device_platform=web_pc&focus_state=true&from_page=user&history_len=2&is_fullscreen=false&is_page_visible=true&odinId=7000000000000000003&os=windows&priority_region=SG&referer=https%3A%2F%2Fwww.tiktok.com%2F%40tiktok%3Flang%3Dzh-Hans&region=SG&root_referer=https%3A%2F%2Fwww.tiktok.com%2F%40tiktok%3Flang%3Dzh-Hans&screen_height=1440&screen_width=2560&tz_name=Asia%2FShanghai&user_is_login=true&verifyFp=verify_x&webcast_language=zh-Hans"
+ },
+ "get_compliance_guadig_settings": {
+  "body": null,
+  "headers": [
+   "sec-ch-ua-platform",
+   "referer",
+   "user-agent",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "cookie",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "GET",
+  "url": "https://www.tiktok.com/tiktok/v1/compliance/guadig/settings/?WebIdLastTime=1700000000&aid=1988&app_language=zh-Hans&app_name=tiktok_web&browser_language=zh-CN&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%20NT%2010.0%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F153.0.0.0%20Safari%2F537.36&channel=tiktok_web&cookie_enabled=true&data_collection_enabled=true&date=2026-09-28&device_id=7000000000000000002&device_platform=web_pc&focus_state=true&from_page=user&history_len=2&is_fullscreen=false&is_page_visible=true&odinId=7000000000000000003&os=windows&priority_region=SG&referer=https%3A%2F%2Fwww.tiktok.com%2F%40tiktok%3Flang%3Dzh-Hans&region=SG&root_referer=https%3A%2F%2Fwww.tiktok.com%2F%40tiktok%3Flang%3Dzh-Hans&screen_height=1440&screen_width=2560&tz_name=Asia%2FShanghai&user_is_login=true&verifyFp=verify_x&webcast_language=zh-Hans"
+ },
+ "get_compliance_settings": {
+  "body": null,
+  "headers": [
+   "sec-ch-ua-platform",
+   "referer",
+   "user-agent",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "cookie",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "GET",
+  "url": "https://www.tiktok.com/api/compliance/settings/?WebIdLastTime=1700000000&aid=1988&app_language=zh-Hans&app_name=tiktok_web&browser_language=zh-CN&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%20NT%2010.0%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F153.0.0.0%20Safari%2F537.36&channel=tiktok_web&cookie_enabled=true&data_collection_enabled=true&device_id=7000000000000000002&device_platform=web_pc&focus_state=true&fromWeb=1&from_page=user&history_len=2&is_fullscreen=false&is_page_visible=true&odinId=7000000000000000003&os=windows&priority_region=SG&referer=https%3A%2F%2Fwww.tiktok.com%2F%40tiktok%3Flang%3Dzh-Hans&region=SG&root_referer=https%3A%2F%2Fwww.tiktok.com%2F%40tiktok%3Flang%3Dzh-Hans&screen_height=1440&screen_width=2560&tz_name=Asia%2FShanghai&user_is_login=true&verifyFp=verify_x&webcast_language=zh-Hans"
+ },
+ "get_cookie_privacy_config": {
+  "body": null,
+  "headers": [
+   "sec-ch-ua-platform",
+   "referer",
+   "user-agent",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "cookie",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "GET",
+  "url": "https://www.tiktok.com/api/v1/web-cookie-privacy/config?locale=zh-Hans&appId=1988&theme=default&tea=1"
+ },
+ "get_creator_item_list": {
+  "body": "{\"cursor\":0,\"size\":50,\"query\":{\"sort_orders\":[{\"field_name\":\"post_time\",\"order\":2}],\"conditions\":[],\"is_recent_posts\":false}}",
+  "headers": [
+   "sec-ch-ua-platform",
+   "referer",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "agw-js-conv",
+   "tt-csrf-token",
+   "user-agent",
+   "accept",
+   "content-type",
+   "accept-encoding",
+   "accept-language",
+   "content-length",
+   "cookie",
+   "origin",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "POST",
+  "url": "https://www.tiktok.com/tiktok/creator/manage/item_list/v1/?locale=zh-Hans&aid=1988&priority_region=HK&region=HK&tz_name=Asia%2FShanghai&app_name=tiktok_creator_center&app_language=zh-Hans&device_platform=web_pc&channel=tiktok_web&device_id=7000000000000000002&os=win&screen_width=2560&screen_height=1440&browser_language=zh-CN&browser_platform=Win32&browser_name=Mozilla&browser_version=5.0+%28Windows+NT+10.0%3B+Win64%3B+x64%29+AppleWebKit%2F537.36+%28KHTML%2C+like+Gecko%29+Chrome%2F153.0.0.0+Safari%2F537.36&X-Dynosaur=D&msToken=mtok&X-Bogus=B&X-Gnarly=G"
+ },
+ "get_default_at_list": {
+  "body": null,
+  "headers": [
+   "sec-ch-ua-platform",
+   "referer",
+   "user-agent",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "cookie",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "GET",
+  "url": "https://www.tiktok.com/api/at/default/list/?WebIdLastTime=1700000000&aid=1988&app_language=zh-Hans&app_name=tiktok_web&browser_language=zh-CN&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%20NT%2010.0%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F153.0.0.0%20Safari%2F537.36&channel=tiktok_web&cookie_enabled=true&count=25&cursor=0&data_collection_enabled=true&device_id=7000000000000000002&device_platform=web_pc&focus_state=true&from_page=video&history_len=3&is_fullscreen=false&is_page_visible=true&odinId=7000000000000000003&os=windows&priority_region=SG&referer=https%3A%2F%2Fwww.tiktok.com%2F%40tiktok%3Flang%3Dzh-Hans&region=SG&root_referer=https%3A%2F%2Fwww.tiktok.com%2F%40tiktok%3Flang%3Dzh-Hans&screen_height=1440&screen_width=2560&tz_name=Asia%2FShanghai&user_is_login=true&verifyFp=verify_x&webcast_language=zh-Hans&X-Dynosaur=D&msToken=mtok&X-Bogus=B&X-Gnarly=G"
+ },
+ "get_diamond_buy_permission": {
+  "body": null,
+  "headers": [
+   "sec-ch-ua-platform",
+   "referer",
+   "user-agent",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "cookie",
+   "origin",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "GET",
+  "url": "https://webcast.tiktok.com/webcast/wallet_api/fs/diamond_buy/permission_v2?WebIdLastTime=1700000000&aid=1988&app_language=zh-Hans&app_name=tiktok_web&browser_language=zh-CN&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%20NT%2010.0%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F153.0.0.0%20Safari%2F537.36&channel=tiktok_web&cookie_enabled=true&data_collection_enabled=true&device_id=7000000000000000002&device_platform=web_pc&focus_state=true&from_page=user&history_len=2&is_fullscreen=false&is_page_visible=true&live_id=12&local_country=SG&odinId=7000000000000000003&os=windows&priority_region=SG&referer=https%3A%2F%2Fwww.tiktok.com%2F%40tiktok%3Flang%3Dzh-Hans&region=SG&root_referer=https%3A%2F%2Fwww.tiktok.com%2F%40tiktok%3Flang%3Dzh-Hans&source=www.tiktok.com%2F%40tiktok&screen_height=1440&screen_width=2560&tz_name=Asia%2FShanghai&user_id=6800000000000000001&user_is_login=true&verifyFp=verify_x&webcast_language=zh-Hans&X-Dynosaur=D&msToken=mtok&X-Bogus=B&X-Gnarly=G"
+ },
+ "get_event_feed": {
+  "body": null,
+  "headers": [
+   "sec-ch-ua-platform",
+   "referer",
+   "user-agent",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "cookie",
+   "origin",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "GET",
+  "url": "https://webcast.tiktok.com/tiktok/event/feed/v1?WebIdLastTime=1700000000&aid=1988&app_language=zh-Hans&app_name=tiktok_web&browser_language=zh-CN&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%20NT%2010.0%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F153.0.0.0%20Safari%2F537.36&channel=tiktok_web&cookie_enabled=true&count=5&data_collection_enabled=true&device_id=7000000000000000002&device_platform=web_pc&focus_state=true&from_page=&history_len=2&is_fullscreen=false&is_page_visible=true&odinId=7000000000000000003&os=windows&priority_region=SG&query_type=3&referer=&region=SG&root_referer=&screen_height=1440&screen_width=2560&tz_name=Asia%2FShanghai&user_is_login=true&verifyFp=verify_x&webcast_language=zh-Hans&X-Dynosaur=D&msToken=mtok&X-Bogus=B&X-Gnarly=G"
+ },
+ "get_event_list": {
+  "body": null,
+  "headers": [
+   "sec-ch-ua-platform",
+   "referer",
+   "user-agent",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "cookie",
+   "origin",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "GET",
+  "url": "https://webcast.tiktok.com/tiktok/event/list/v1?WebIdLastTime=1700000000&aid=1988&app_language=zh-Hans&app_name=tiktok_web&browser_language=zh-CN&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%20NT%2010.0%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F153.0.0.0%20Safari%2F537.36&channel=tiktok_web&cookie_enabled=true&count=5&data_collection_enabled=true&device_id=7000000000000000002&device_platform=web_pc&focus_state=true&from_page=&history_len=4&host_user_id=6800000000000000001&is_fullscreen=false&is_page_visible=true&offset=0&odinId=7000000000000000003&os=windows&priority_region=SG&query_event_list_scene=3&query_type=2&referer=&region=SG&root_referer=&screen_height=1440&screen_width=2560&tz_name=Asia%2FShanghai&user_id=6800000000000000001&user_is_login=true&verifyFp=verify_x&webcast_language=zh-Hans&X-Dynosaur=D&msToken=mtok&X-Bogus=B&X-Gnarly=G"
+ },
+ "get_event_recommendations": {
+  "body": null,
+  "headers": [
+   "sec-ch-ua-platform",
+   "referer",
+   "user-agent",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "cookie",
+   "origin",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "GET",
+  "url": "https://webcast.tiktok.com/tiktok/event/recommend/v1?WebIdLastTime=1700000000&aid=1988&app_language=zh-Hans&app_name=tiktok_web&browser_language=zh-CN&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%20NT%2010.0%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F153.0.0.0%20Safari%2F537.36&channel=tiktok_web&cookie_enabled=true&count=4&data_collection_enabled=true&device_id=7000000000000000002&device_platform=web_pc&focus_state=true&from_page=&history_len=2&is_fullscreen=false&is_page_visible=true&odinId=7000000000000000003&os=windows&priority_region=SG&referer=&region=SG&root_referer=&screen_height=1440&screen_width=2560&tz_name=Asia%2FShanghai&user_is_login=true&verifyFp=verify_x&webcast_language=zh-Hans&X-Dynosaur=D&msToken=mtok&X-Bogus=B&X-Gnarly=G"
+ },
+ "get_feedback_newest_reply": {
+  "body": null,
+  "headers": [
+   "sec-ch-ua-platform",
+   "referer",
+   "user-agent",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "cookie",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "GET",
+  "url": "https://www.tiktok.com/api/feedback/v1/newest_reply/?WebIdLastTime=1700000000&aid=1284&app_key=tiktok-web&app_language=zh-Hans&app_name=tiktok_web&appkey=tiktok-web&browser_language=zh-CN&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%20NT%2010.0%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F153.0.0.0%20Safari%2F537.36&channel=tiktok_web&clear_unread=false&cookie_enabled=true&data_collection_enabled=true&device_id=7000000000000000002&device_platform=web_pc&focus_state=true&from_page=fyp&history_len=2&iid=0&is_fullscreen=false&is_page_visible=true&odinId=7000000000000000003&os=windows&priority_region=SG&referer=&region=SG&root_referer=&screen_height=1440&screen_width=2560&tz_name=Asia%2FShanghai&user_is_login=true&verifyFp=verify_x&webcast_language=zh-Hans"
+ },
+ "get_following_item_list": {
+  "body": null,
+  "headers": [
+   "tt-ticket-guard-client-data",
+   "sec-ch-ua-platform",
+   "referer",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "user-agent",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "cookie",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "GET",
+  "url": "https://www.tiktok.com/api/following/item_list/?WebIdLastTime=1700000000&aid=1988&app_language=zh-Hans&app_name=tiktok_web&browser_language=zh-CN&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%20NT%2010.0%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F153.0.0.0%20Safari%2F537.36&channel=tiktok_web&clientABVersions=70508271%2C72437276%2C73720540%2C75360573%2C75657507%2C75843653%2C75878361%2C76074824%2C76122410%2C76179551%2C76403724%2C76499369%2C76626930%2C76651230%2C76669176%2C76713103%2C76740102%2C76792575%2C76805936%2C76813520%2C76815102%2C76826749%2C76839930%2C76840792%2C76887350%2C76889673%2C76907405%2C76933422%2C76945954%2C76950455%2C77005875%2C77011497%2C77014490%2C77056281%2C77064650%2C77071444%2C77093404%2C77120364%2C77141446%2C77150562%2C77155134%2C70138197%2C70156809%2C70405643%2C71057832%2C71200802%2C71381811%2C71803300%2C72360691%2C72408100%2C72854054%2C72892778%2C73171280%2C73208420%2C73989921%2C74276218%2C74844724%2C75330961&cookie_enabled=true&count=9&coverFormat=2&cursor=0&data_collection_enabled=true&device_id=7000000000000000002&device_platform=web_pc&focus_state=true&from_page=following&history_len=2&isNonPersonalized=false&isResetCounterUsed=true&is_fullscreen=false&is_page_visible=true&language=zh-Hans&level=1&odinId=7000000000000000003&os=windows&priority_region=SG&pullType=1&referer=&region=SG&root_referer=&screen_height=1440&screen_width=2560&tz_name=Asia%2FShanghai&user_is_login=true&verifyFp=verify_x&webcast_language=zh-Hans&X-Dynosaur=D&msToken=mtok&X-Bogus=B&X-Gnarly=G"
+ },
+ "get_following_request_list": {
+  "body": null,
+  "headers": [
+   "sec-ch-ua-platform",
+   "referer",
+   "user-agent",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "cookie",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "GET",
+  "url": "https://www.tiktok.com/api/user/following/request/list/?WebIdLastTime=1700000000&aid=1988&app_language=zh-Hans&app_name=tiktok_web&browser_language=zh-CN&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%20NT%2010.0%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F153.0.0.0%20Safari%2F537.36&channel=tiktok_web&cookie_enabled=true&count=20&data_collection_enabled=true&device_id=7000000000000000002&device_platform=web_pc&focus_state=true&from_page=fyp&history_len=2&is_fullscreen=false&is_page_visible=true&max_time=0&odinId=7000000000000000003&os=windows&priority_region=SG&referer=&region=SG&root_referer=&screen_height=1440&screen_width=2560&tz_name=Asia%2FShanghai&user_id=6800000000000000001&user_is_login=true&verifyFp=verify_x&webcast_language=zh-Hans&X-Dynosaur=D&msToken=mtok&X-Bogus=B&X-Gnarly=G"
+ },
+ "get_im_messages_by_conversation": {
+  "error": "BrowserEvidenceError"
+ },
+ "get_im_messages_per_user_combo": {
+  "skipped": "needs non-dummy args"
+ },
+ "get_im_messages_per_user_init": {
+  "error": "BrowserEvidenceError"
+ },
+ "get_im_spotlight_relation": {
+  "body": null,
+  "headers": [
+   "sec-ch-ua-platform",
+   "referer",
+   "user-agent",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "cookie",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "GET",
+  "url": "https://www.tiktok.com/api/im/spotlight/relation/?WebIdLastTime=1700000000&aid=1988&app_language=zh-Hans&app_name=tiktok_web&browser_language=zh-CN&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%20NT%2010.0%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F153.0.0.0%20Safari%2F537.36&channel=tiktok_web&cookie_enabled=true&count=90&data_collection_enabled=true&device_id=7000000000000000002&device_platform=webapp_pc&focus_state=true&from_page=user&history_len=2&is_fullscreen=false&is_page_visible=true&max_time=0&min_time=0&odinId=7000000000000000003&os=windows&priority_region=SG&referer=https%3A%2F%2Fwww.tiktok.com%2F%40tiktok%3Flang%3Dzh-Hans&region=SG&root_referer=https%3A%2F%2Fwww.tiktok.com%2F%40tiktok%3Flang%3Dzh-Hans&screen_height=1440&screen_width=2560&source=web&tz_name=Asia%2FShanghai&user_is_login=true&verifyFp=verify_x&webcast_language=zh-Hans&with_fstatus=1"
+ },
+ "get_im_user_profile": {
+  "body": null,
+  "headers": [
+   "sec-ch-ua-platform",
+   "referer",
+   "user-agent",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "cookie",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "GET",
+  "url": "https://www.tiktok.com/tiktok/v1/im/user/profile/?aid=1988&user_ids=%5B%226800000000000000001%22%5D"
+ },
+ "get_in_room_banner": {
+  "body": null,
+  "headers": [
+   "sec-ch-ua-platform",
+   "referer",
+   "user-agent",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "cookie",
+   "origin",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "GET",
+  "url": "https://webcast.tiktok.com/webcast/room/in_room_banner/?WebIdLastTime=1700000000&aid=1180&app_language=zh-Hans&app_name=tiktok_web&browser_language=zh-CN&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%20NT%2010.0%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F153.0.0.0%20Safari%2F537.36&channel=tiktok_web&cookie_enabled=true&data_collection_enabled=true&device_id=7000000000000000002&device_platform=android&focus_state=true&from_page=&history_len=4&is_fullscreen=false&is_page_visible=true&live_ad_type=0&odinId=7000000000000000003&os=windows&priority_region=SG&referer=&region=SG&room_id=7300000000000000001&root_referer=&screen_height=1440&screen_width=2560&tz_name=Asia%2FShanghai&version_code=430900&user_is_login=true&verifyFp=verify_x&webcast_language=zh-Hans&X-Dynosaur=D&msToken=mtok&X-Bogus=B&X-Gnarly=G"
+ },
+ "get_inbox_notice_list": {
+  "body": null,
+  "headers": [
+   "sec-ch-ua-platform",
+   "referer",
+   "user-agent",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "cookie",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "GET",
+  "url": "https://www.tiktok.com/api/inbox/notice_list/?WebIdLastTime=1700000000&aid=1988&app_language=zh-Hans&app_name=tiktok_web&browser_language=zh-CN&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%20NT%2010.0%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F153.0.0.0%20Safari%2F537.36&channel=tiktok_web&cookie_enabled=true&data_collection_enabled=true&device_id=7000000000000000002&device_platform=web_pc&focus_state=true&from_page=fyp&group_list=%5B%7B%22count%22%3A1%2C%22is_mark_read%22%3A0%2C%22group%22%3A661%2C%22max_time%22%3A0%2C%22min_time%22%3A0%7D%5D&history_len=2&is_fullscreen=false&is_page_visible=true&odinId=7000000000000000003&os=windows&priority_region=SG&referer=&region=SG&root_referer=&screen_height=1440&screen_width=2560&tz_name=Asia%2FShanghai&user_is_login=true&verifyFp=verify_x&webcast_language=zh-Hans&X-Dynosaur=D&msToken=mtok&X-Bogus=B&X-Gnarly=G"
+ },
+ "get_item_availability": {
+  "body": null,
+  "headers": [
+   "sec-ch-ua-platform",
+   "referer",
+   "user-agent",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "cookie",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "GET",
+  "url": "https://www.tiktok.com/api/item/availability/?WebIdLastTime=1700000000&aid=1988&app_language=zh-Hans&app_name=tiktok_web&browser_language=zh-CN&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%20NT%2010.0%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F153.0.0.0%20Safari%2F537.36&channel=tiktok_web&cookie_enabled=true&data_collection_enabled=true&device_id=7000000000000000002&device_platform=web_pc&focus_state=true&from_page=fyp&history_len=2&is_fullscreen=false&is_page_visible=true&itemIds=7100000000000000001&odinId=7000000000000000003&os=windows&priority_region=SG&referer=&region=SG&root_referer=&screen_height=1440&screen_width=2560&tz_name=Asia%2FShanghai&user_is_login=true&verifyFp=verify_x&webcast_language=zh-Hans&X-Dynosaur=D&msToken=mtok&X-Bogus=B&X-Gnarly=G"
+ },
+ "get_live_game_feed": {
+  "body": null,
+  "headers": [
+   "sec-ch-ua-platform",
+   "referer",
+   "user-agent",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "cookie",
+   "origin",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "GET",
+  "url": "https://webcast.tiktok.com/webcast/game_feed/api/feed_card/strategy/?WebIdLastTime=1700000000&aid=1988&app_language=zh-Hans&app_name=tiktok_web&browser_language=zh-CN&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%20NT%2010.0%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F153.0.0.0%20Safari%2F537.36&channel=tiktok_web&cookie_enabled=true&data_collection_enabled=true&device_id=7000000000000000002&device_platform=web_pc&focus_state=true&from_page=&history_len=2&is_fullscreen=false&is_page_visible=true&os=windows&priority_region=SG&referer=&region=SG&root_referer=&screen_height=1440&screen_width=2560&tz_name=Asia%2FShanghai&user_is_login=true&verifyFp=verify_x&webcast_language=zh-Hans&X-Dynosaur=D&msToken=mtok&X-Bogus=B&X-Gnarly=G"
+ },
+ "get_live_game_feed_component": {
+  "body": null,
+  "headers": [
+   "sec-ch-ua-platform",
+   "referer",
+   "user-agent",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "cookie",
+   "origin",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "GET",
+  "url": "https://webcast.tiktok.com/webcast/game_feed/api/feed_component/strategy/?WebIdLastTime=1700000000&aid=1988&app_language=zh-Hans&app_name=tiktok_web&browser_language=zh-CN&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%20NT%2010.0%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F153.0.0.0%20Safari%2F537.36&channel=tiktok_web&cookie_enabled=true&data_collection_enabled=true&device_id=7000000000000000002&device_platform=web_pc&focus_state=true&from_page=&history_len=2&is_fullscreen=false&is_page_visible=true&os=windows&priority_region=SG&referer=&region=SG&root_referer=&screen_height=1440&screen_width=2560&tz_name=Asia%2FShanghai&user_is_login=true&verifyFp=verify_x&webcast_language=zh-Hans&X-Dynosaur=D&msToken=mtok&X-Bogus=B&X-Gnarly=G"
+ },
+ "get_live_gift_cpc_prompt": {
+  "body": null,
+  "headers": [
+   "sec-ch-ua-platform",
+   "referer",
+   "user-agent",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "cookie",
+   "origin",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "GET",
+  "url": "https://webcast.tiktok.com/webcast/gift/cpc_prompt/?WebIdLastTime=1700000000&aid=1988&app_language=zh-Hans&app_name=tiktok_web&browser_language=zh-CN&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%20NT%2010.0%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F153.0.0.0%20Safari%2F537.36&channel=tiktok_web&cookie_enabled=true&data_collection_enabled=true&device_id=7000000000000000002&device_platform=web_pc&focus_state=true&from_page=&history_len=2&is_fullscreen=false&is_page_visible=true&os=windows&priority_region=SG&referer=&region=SG&root_referer=&screen_height=1440&screen_width=2560&tz_name=Asia%2FShanghai&user_is_login=true&verifyFp=verify_x&webcast_language=zh-Hans&X-Dynosaur=D&msToken=mtok&X-Bogus=B&X-Gnarly=G"
+ },
+ "get_live_gift_list": {
+  "body": null,
+  "headers": [
+   "sec-ch-ua-platform",
+   "referer",
+   "user-agent",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "cookie",
+   "origin",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "GET",
+  "url": "https://webcast.tiktok.com/webcast/gift/list/?WebIdLastTime=1700000000&aid=1988&app_language=zh-Hans&app_name=tiktok_web&browser_language=zh-CN&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%20NT%2010.0%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F153.0.0.0%20Safari%2F537.36&channel=tiktok_web&cookie_enabled=true&data_collection_enabled=true&device_id=7000000000000000002&device_platform=web_pc&focus_state=true&from_page=&history_len=4&is_fullscreen=false&is_page_visible=true&os=windows&priority_region=SG&referer=&region=SG&room_id=7300000000000000001&root_referer=&screen_height=1440&screen_width=2560&tz_name=Asia%2FShanghai&user_is_login=true&verifyFp=verify_x&webcast_language=zh-Hans&X-Dynosaur=D&msToken=mtok&X-Bogus=B&X-Gnarly=G"
+ },
+ "get_live_podcast": {
+  "body": null,
+  "headers": [
+   "sec-ch-ua-platform",
+   "referer",
+   "user-agent",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "cookie",
+   "origin",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "GET",
+  "url": "https://webcast.tiktok.com/webcast/room/live_podcast/?WebIdLastTime=1700000000&aid=1988&app_language=zh-Hans&app_name=tiktok_web&browser_language=zh-CN&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%20NT%2010.0%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F153.0.0.0%20Safari%2F537.36&channel=tiktok_web&cookie_enabled=true&data_collection_enabled=true&device_id=7000000000000000002&device_platform=web_pc&focus_state=true&from_page=&history_len=2&is_fullscreen=false&is_page_visible=true&os=windows&priority_region=SG&referer=&region=SG&root_referer=&screen_height=1440&screen_width=2560&tz_name=Asia%2FShanghai&user_is_login=true&verifyFp=verify_x&webcast_language=zh-Hans&X-Dynosaur=D&msToken=mtok&X-Bogus=B&X-Gnarly=G"
+ },
+ "get_live_quick_chat_list": {
+  "body": null,
+  "headers": [
+   "sec-ch-ua-platform",
+   "referer",
+   "user-agent",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "cookie",
+   "origin",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "GET",
+  "url": "https://webcast.tiktok.com/webcast/room/quick_chat_list/?WebIdLastTime=1700000000&aid=1988&app_language=zh-Hans&app_name=tiktok_web&browser_language=zh-CN&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%20NT%2010.0%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F153.0.0.0%20Safari%2F537.36&channel=tiktok_web&cookie_enabled=true&data_collection_enabled=true&device_id=7000000000000000002&device_platform=web_pc&focus_state=true&from_page=&history_len=4&is_fullscreen=false&is_page_visible=true&os=windows&priority_region=SG&referer=&region=SG&room_id=7300000000000000001&root_referer=&scenes_list=12&screen_height=1440&screen_width=2560&tz_name=Asia%2FShanghai&user_is_login=true&verifyFp=verify_x&webcast_language=zh-Hans&X-Dynosaur=D&msToken=mtok&X-Bogus=B&X-Gnarly=G"
+ },
+ "get_live_room_info": {
+  "skipped": "needs non-dummy args"
+ },
+ "get_live_setting": {
+  "body": null,
+  "headers": [
+   "sec-ch-ua-platform",
+   "referer",
+   "user-agent",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "cookie",
+   "origin",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "GET",
+  "url": "https://webcast.tiktok.com/webcast/setting/?WebIdLastTime=1700000000&aid=1988&app_language=zh-Hans&app_name=tiktok_web&browser_language=zh-CN&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%20NT%2010.0%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F153.0.0.0%20Safari%2F537.36&channel=tiktok_web&cookie_enabled=true&data_collection_enabled=true&device_id=7000000000000000002&device_platform=web_pc&focus_state=true&from_page=&history_len=2&is_fullscreen=false&is_page_visible=true&os=windows&priority_region=SG&referer=&region=SG&root_referer=&screen_height=1440&screen_width=2560&tz_name=Asia%2FShanghai&user_is_login=true&verifyFp=verify_x&webcast_language=zh-Hans&X-Dynosaur=D&msToken=mtok&X-Bogus=B&X-Gnarly=G"
+ },
+ "get_live_sub_info": {
+  "body": null,
+  "headers": [
+   "sec-ch-ua-platform",
+   "referer",
+   "user-agent",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "cookie",
+   "origin",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "GET",
+  "url": "https://webcast.tiktok.com/webcast/sub/privilege/get_sub_info?WebIdLastTime=1700000000&aid=1988&app_language=zh-Hans&app_name=tiktok_web&browser_language=zh-CN&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%20NT%2010.0%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F153.0.0.0%20Safari%2F537.36&channel=tiktok_web&cookie_enabled=true&data_collection_enabled=true&device_id=7000000000000000002&device_platform=web_pc&focus_state=true&from_page=user&history_len=2&is_fullscreen=false&is_page_visible=true&need_current_state=true&odinId=7000000000000000003&os=windows&priority_region=SG&referer=https%3A%2F%2Fwww.tiktok.com%2F%40tiktok%3Flang%3Dzh-Hans&region=SG&root_referer=https%3A%2F%2Fwww.tiktok.com%2F%40tiktok%3Flang%3Dzh-Hans&screen_height=1440&screen_width=2560&sec_anchor_id=MS4wANCHOR&tz_name=Asia%2FShanghai&user_is_login=true&verifyFp=verify_x&webcast_language=zh-Hans&X-Dynosaur=D&msToken=mtok&X-Bogus=B&X-Gnarly=G"
+ },
+ "get_live_user_room": {
+  "body": null,
+  "headers": [
+   "sec-ch-ua-platform",
+   "referer",
+   "user-agent",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "cookie",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "GET",
+  "url": "https://www.tiktok.com/api-live/user/room?WebIdLastTime=1700000000&aid=1988&app_language=zh-Hans&app_name=tiktok_web&browser_language=zh-CN&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%20NT%2010.0%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F153.0.0.0%20Safari%2F537.36&channel=tiktok_web&cookie_enabled=true&data_collection_enabled=true&device_id=7000000000000000002&device_platform=web_pc&focus_state=true&from_page=&history_len=4&is_fullscreen=false&is_page_visible=true&os=windows&priority_region=SG&referer=&region=SG&root_referer=&screen_height=1440&screen_width=2560&sourceType=54&staleTime=600000&tz_name=Asia%2FShanghai&uniqueId=someone&user_is_login=true&verifyFp=verify_x&webcast_language=zh-Hans&X-Dynosaur=D&msToken=mtok&X-Bogus=B&X-Gnarly=G"
+ },
+ "get_media_openid": {
+  "body": null,
+  "headers": [
+   "sec-ch-ua-platform",
+   "referer",
+   "user-agent",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "cookie",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "GET",
+  "url": "https://www.tiktok.com/api/v1/media/get/openid/?aid=1988"
+ },
+ "get_message_notice_count": {
+  "body": null,
+  "headers": [
+   "sec-ch-ua-platform",
+   "referer",
+   "user-agent",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "cookie",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "GET",
+  "url": "https://www.tiktok.com/api/inbox/notice_count/?WebIdLastTime=1700000000&aid=1988&app_language=zh-Hans&app_name=tiktok_web&browser_language=zh-CN&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%20NT%2010.0%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F153.0.0.0%20Safari%2F537.36&channel=tiktok_web&cookie_enabled=true&data_collection_enabled=true&device_id=7000000000000000002&device_platform=web_pc&focus_state=true&from_page=message&history_len=4&is_fullscreen=false&is_page_visible=true&odinId=7000000000000000003&os=windows&priority_region=SG&referer=&region=SG&root_referer=&screen_height=1440&screen_width=2560&tz_name=Asia%2FShanghai&user_is_login=true&verifyFp=verify_x&webcast_language=zh-Hans&X-Dynosaur=D&msToken=mtok&X-Bogus=B&X-Gnarly=G"
+ },
+ "get_message_notice_list": {
+  "body": null,
+  "headers": [
+   "sec-ch-ua-platform",
+   "referer",
+   "user-agent",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "cookie",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "GET",
+  "url": "https://www.tiktok.com/api/inbox/notice_list/?WebIdLastTime=1700000000&aid=1988&app_language=zh-Hans&app_name=tiktok_web&browser_language=zh-CN&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%20NT%2010.0%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F153.0.0.0%20Safari%2F537.36&channel=tiktok_web&cookie_enabled=true&data_collection_enabled=true&device_id=7000000000000000002&device_platform=web_pc&focus_state=true&from_page=message&group_list=%5B%7B%22count%22%3A1%2C%22is_mark_read%22%3A0%2C%22group%22%3A661%2C%22max_time%22%3A0%2C%22min_time%22%3A0%7D%5D&history_len=4&is_fullscreen=false&is_page_visible=true&odinId=7000000000000000003&os=windows&priority_region=SG&referer=&region=SG&root_referer=&screen_height=1440&screen_width=2560&tz_name=Asia%2FShanghai&user_is_login=true&verifyFp=verify_x&webcast_language=zh-Hans&X-Dynosaur=D&msToken=mtok&X-Bogus=B&X-Gnarly=G"
+ },
+ "get_music_dsp_platform_list": {
+  "body": null,
+  "headers": [
+   "sec-ch-ua-platform",
+   "referer",
+   "user-agent",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "cookie",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "GET",
+  "url": "https://www.tiktok.com/tiktok/music/tt_to_dsp/platform/list/v1?WebIdLastTime=1700000000&aid=1988&app_language=zh-Hans&app_name=tiktok_web&browser_language=zh-CN&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%20NT%2010.0%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F153.0.0.0%20Safari%2F537.36&channel=tiktok_web&cookie_enabled=true&data_collection_enabled=true&device_id=7000000000000000002&device_platform=web_pc&focus_state=true&from_page=fyp&history_len=3&is_fullscreen=false&is_page_visible=true&odinId=7000000000000000003&os=windows&priority_region=SG&referer=https%3A%2F%2Fwww.tiktok.com%2F&region=SG&root_referer=https%3A%2F%2Fwww.tiktok.com%2F&screen_height=1440&screen_width=2560&tz_name=Asia%2FShanghai&user_is_login=true&verifyFp=verify_x&webcast_language=zh-Hans"
+ },
+ "get_notice_count": {
+  "body": null,
+  "headers": [
+   "sec-ch-ua-platform",
+   "referer",
+   "user-agent",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "cookie",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "GET",
+  "url": "https://www.tiktok.com/api/inbox/notice_count/?WebIdLastTime=1700000000&aid=1988&app_language=zh-Hans&app_name=tiktok_web&browser_language=zh-CN&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%20NT%2010.0%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F153.0.0.0%20Safari%2F537.36&channel=tiktok_web&cookie_enabled=true&data_collection_enabled=true&device_id=7000000000000000002&device_platform=web_pc&focus_state=true&from_page=fyp&history_len=2&is_fullscreen=false&is_page_visible=true&odinId=7000000000000000003&os=windows&priority_region=SG&referer=&region=SG&root_referer=&screen_height=1440&screen_width=2560&tz_name=Asia%2FShanghai&user_is_login=true&verifyFp=verify_x&webcast_language=zh-Hans&X-Dynosaur=D&msToken=mtok&X-Bogus=B&X-Gnarly=G"
+ },
+ "get_notice_multi": {
+  "body": null,
+  "headers": [
+   "sec-ch-ua-platform",
+   "referer",
+   "user-agent",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "cookie",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "GET",
+  "url": "https://www.tiktok.com/api/notice/multi/?WebIdLastTime=1700000000&aid=1988&app_language=zh-Hans&app_name=tiktok_web&browser_language=zh-CN&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%20NT%2010.0%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F153.0.0.0%20Safari%2F537.36&channel=tiktok_web&cookie_enabled=true&data_collection_enabled=true&device_id=7000000000000000002&device_platform=web_pc&focus_state=true&from_page=fyp&group_list=%5B%7B%22count%22%3A20%2C%22is_mark_read%22%3A0%2C%22group%22%3A500%2C%22max_time%22%3A0%2C%22min_time%22%3A0%7D%5D&history_len=2&is_fullscreen=false&is_page_visible=true&odinId=7000000000000000003&os=windows&priority_region=SG&referer=&region=SG&root_referer=&screen_height=1440&screen_width=2560&tz_name=Asia%2FShanghai&user_is_login=true&verifyFp=verify_x&webcast_language=zh-Hans&X-Dynosaur=D&msToken=mtok&X-Bogus=B&X-Gnarly=G"
+ },
+ "get_popup_dispatch": {
+  "body": null,
+  "headers": [
+   "sec-ch-ua-platform",
+   "referer",
+   "user-agent",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "cookie",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "GET",
+  "url": "https://www.tiktok.com/tiktok/popup/dispatch/v1?region=SG&priority_region=SG&aid=1988&device_id=7000000000000000002&app_language=zh-Hans&device_platform=web_pc&WebIdLastTime=1700000000&scene=0"
+ },
+ "get_popup_display": {
+  "body": "",
+  "headers": [
+   "sec-ch-ua-platform",
+   "referer",
+   "user-agent",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "content-type",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "cookie",
+   "content-length",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "POST",
+  "url": "https://www.tiktok.com/tiktok/popup/display/v1/?WebIdLastTime=1700000000&aid=1988&app_language=zh-Hans&app_name=tiktok_web&browser_language=zh-CN&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%20NT%2010.0%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F153.0.0.0%20Safari%2F537.36&channel=tiktok_web&cookie_enabled=true&data_collection_enabled=true&device_id=7000000000000000002&device_platform=web_pc&focus_state=true&from_page=user&history_len=2&is_fullscreen=false&is_page_visible=true&permission_type=10&odinId=7000000000000000003&os=windows&priority_region=SG&referer=https%3A%2F%2Fwww.tiktok.com%2F%40tiktok%3Flang%3Dzh-Hans&region=SG&root_referer=https%3A%2F%2Fwww.tiktok.com%2F%40tiktok%3Flang%3Dzh-Hans&screen_height=1440&screen_width=2560&tz_name=Asia%2FShanghai&user_is_login=true&verifyFp=verify_x&webcast_language=zh-Hans"
+ },
+ "get_ppf_eligibility": {
+  "body": "",
+  "headers": [
+   "sec-ch-ua-platform",
+   "referer",
+   "user-agent",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "content-type",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "cookie",
+   "content-length",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site",
+   "tt-csrf-token"
+  ],
+  "method": "POST",
+  "url": "https://www.tiktok.com/tiktok/ppf/api/eligibility/v2?WebIdLastTime=1700000000&aid=1988&app_language=zh-Hans&app_name=tiktok_web&browser_language=zh-CN&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%20NT%2010.0%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F153.0.0.0%20Safari%2F537.36&channel=tiktok_web&cookie_enabled=true&data_collection_enabled=true&device_id=7000000000000000002&device_platform=web_pc&focus_state=true&from_page=user&history_len=2&is_fullscreen=false&is_page_visible=true&odinId=7000000000000000003&os=windows&priority_region=SG&referer=https%3A%2F%2Fwww.tiktok.com%2F%40tiktok%3Flang%3Dzh-Hans&region=SG&root_referer=https%3A%2F%2Fwww.tiktok.com%2F%40tiktok%3Flang%3Dzh-Hans&screen_height=1440&screen_width=2560&tz_name=Asia%2FShanghai&user_is_login=true&verifyFp=verify_x&webcast_language=zh-Hans"
+ },
+ "get_preload_item_list": {
+  "body": null,
+  "headers": [
+   "sec-ch-ua-platform",
+   "referer",
+   "user-agent",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "cookie",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "GET",
+  "url": "https://www.tiktok.com/api/preload/item_list/?WebIdLastTime=1700000000&aid=1988&app_language=zh-Hans&app_name=tiktok_web&browser_language=zh-CN&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%20NT%2010.0%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F153.0.0.0%20Safari%2F537.36&channel=tiktok_web&clientABVersions=70508271%2C72437276%2C73720540%2C75360573%2C75657507%2C75843653%2C75878361%2C76074824%2C76122410%2C76179551%2C76403724%2C76499369%2C76626930%2C76651230%2C76669176%2C76713103%2C76740102%2C76792575%2C76805936%2C76813520%2C76815102%2C76826749%2C76839930%2C76840792%2C76887350%2C76889673%2C76907405%2C76933422%2C76945954%2C76950455%2C77005875%2C77011497%2C77014490%2C77056281%2C77064650%2C77071444%2C77093404%2C77120364%2C77141446%2C77150562%2C77155134%2C70138197%2C70156809%2C70405643%2C71057832%2C71200802%2C71381811%2C71803300%2C72360691%2C72408100%2C72854054%2C72892778%2C73171280%2C73208420%2C73989921%2C74276218%2C74844724%2C75330961&cookie_enabled=true&count=3&coverFormat=2&cpu_core_number=20&dark_mode=false&data_collection_enabled=true&day_of_week=0&device_id=7000000000000000002&device_platform=web_pc&focus_state=true&from_page=fyp&history_len=2&isNonPersonalized=false&is_fullscreen=false&is_page_visible=true&language=zh-Hans&odinId=7000000000000000003&os=windows&priority_region=SG&referer=&region=SG&root_referer=&screen_height=1440&screen_width=2560&time_of_day=5&tz_name=Asia%2FShanghai&user_is_login=true&verifyFp=verify_x&video_encoding=dash&vv_count=0&vv_count_fyp=0&webcast_language=zh-Hans&X-Dynosaur=D&msToken=mtok&X-Bogus=B&X-Gnarly=G"
+ },
+ "get_privacy_effected_count": {
+  "body": null,
+  "headers": [
+   "sec-ch-ua-platform",
+   "referer",
+   "user-agent",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "cookie",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "GET",
+  "url": "https://www.tiktok.com/api/privacy/user/effected_count/v1?WebIdLastTime=1700000000&aid=1988&app_language=zh-Hans&app_name=tiktok_web&browser_language=zh-CN&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%20NT%2010.0%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F153.0.0.0%20Safari%2F537.36&channel=tiktok_web&cookie_enabled=true&data_collection_enabled=true&device_id=7000000000000000002&device_platform=web_pc&focus_state=true&from_page=user&history_len=2&is_fullscreen=false&is_page_visible=true&odinId=7000000000000000003&os=windows&priority_region=SG&referer=https%3A%2F%2Fwww.tiktok.com%2F%40tiktok%3Flang%3Dzh-Hans&region=SG&root_referer=https%3A%2F%2Fwww.tiktok.com%2F%40tiktok%3Flang%3Dzh-Hans&screen_height=1440&screen_width=2560&tz_name=Asia%2FShanghai&user_is_login=true&verifyFp=verify_x&webcast_language=zh-Hans"
+ },
+ "get_privacy_setting_restriction": {
+  "body": null,
+  "headers": [
+   "sec-ch-ua-platform",
+   "referer",
+   "user-agent",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "cookie",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "GET",
+  "url": "https://www.tiktok.com/api/privacy/setting/restriction/v1?WebIdLastTime=1700000000&aid=1988&app_language=zh-Hans&app_name=tiktok_web&browser_language=zh-CN&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%20NT%2010.0%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F153.0.0.0%20Safari%2F537.36&channel=tiktok_web&cookie_enabled=true&data_collection_enabled=true&device_id=7000000000000000002&device_platform=web_pc&focus_state=true&from_page=user&history_len=2&is_fullscreen=false&is_page_visible=true&odinId=7000000000000000003&os=windows&priority_region=SG&referer=https%3A%2F%2Fwww.tiktok.com%2F%40tiktok%3Flang%3Dzh-Hans&region=SG&root_referer=https%3A%2F%2Fwww.tiktok.com%2F%40tiktok%3Flang%3Dzh-Hans&screen_height=1440&screen_width=2560&tz_name=Asia%2FShanghai&user_is_login=true&verifyFp=verify_x&webcast_language=zh-Hans&X-Dynosaur=D&msToken=mtok&X-Bogus=B&X-Gnarly=G"
+ },
+ "get_profile_followers": {
+  "body": null,
+  "headers": [
+   "sec-ch-ua-platform",
+   "referer",
+   "user-agent",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "cookie",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "GET",
+  "url": "https://www.tiktok.com/api/user/list/?WebIdLastTime=1700000000&aid=1988&app_language=zh-Hans&app_name=tiktok_web&browser_language=zh-CN&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%20NT%2010.0%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F153.0.0.0%20Safari%2F537.36&channel=tiktok_web&clientABVersions=70508271%2C72437276%2C73720540%2C75360573%2C75657507%2C75843653%2C75878361%2C76074824%2C76122410%2C76179551%2C76403724%2C76499369%2C76626930%2C76651230%2C76669176%2C76713103%2C76740102%2C76792575%2C76805936%2C76813520%2C76815102%2C76826749%2C76839930%2C76840792%2C76887350%2C76889673%2C76907405%2C76933422%2C76945954%2C76950455%2C77005875%2C77011497%2C77014490%2C77056281%2C77064650%2C77071444%2C77093404%2C77120364%2C77141446%2C77150562%2C77155134%2C70138197%2C70156809%2C70405643%2C71057832%2C71200802%2C71381811%2C71803300%2C72360691%2C72408100%2C72854054%2C72892778%2C73171280%2C73208420%2C73989921%2C74276218%2C74844724%2C75330961&cookie_enabled=true&count=30&data_collection_enabled=true&device_id=7000000000000000002&device_platform=web_pc&focus_state=true&from_page=user&history_len=2&is_fullscreen=false&is_page_visible=true&maxCursor=0&minCursor=0&odinId=7000000000000000003&os=windows&priority_region=SG&referer=https%3A%2F%2Fwww.tiktok.com%2F%40MS4wSEC%3Flang%3Dzh-Hans&region=SG&root_referer=https%3A%2F%2Fwww.tiktok.com%2F%40MS4wSEC%3Flang%3Dzh-Hans&scene=67&screen_height=1440&screen_width=2560&secUid=MS4wSEC&tz_name=Asia%2FShanghai&user_is_login=true&verifyFp=verify_x&webcast_language=zh-Hans&X-Dynosaur=D&msToken=mtok&X-Bogus=B&X-Gnarly=G"
+ },
+ "get_profile_following": {
+  "body": null,
+  "headers": [
+   "sec-ch-ua-platform",
+   "referer",
+   "user-agent",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "cookie",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "GET",
+  "url": "https://www.tiktok.com/api/user/list/?WebIdLastTime=1700000000&aid=1988&app_language=zh-Hans&app_name=tiktok_web&browser_language=zh-CN&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%20NT%2010.0%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F153.0.0.0%20Safari%2F537.36&channel=tiktok_web&clientABVersions=70508271%2C72437276%2C73720540%2C75360573%2C75657507%2C75843653%2C75878361%2C76074824%2C76122410%2C76179551%2C76403724%2C76499369%2C76626930%2C76651230%2C76669176%2C76713103%2C76740102%2C76792575%2C76805936%2C76813520%2C76815102%2C76826749%2C76839930%2C76840792%2C76887350%2C76889673%2C76907405%2C76933422%2C76945954%2C76950455%2C77005875%2C77011497%2C77014490%2C77056281%2C77064650%2C77071444%2C77093404%2C77120364%2C77141446%2C77150562%2C77155134%2C70138197%2C70156809%2C70405643%2C71057832%2C71200802%2C71381811%2C71803300%2C72360691%2C72408100%2C72854054%2C72892778%2C73171280%2C73208420%2C73989921%2C74276218%2C74844724%2C75330961&cookie_enabled=true&count=30&data_collection_enabled=true&device_id=7000000000000000002&device_platform=web_pc&focus_state=true&from_page=user&history_len=2&is_fullscreen=false&is_page_visible=true&maxCursor=0&minCursor=0&odinId=7000000000000000003&os=windows&priority_region=SG&referer=https%3A%2F%2Fwww.tiktok.com%2F%40MS4wSEC%3Flang%3Dzh-Hans&region=SG&root_referer=https%3A%2F%2Fwww.tiktok.com%2F%40MS4wSEC%3Flang%3Dzh-Hans&scene=21&screen_height=1440&screen_width=2560&secUid=MS4wSEC&tz_name=Asia%2FShanghai&user_is_login=true&verifyFp=verify_x&webcast_language=zh-Hans&X-Dynosaur=D&msToken=mtok&X-Bogus=B&X-Gnarly=G"
+ },
+ "get_profile_upload_config": {
+  "body": null,
+  "headers": [
+   "sec-ch-ua-platform",
+   "referer",
+   "user-agent",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "cookie",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "GET",
+  "url": "https://www.tiktok.com/api/v1/user/profile/upload/?aid=1988&enter_post_page_from=1&verifyFp=verify_x"
+ },
+ "get_project_ab": {
+  "body": null,
+  "headers": [
+   "sec-ch-ua-platform",
+   "referer",
+   "user-agent",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "cookie",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "GET",
+  "url": "https://www.tiktok.com/api/v1/web/project/get/ab/?browser=chrome&ab_param=x&aid=1988"
+ },
+ "get_publish_setting": {
+  "body": null,
+  "headers": [
+   "sec-ch-ua-platform",
+   "referer",
+   "user-agent",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "cookie",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "GET",
+  "url": "https://www.tiktok.com/tiktok/v1/creator/publish_setting/?aid=1988"
+ },
+ "get_recent_mention_contacts": {
+  "body": null,
+  "headers": [
+   "sec-ch-ua-platform",
+   "referer",
+   "user-agent",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "cookie",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "GET",
+  "url": "https://www.tiktok.com/api/mention/recent/contact/list/v1/?WebIdLastTime=1700000000&aid=1988&app_language=zh-Hans&app_name=tiktok_web&browser_language=zh-CN&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%20NT%2010.0%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F153.0.0.0%20Safari%2F537.36&channel=tiktok_web&cookie_enabled=true&data_collection_enabled=true&device_id=7000000000000000002&device_platform=web_pc&focus_state=true&from_page=video&history_len=3&is_fullscreen=false&is_page_visible=true&mentionType=3&odinId=7000000000000000003&os=windows&priority_region=SG&referer=https%3A%2F%2Fwww.tiktok.com%2F%40tiktok%3Flang%3Dzh-Hans&region=SG&root_referer=https%3A%2F%2Fwww.tiktok.com%2F%40tiktok%3Flang%3Dzh-Hans&screen_height=1440&screen_width=2560&secUid=MS4wSEC&tz_name=Asia%2FShanghai&user_is_login=true&verifyFp=verify_x&webcast_language=zh-Hans&X-Dynosaur=D&msToken=mtok&X-Bogus=B&X-Gnarly=G"
+ },
+ "get_recommend_feed": {
+  "body": null,
+  "headers": [
+   "sec-ch-ua-platform",
+   "referer",
+   "user-agent",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "cookie",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "GET",
+  "url": "https://www.tiktok.com/api/recommend/item_list/?WebIdLastTime=1700000000&aid=1988&app_language=zh-Hans&app_name=tiktok_web&browser_language=zh-CN&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%20NT%2010.0%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F153.0.0.0%20Safari%2F537.36&channel=tiktok_web&clientABVersions=70508271%2C72437276%2C73720540%2C75360573%2C75657507%2C75843653%2C75878361%2C76074824%2C76122410%2C76179551%2C76403724%2C76499369%2C76626930%2C76651230%2C76669176%2C76713103%2C76740102%2C76792575%2C76805936%2C76813520%2C76815102%2C76826749%2C76839930%2C76840792%2C76887350%2C76889673%2C76907405%2C76933422%2C76945954%2C76950455%2C77005875%2C77011497%2C77014490%2C77056281%2C77064650%2C77071444%2C77093404%2C77120364%2C77141446%2C77150562%2C77155134%2C70138197%2C70156809%2C70405643%2C71057832%2C71200802%2C71381811%2C71803300%2C72360691%2C72408100%2C72854054%2C72892778%2C73171280%2C73208420%2C73989921%2C74276218%2C74844724%2C75330961&cookie_enabled=true&count=6&coverFormat=2&cpu_core_number=20&dark_mode=false&data_collection_enabled=true&day_of_week=0&device_id=7000000000000000002&device_platform=web_pc&enable_cache=false&focus_state=true&from_page=fyp&history_len=2&isNonPersonalized=false&is_fullscreen=false&is_new_user=true&is_page_visible=true&language=zh-Hans&odinId=7000000000000000003&os=windows&priority_region=SG&pullType=1&referer=&region=SG&root_referer=&screen_height=1440&screen_width=2560&showAboutThisAd=true&showAds=true&time_of_day=5&tz_name=Asia%2FShanghai&verifyFp=verify_x&video_encoding=dash&vv_count=0&vv_count_fyp=0&watchLiveLastTime=1700000000123&webcast_language=zh-Hans&X-Dynosaur=D&msToken=mtok&X-Bogus=B&X-Gnarly=G"
+ },
+ "get_related_items": {
+  "body": null,
+  "headers": [
+   "sec-ch-ua-platform",
+   "referer",
+   "user-agent",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "cookie",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "GET",
+  "url": "https://www.tiktok.com/api/related/item_list/?CategoryType=101&WebIdLastTime=1700000000&aid=1988&app_language=zh-Hans&app_name=tiktok_web&browser_language=zh-CN&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%20NT%2010.0%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F153.0.0.0%20Safari%2F537.36&channel=tiktok_web&clientABVersions=70508271%2C72437276%2C73720540%2C75360573%2C75657507%2C75843653%2C75878361%2C76074824%2C76122410%2C76179551%2C76403724%2C76499369%2C76626930%2C76651230%2C76669176%2C76713103%2C76740102%2C76792575%2C76805936%2C76813520%2C76815102%2C76826749%2C76839930%2C76840792%2C76887350%2C76889673%2C76907405%2C76933422%2C76945954%2C76950455%2C77005875%2C77011497%2C77014490%2C77056281%2C77064650%2C77071444%2C77093404%2C77120364%2C77141446%2C77150562%2C77155134%2C70138197%2C70156809%2C70405643%2C71057832%2C71200802%2C71381811%2C71803300%2C72360691%2C72408100%2C72854054%2C72892778%2C73171280%2C73208420%2C73989921%2C74276218%2C74844724%2C75330961&cookie_enabled=true&count=16&coverFormat=2&cursor=0&data_collection_enabled=true&device_id=7000000000000000002&device_platform=web_pc&focus_state=true&from_page=video&history_len=3&isNonPersonalized=false&is_fullscreen=false&is_page_visible=true&itemID=7100000000000000001&language=zh-Hans&launch_mode=direct&odinId=7000000000000000003&os=windows&priority_region=SG&referer=https%3A%2F%2Fwww.tiktok.com%2F%40tiktok%2Fvideo%2F7100000000000000001%3Flang%3Dzh-Hans&region=SG&root_referer=https%3A%2F%2Fwww.tiktok.com%2F%40tiktok%3Flang%3Dzh-Hans&screen_height=1440&screen_width=2560&tz_name=Asia%2FShanghai&user_is_login=true&verifyFp=verify_x&video_encoding=dash&webcast_language=zh-Hans&X-Dynosaur=D&msToken=mtok&X-Bogus=B&X-Gnarly=G"
+ },
+ "get_report_inbox_notice": {
+  "body": null,
+  "headers": [
+   "sec-ch-ua-platform",
+   "referer",
+   "user-agent",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "cookie",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "GET",
+  "url": "https://www.tiktok.com/aweme/v1/report/inbox/notice/?WebIdLastTime=1700000000&aid=1988&app_language=zh-Hans&app_name=tiktok_web&browser_language=zh-CN&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%20NT%2010.0%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F153.0.0.0%20Safari%2F537.36&carrier_region=SG&channel=tiktok_web&cookie_enabled=true&current_region=SG&data_collection_enabled=true&device_id=7000000000000000002&device_platform=web_pc&focus_state=true&from_page=user&history_len=2&is_fullscreen=false&is_page_visible=true&locale=zh-Hans&odinId=7000000000000000003&os=windows&priority_region=SG&referer=https%3A%2F%2Fwww.tiktok.com%2F%40tiktok%3Flang%3Dzh-Hans&region=SG&request_tag_from=pc&root_referer=https%3A%2F%2Fwww.tiktok.com%2F%40tiktok%3Flang%3Dzh-Hans&screen_height=1440&screen_width=2560&sys_region=SG&tz_name=Asia%2FShanghai&user_is_login=true&verifyFp=verify_x&webcast_language=zh-Hans"
+ },
+ "get_repost_list": {
+  "body": null,
+  "headers": [
+   "sec-ch-ua-platform",
+   "referer",
+   "user-agent",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "cookie",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "GET",
+  "url": "https://www.tiktok.com/api/repost/item_list/?WebIdLastTime=1700000000&aid=1988&app_language=zh-Hans&app_name=tiktok_web&browser_language=zh-CN&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%20NT%2010.0%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F153.0.0.0%20Safari%2F537.36&channel=tiktok_web&clientABVersions=70508271%2C72437276%2C73720540%2C75360573%2C75657507%2C75843653%2C75878361%2C76074824%2C76122410%2C76179551%2C76403724%2C76499369%2C76626930%2C76651230%2C76669176%2C76713103%2C76740102%2C76792575%2C76805936%2C76813520%2C76815102%2C76826749%2C76839930%2C76840792%2C76887350%2C76889673%2C76907405%2C76933422%2C76945954%2C76950455%2C77005875%2C77011497%2C77014490%2C77056281%2C77064650%2C77071444%2C77093404%2C77120364%2C77141446%2C77150562%2C77155134%2C70138197%2C70156809%2C70405643%2C71057832%2C71200802%2C71381811%2C71803300%2C72360691%2C72408100%2C72854054%2C72892778%2C73171280%2C73208420%2C73989921%2C74276218%2C74844724%2C75330961&cookie_enabled=true&count=30&coverFormat=2&cursor=0&data_collection_enabled=true&device_id=7000000000000000002&device_platform=web_pc&focus_state=true&from_page=user&history_len=6&is_fullscreen=false&is_page_visible=true&language=zh-Hans&needPinnedItemIds=true&odinId=7000000000000000003&os=windows&post_item_list_request_type=0&priority_region=SG&referer=https%3A%2F%2Fwww.tiktok.com%2F%40MS4wSEC%3Flang%3Dzh-Hans&region=SG&root_referer=&screen_height=1440&screen_width=2560&secUid=MS4wSEC&tz_name=Asia%2FShanghai&user_is_login=true&verifyFp=verify_x&video_encoding=dash&webcast_language=zh-Hans&X-Dynosaur=D&msToken=mtok&X-Bogus=B&X-Gnarly=G"
+ },
+ "get_screen_time_list": {
+  "body": null,
+  "headers": [
+   "sec-ch-ua-platform",
+   "referer",
+   "user-agent",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "cookie",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "GET",
+  "url": "https://www.tiktok.com/tiktok/v1/screen_time/list/?WebIdLastTime=1700000000&aid=1988&app_language=zh-Hans&app_name=tiktok_web&browser_language=zh-CN&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%20NT%2010.0%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F153.0.0.0%20Safari%2F537.36&channel=tiktok_web&cookie_enabled=true&count=1&date=2026-09-28&data_collection_enabled=true&device_id=7000000000000000002&device_platform=web_pc&focus_state=true&from_page=fyp&history_len=2&is_fullscreen=false&is_page_visible=true&odinId=7000000000000000003&os=windows&priority_region=SG&referer=&region=SG&root_referer=&screen_height=1440&screen_width=2560&tz_name=Asia%2FShanghai&user_is_login=true&verifyFp=verify_x&webcast_language=zh-Hans"
+ },
+ "get_search_preview": {
+  "body": null,
+  "headers": [
+   "sec-ch-ua-platform",
+   "referer",
+   "user-agent",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "cookie",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "GET",
+  "url": "https://www.tiktok.com/api/search/general/preview/?WebIdLastTime=1700000000&aid=1988&app_language=zh-Hans&app_name=tiktok_web&browser_language=zh-CN&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%20NT%2010.0%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F153.0.0.0%20Safari%2F537.36&channel=tiktok_web&cookie_enabled=true&data_collection_enabled=true&device_id=7000000000000000002&device_platform=web_pc&focus_state=true&from_page=search&history_len=2&is_fullscreen=false&is_page_visible=true&keyword=cats&odinId=7000000000000000003&os=windows&priority_region=SG&referer=&region=SG&root_referer=&screen_height=1440&screen_width=2560&tz_name=Asia%2FShanghai&user_is_login=true&verifyFp=verify_x&webcast_language=zh-Hans&X-Dynosaur=D&msToken=mtok&X-Bogus=B&X-Gnarly=G"
+ },
+ "get_search_suggest": {
+  "body": null,
+  "headers": [
+   "sec-ch-ua-platform",
+   "referer",
+   "user-agent",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "cookie",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "GET",
+  "url": "https://www.tiktok.com/api/search/suggest/guide/?WebIdLastTime=1700000000&aid=1988&app_language=zh-Hans&app_name=tiktok_web&browser_language=zh-CN&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%20NT%2010.0%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F153.0.0.0%20Safari%2F537.36&channel=tiktok_web&cookie_enabled=true&data_collection_enabled=true&device_id=7000000000000000002&device_platform=web_pc&focus_state=true&from_page=search&history_len=2&is_fullscreen=false&is_page_visible=true&keyword=cats&odinId=7000000000000000003&os=windows&priority_region=SG&referer=&region=SG&req_source=related_search&root_referer=&screen_height=1440&screen_width=2560&tz_name=Asia%2FShanghai&user_is_login=true&verifyFp=verify_x&webcast_language=zh-Hans"
+ },
+ "get_share_settings": {
+  "body": null,
+  "headers": [
+   "sec-ch-ua-platform",
+   "referer",
+   "user-agent",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "cookie",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "GET",
+  "url": "https://www.tiktok.com/api/share/settings/?WebIdLastTime=1700000000&aid=1988&app_language=zh-Hans&app_name=tiktok_web&browser_language=zh-CN&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%20NT%2010.0%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F153.0.0.0%20Safari%2F537.36&channel=tiktok_web&cookie_enabled=true&data_collection_enabled=true&device_id=7000000000000000002&device_platform=webapp_pc&focus_state=true&from_page=user&history_len=2&is_fullscreen=false&is_page_visible=true&mode=1&odinId=7000000000000000003&os=windows&priority_region=SG&referer=https%3A%2F%2Fwww.tiktok.com%2F%40tiktok%3Flang%3Dzh-Hans&region=SG&root_referer=https%3A%2F%2Fwww.tiktok.com%2F%40tiktok%3Flang%3Dzh-Hans&screen_height=1440&screen_width=2560&tz_name=Asia%2FShanghai&user_is_login=true&verifyFp=verify_x&webcast_language=zh-Hans"
+ },
+ "get_shop_product_detail": {
+  "skipped": "needs non-dummy args"
+ },
+ "get_shop_product_review_page": {
+  "skipped": "needs non-dummy args"
+ },
+ "get_shop_product_reviews": {
+  "skipped": "needs non-dummy args"
+ },
+ "get_story_items": {
+  "body": null,
+  "headers": [
+   "sec-ch-ua-platform",
+   "referer",
+   "user-agent",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "cookie",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "GET",
+  "url": "https://www.tiktok.com/api/story/item_list/?WebIdLastTime=1700000000&aid=1988&app_language=zh-Hans&app_name=tiktok_web&authorId=6800000000000000001&browser_language=zh-CN&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%20NT%2010.0%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F153.0.0.0%20Safari%2F537.36&channel=tiktok_web&cookie_enabled=true&count=20&cursor=0&loadBackward=false&data_collection_enabled=true&device_id=7000000000000000002&device_platform=web_pc&focus_state=true&from_page=user&history_len=2&is_fullscreen=false&is_page_visible=true&odinId=7000000000000000003&os=windows&priority_region=SG&referer=https%3A%2F%2Fwww.tiktok.com%2F%406800000000000000001%3Flang%3Dzh-Hans&region=SG&root_referer=https%3A%2F%2Fwww.tiktok.com%2F%406800000000000000001%3Flang%3Dzh-Hans&screen_height=1440&screen_width=2560&tz_name=Asia%2FShanghai&user_is_login=true&verifyFp=verify_x&webcast_language=zh-Hans&X-Dynosaur=D&msToken=mtok&X-Bogus=B&X-Gnarly=G"
+ },
+ "get_story_users": {
+  "body": null,
+  "headers": [
+   "sec-ch-ua-platform",
+   "referer",
+   "user-agent",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "cookie",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "GET",
+  "url": "https://www.tiktok.com/api/story/user_list/?WebIdLastTime=1700000000&aid=1988&app_language=zh-Hans&app_name=tiktok_web&browser_language=zh-CN&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%20NT%2010.0%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F153.0.0.0%20Safari%2F537.36&channel=tiktok_web&cookie_enabled=true&count=10&cursor=0&isNonPersonalized=false&data_collection_enabled=true&device_id=7000000000000000002&device_platform=web_pc&focus_state=true&from_page=user&history_len=2&is_fullscreen=false&is_page_visible=true&odinId=7000000000000000003&os=windows&priority_region=SG&referer=&region=SG&root_referer=&screen_height=1440&screen_width=2560&storyFeedScene=3&tz_name=Asia%2FShanghai&user_is_login=true&verifyFp=verify_x&webcast_language=zh-Hans&X-Dynosaur=D&msToken=mtok&X-Bogus=B&X-Gnarly=G"
+ },
+ "get_upload_auth": {
+  "body": null,
+  "headers": [
+   "sec-ch-ua-platform",
+   "referer",
+   "user-agent",
+   "accept",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "accept-encoding",
+   "accept-language",
+   "cookie",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "GET",
+  "url": "https://www.tiktok.com/api/v1/video/upload/auth/?aid=1988&X-Dynosaur=D&msToken=mtok&X-Bogus=B&X-Gnarly=G"
+ },
+ "get_upload_candidates": {
+  "body": null,
+  "headers": [
+   "sec-ch-ua-platform",
+   "referer",
+   "user-agent",
+   "accept",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "accept-encoding",
+   "accept-language",
+   "cookie",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "GET",
+  "url": "https://www.tiktok.com/api/v1/video/upload/auth/?aid=1988&X-Dynosaur=D&msToken=mtok&X-Bogus=B&X-Gnarly=G"
+ },
+ "get_user_detail": {
+  "error": "BrowserEvidenceError"
+ },
+ "get_user_html": {
+  "skipped": "needs non-dummy args"
+ },
+ "get_user_info": {
+  "skipped": "needs non-dummy args"
+ },
+ "get_user_list": {
+  "body": null,
+  "headers": [
+   "sec-ch-ua-platform",
+   "referer",
+   "user-agent",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "cookie",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "GET",
+  "url": "https://www.tiktok.com/api/user/list/?WebIdLastTime=1700000000&aid=1988&app_language=zh-Hans&app_name=tiktok_web&browser_language=zh-CN&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%20NT%2010.0%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F153.0.0.0%20Safari%2F537.36&channel=tiktok_web&clientABVersions=70508271%2C72437276%2C73720540%2C75360573%2C75657507%2C75843653%2C75878361%2C76074824%2C76122410%2C76179551%2C76403724%2C76499369%2C76626930%2C76651230%2C76669176%2C76713103%2C76740102%2C76792575%2C76805936%2C76813520%2C76815102%2C76826749%2C76839930%2C76840792%2C76887350%2C76889673%2C76907405%2C76933422%2C76945954%2C76950455%2C77005875%2C77011497%2C77014490%2C77056281%2C77064650%2C77071444%2C77093404%2C77120364%2C77141446%2C77150562%2C77155134%2C70138197%2C70156809%2C70405643%2C71057832%2C71200802%2C71381811%2C71803300%2C72360691%2C72408100%2C72854054%2C72892778%2C73171280%2C73208420%2C73989921%2C74276218%2C74844724%2C75330961&cookie_enabled=true&count=5&data_collection_enabled=true&device_id=7000000000000000002&device_platform=web_pc&focus_state=true&from_page=fyp&history_len=2&is_fullscreen=false&is_page_visible=true&maxCursor=0&minCursor=0&odinId=7000000000000000003&os=windows&priority_region=SG&referer=&region=SG&root_referer=&scene=21&screen_height=1440&screen_width=2560&tz_name=Asia%2FShanghai&user_is_login=true&verifyFp=verify_x&webcast_language=zh-Hans&X-Dynosaur=D&msToken=mtok&X-Bogus=B&X-Gnarly=G"
+ },
+ "get_user_playlist": {
+  "body": null,
+  "headers": [
+   "sec-ch-ua-platform",
+   "referer",
+   "user-agent",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "cookie",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "GET",
+  "url": "https://www.tiktok.com/api/user/playlist/?WebIdLastTime=1700000000&aid=1988&app_language=zh-Hans&app_name=tiktok_web&browser_language=zh-CN&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%20NT%2010.0%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F153.0.0.0%20Safari%2F537.36&channel=tiktok_web&cookie_enabled=true&count=20&cursor=0&data_collection_enabled=true&device_id=7000000000000000002&device_platform=web_pc&focus_state=true&history_len=2&is_fullscreen=false&is_page_visible=true&odinId=7000000000000000003&os=windows&priority_region=SG&referer=https%3A%2F%2Fwww.tiktok.com%2F%40MS4wSEC%3Flang%3Dzh-Hans&region=SG&root_referer=https%3A%2F%2Fwww.tiktok.com%2F%40MS4wSEC%3Flang%3Dzh-Hans&screen_height=1440&screen_width=2560&secUid=MS4wSEC&tz_name=Asia%2FShanghai&user_is_login=true&verifyFp=verify_x&webcast_language=zh-Hans&X-Dynosaur=D&msToken=mtok&X-Bogus=B&X-Gnarly=G"
+ },
+ "get_user_posted": {
+  "body": null,
+  "headers": [
+   "sec-ch-ua-platform",
+   "referer",
+   "user-agent",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "cookie",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "GET",
+  "url": "https://www.tiktok.com/api/post/item_list/?WebIdLastTime=1700000000&aid=1988&app_language=zh-Hans&app_name=tiktok_web&browser_language=zh-CN&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%20NT%2010.0%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F153.0.0.0%20Safari%2F537.36&channel=tiktok_web&cookie_enabled=true&count=24&coverFormat=2&cursor=0&data_collection_enabled=true&device_id=7000000000000000002&device_platform=web_pc&focus_state=true&history_len=2&is_fullscreen=false&is_page_visible=true&language=zh-Hans&odinId=7000000000000000003&os=windows&priority_region=SG&referer=https%3A%2F%2Fwww.tiktok.com%2F%40MS4wSEC%3Flang%3Dzh-Hans&region=SG&root_referer=https%3A%2F%2Fwww.tiktok.com%2F%40MS4wSEC%3Flang%3Dzh-Hans&screen_height=1440&screen_width=2560&secUid=MS4wSEC&tz_name=Asia%2FShanghai&user_is_login=true&verifyFp=verify_x&video_encoding=dash&webcast_language=zh-Hans&X-Dynosaur=D&msToken=mtok&X-Bogus=B&X-Gnarly=G"
+ },
+ "get_user_settings": {
+  "body": null,
+  "headers": [
+   "sec-ch-ua-platform",
+   "referer",
+   "user-agent",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "cookie",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "GET",
+  "url": "https://www.tiktok.com/api/user/settings/?WebIdLastTime=1700000000&aid=1988&app_language=zh-Hans&app_name=tiktok_web&browser_language=zh-CN&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%20NT%2010.0%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F153.0.0.0%20Safari%2F537.36&channel=tiktok_web&cookie_enabled=true&data_collection_enabled=true&device_id=7000000000000000002&device_platform=web_pc&enable_v2=true&focus_state=true&from_page=user&history_len=2&is_fullscreen=false&is_page_visible=true&odinId=7000000000000000003&os=windows&priority_region=SG&referer=https%3A%2F%2Fwww.tiktok.com%2F%40tiktok%3Flang%3Dzh-Hans&region=SG&root_referer=https%3A%2F%2Fwww.tiktok.com%2F%40tiktok%3Flang%3Dzh-Hans&screen_height=1440&screen_width=2560&tz_name=Asia%2FShanghai&user_is_login=true&verifyFp=verify_x&webcast_language=zh-Hans&X-Dynosaur=D&msToken=mtok&X-Bogus=B&X-Gnarly=G"
+ },
+ "get_video_detail": {
+  "skipped": "needs non-dummy args"
+ },
+ "get_video_transcode_result": {
+  "skipped": "needs non-dummy args"
+ },
+ "get_webcast_drawer_tabs": {
+  "body": null,
+  "headers": [
+   "sec-ch-ua-platform",
+   "referer",
+   "user-agent",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "cookie",
+   "origin",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "GET",
+  "url": "https://webcast.tiktok.com/webcast/feed/drawer_tabs/?WebIdLastTime=1700000000&aid=1988&app_language=zh-Hans&app_name=tiktok_web&browser_language=zh-CN&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%20NT%2010.0%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F153.0.0.0%20Safari%2F537.36&channel=tiktok_web&cookie_enabled=true&data_collection_enabled=true&device_id=7000000000000000002&device_platform=web_pc&focus_state=true&from_page=&history_len=2&is_fullscreen=false&is_page_visible=true&odinId=7000000000000000003&os=windows&priority_region=SG&referer=&region=SG&root_referer=&scene=1&screen_height=1440&screen_width=2560&tz_name=Asia%2FShanghai&user_is_login=true&verifyFp=verify_x&webcast_language=zh-Hans&X-Dynosaur=D&msToken=mtok&X-Bogus=B&X-Gnarly=G"
+ },
+ "get_webcast_feed": {
+  "body": null,
+  "headers": [
+   "sec-ch-ua-platform",
+   "referer",
+   "user-agent",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "cookie",
+   "origin",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "GET",
+  "url": "https://webcast.tiktok.com/webcast/feed/?WebIdLastTime=1700000000&aid=1988&app_language=zh-Hans&app_name=tiktok_web&browser_language=zh-CN&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%20NT%2010.0%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F153.0.0.0%20Safari%2F537.36&channel=tiktok_web&channel_id=42&content_type=1&cookie_enabled=true&cpu_number=20&data_collection_enabled=true&device_id=7000000000000000002&device_platform=web_pc&device_type=web_h264&focus_state=true&from_page=&history_len=2&is_fullscreen=false&is_non_personalized=0&is_page_visible=true&max_time=0&odinId=7000000000000000003&os=windows&priority_region=SG&referer=&region=SG&req_from=pc_web_side_follow_default&root_referer=&screen_height=1440&screen_width=2560&tz_name=Asia%2FShanghai&user_is_login=true&verifyFp=verify_x&webcast_language=zh-Hans&X-Dynosaur=D&msToken=mtok&X-Bogus=B&X-Gnarly=G"
+ },
+ "get_webcast_im_fetch": {
+  "body": null,
+  "headers": [
+   "sec-ch-ua-platform",
+   "referer",
+   "user-agent",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "cookie",
+   "origin",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "GET",
+  "url": "https://webcast.tiktok.com/webcast/im/fetch/?version_code=180800&device_platform=web&cookie_enabled=true&screen_width=2560&screen_height=1440&browser_language=zh-CN&browser_platform=Win32&browser_name=Mozilla&browser_version=5.0%20%28Windows%20NT%2010.0%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F153.0.0.0%20Safari%2F537.36&browser_online=true&tz_name=Asia%2FShanghai&ws_direct=1&aid=1988&app_name=tiktok_web&live_id=12&version_code=270000&app_language=zh-Hans&client_enter=1&room_id=7300000000000000001&identity=audience&history_comment_count=6&fetch_rule=1&last_rtt=-1&cursor=0&internal_ext=0&sup_ws_ds_opt=1&resp_content_type=protobuf&did_rule=3&webcast_language=zh-Hans&X-Dynosaur=D&msToken=mtok&X-Bogus=B&X-Gnarly=G"
+ },
+ "get_webcast_push_fetch": {
+  "body": null,
+  "headers": [
+   "sec-ch-ua-platform",
+   "referer",
+   "user-agent",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "cookie",
+   "origin",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "GET",
+  "url": "https://webcast.tiktok.com/webcast/room/push_fetch/?WebIdLastTime=1700000000&aid=1988&app_language=zh-Hans&app_name=tiktok_web&browser_language=zh-CN&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%20NT%2010.0%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F153.0.0.0%20Safari%2F537.36&channel=tiktok_web&cookie_enabled=true&data_collection_enabled=true&device_id=7000000000000000002&device_platform=web_pc&focus_state=true&from_page=user&history_len=2&is_fullscreen=false&is_page_visible=true&odinId=7000000000000000003&os=windows&priority_region=SG&referer=https%3A%2F%2Fwww.tiktok.com%2F%40tiktok%3Flang%3Dzh-Hans&region=SG&root_referer=https%3A%2F%2Fwww.tiktok.com%2F%40tiktok%3Flang%3Dzh-Hans&scene=live_ongoing_push&screen_height=1440&screen_width=2560&tz_name=Asia%2FShanghai&user_is_login=true&verifyFp=verify_x&webcast_language=zh-Hans&X-Dynosaur=D&msToken=mtok&X-Bogus=B&X-Gnarly=G"
+ },
+ "get_webcast_rank_list": {
+  "body": null,
+  "headers": [
+   "sec-ch-ua-platform",
+   "referer",
+   "user-agent",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "cookie",
+   "origin",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "GET",
+  "url": "https://webcast.tiktok.com/webcast/ranklist/online_audience/?WebIdLastTime=1700000000&aid=1988&anchor_id=6800000000000000001&app_language=zh-Hans&app_name=tiktok_web&browser_language=zh-CN&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%20NT%2010.0%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F153.0.0.0%20Safari%2F537.36&channel=tiktok_web&cookie_enabled=true&data_collection_enabled=true&device_id=7000000000000000002&device_platform=web_pc&focus_state=true&from_page=&history_len=2&is_fullscreen=false&is_page_visible=true&odinId=7000000000000000003&os=windows&priority_region=SG&referer=&region=SG&room_id=7300000000000000001&root_referer=&source=0&screen_height=1440&screen_width=2560&tz_name=Asia%2FShanghai&user_is_login=true&verifyFp=verify_x&webcast_language=zh-Hans&X-Dynosaur=D&msToken=mtok&X-Bogus=B&X-Gnarly=G"
+ },
+ "get_webcast_room_create_info": {
+  "body": null,
+  "headers": [
+   "sec-ch-ua-platform",
+   "referer",
+   "user-agent",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "cookie",
+   "origin",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "GET",
+  "url": "https://webcast.tiktok.com/webcast/room/create_info/?WebIdLastTime=1700000000&aid=1988&app_language=zh-Hans&app_name=tiktok_web&browser_language=zh-CN&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%20NT%2010.0%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F153.0.0.0%20Safari%2F537.36&channel=tiktok_web&cookie_enabled=true&data_collection_enabled=true&device_id=7000000000000000002&device_platform=web_pc&focus_state=true&from_page=&history_len=2&is_fullscreen=false&is_page_visible=true&odinId=7000000000000000003&os=windows&priority_region=SG&referer=&region=SG&root_referer=&screen_height=1440&screen_width=2560&tz_name=Asia%2FShanghai&user_is_login=true&verifyFp=verify_x&webcast_language=zh-Hans&X-Dynosaur=D&msToken=mtok&X-Bogus=B&X-Gnarly=G"
+ },
+ "get_webcast_user_attr": {
+  "body": null,
+  "headers": [
+   "sec-ch-ua-platform",
+   "referer",
+   "user-agent",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "cookie",
+   "origin",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "GET",
+  "url": "https://webcast.tiktok.com/webcast/user/attr/?WebIdLastTime=1700000000&aid=1988&app_language=zh-Hans&app_name=tiktok_web&attr_types=6&browser_language=zh-CN&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%20NT%2010.0%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F153.0.0.0%20Safari%2F537.36&channel=tiktok_web&cookie_enabled=true&data_collection_enabled=true&device_id=7000000000000000002&device_platform=web_pc&focus_state=true&from_page=&history_len=4&is_fullscreen=false&is_page_visible=true&odinId=7000000000000000003&os=windows&priority_region=SG&referer=&region=SG&root_referer=&screen_height=1440&screen_width=2560&tz_name=Asia%2FShanghai&user_is_login=true&verifyFp=verify_x&webcast_language=zh-Hans&X-Dynosaur=D&msToken=mtok&X-Bogus=B&X-Gnarly=G"
+ },
+ "get_webcast_user_info": {
+  "body": null,
+  "headers": [
+   "sec-ch-ua-platform",
+   "referer",
+   "user-agent",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "cookie",
+   "origin",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "GET",
+  "url": "https://webcast.tiktok.com/webcast/user/?WebIdLastTime=1700000000&aid=1988&app_language=zh-Hans&app_name=tiktok_web&browser_language=zh-CN&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%20NT%2010.0%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F153.0.0.0%20Safari%2F537.36&channel=tiktok_web&cookie_enabled=true&current_room_id=7300000000000000001&data_collection_enabled=true&device_id=7000000000000000002&device_platform=web_pc&focus_state=true&from_page=&history_len=2&is_fullscreen=false&is_page_visible=true&odinId=7000000000000000003&os=windows&owner_user_id=6800000000000000001&priority_region=SG&referer=&region=SG&request_from=profile_card_v2&root_referer=&screen_height=1440&screen_width=2560&target_uid=6800000000000000001&tz_name=Asia%2FShanghai&user_is_login=true&verifyFp=verify_x&webcast_language=zh-Hans&X-Dynosaur=D&msToken=mtok&X-Bogus=B&X-Gnarly=G"
+ },
+ "get_wid": {
+  "body": null,
+  "headers": [
+   "sec-ch-ua-platform",
+   "referer",
+   "user-agent",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "cookie",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "GET",
+  "url": "https://www.tiktok.com/api/v1/web-cookie-privacy/config?locale=zh-Hans&appId=1988&theme=default&tea=1"
+ },
+ "post_app_open_times_upload": {
+  "skipped": "needs non-dummy args"
+ },
+ "post_collection_create": {
+  "body": "",
+  "headers": [
+   "x-cthulhu-csrf",
+   "sec-ch-ua-platform",
+   "referer",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "tt-csrf-token",
+   "user-agent",
+   "content-type",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "content-length",
+   "cookie",
+   "origin",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "POST",
+  "url": "https://www.tiktok.com/api/collection/create/?WebIdLastTime=1700000000&aid=1988&app_language=zh-Hans&app_name=tiktok_web&browser_language=zh-CN&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%20NT%2010.0%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F153.0.0.0%20Safari%2F537.36&channel=tiktok_web&collectionName=fav&collectionStatus=1&cookie_enabled=true&data_collection_enabled=true&device_id=7000000000000000002&device_platform=web_pc&focus_state=true&from_page=user&history_len=6&is_fullscreen=false&is_page_visible=true&language=zh-Hans&odinId=7000000000000000003&os=windows&priority_region=SG&referer=https%3A%2F%2Fwww.tiktok.com%2F%40tiktok%3Flang%3Dzh-Hans&region=SG&root_referer=&screen_height=1440&screen_width=2560&tz_name=Asia%2FShanghai&user_is_login=true&verifyFp=verify_x&webcast_language=zh-Hans&X-Dynosaur=D&msToken=mtok&X-Bogus=B&X-Gnarly=G"
+ },
+ "post_collection_modify_info": {
+  "body": "",
+  "headers": [
+   "x-cthulhu-csrf",
+   "sec-ch-ua-platform",
+   "referer",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "tt-csrf-token",
+   "user-agent",
+   "content-type",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "content-length",
+   "cookie",
+   "origin",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "POST",
+  "url": "https://www.tiktok.com/api/collection/modify_info/?WebIdLastTime=1700000000&aid=1988&app_language=zh-Hans&app_name=tiktok_web&browser_language=zh-CN&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%20NT%2010.0%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F153.0.0.0%20Safari%2F537.36&channel=tiktok_web&collectionId=7400000000000000001&collectionName=fav2&collectionStatus=1&cookie_enabled=true&data_collection_enabled=true&device_id=7000000000000000002&device_platform=web_pc&focus_state=true&from_page=user&history_len=7&is_fullscreen=false&is_page_visible=true&language=zh-Hans&odinId=7000000000000000003&os=windows&priority_region=SG&referer=https%3A%2F%2Fwww.tiktok.com%2F%40tiktok%2Fcollection%2F7400000000000000001&region=SG&root_referer=&screen_height=1440&screen_width=2560&tz_name=Asia%2FShanghai&user_is_login=true&verifyFp=verify_x&webcast_language=zh-Hans&X-Dynosaur=D&msToken=mtok&X-Bogus=B&X-Gnarly=G"
+ },
+ "post_collection_modify_items": {
+  "error": "BrowserEvidenceError"
+ },
+ "post_collection_move_items": {
+  "error": "BrowserEvidenceError"
+ },
+ "post_comment": {
+  "body": "",
+  "headers": [
+   "tt-ticket-guard-client-data",
+   "sec-ch-ua-platform",
+   "referer",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "tt-csrf-token",
+   "user-agent",
+   "x-secsdk-csrf-token",
+   "content-type",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "content-length",
+   "cookie",
+   "origin",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "POST",
+  "url": "https://www.tiktok.com/api/comment/publish/?WebIdLastTime=1700000000&aid=1988&app_language=zh-Hans&app_name=tiktok_web&aweme_id=7100000000000000001&browser_language=zh-CN&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%20NT%2010.0%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F153.0.0.0%20Safari%2F537.36&channel=tiktok_web&cookie_enabled=true&data_collection_enabled=true&device_id=7000000000000000002&device_platform=web_pc&focus_state=true&from_page=video&history_len=3&is_fullscreen=false&is_page_visible=true&odinId=7000000000000000003&os=windows&priority_region=SG&referer=https%3A%2F%2Fwww.tiktok.com%2F%40tiktok%3Flang%3Dzh-Hans&region=SG&root_referer=https%3A%2F%2Fwww.tiktok.com%2F%40tiktok%3Flang%3Dzh-Hans&screen_height=1440&screen_width=2560&text=hi&text_extra=%5B%5D&tz_name=Asia%2FShanghai&user_is_login=true&verifyFp=verify_x&webcast_language=zh-Hans&X-Dynosaur=D&msToken=mtok&X-Bogus=B&X-Gnarly=G"
+ },
+ "post_comment_reply": {
+  "body": "",
+  "headers": [
+   "tt-ticket-guard-client-data",
+   "sec-ch-ua-platform",
+   "referer",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "tt-csrf-token",
+   "user-agent",
+   "x-secsdk-csrf-token",
+   "content-type",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "content-length",
+   "cookie",
+   "origin",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "POST",
+  "url": "https://www.tiktok.com/api/comment/publish/?WebIdLastTime=1700000000&aid=1988&app_language=zh-Hans&app_name=tiktok_web&aweme_id=7100000000000000001&browser_language=zh-CN&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%20NT%2010.0%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F153.0.0.0%20Safari%2F537.36&channel=tiktok_web&cookie_enabled=true&data_collection_enabled=true&device_id=7000000000000000002&device_platform=web_pc&focus_state=true&from_page=video&history_len=3&is_fullscreen=false&is_page_visible=true&odinId=7000000000000000003&os=windows&priority_region=SG&referer=https%3A%2F%2Fwww.tiktok.com%2F%40tiktok%3Flang%3Dzh-Hans&region=SG&reply_id=7200000000000000002&reply_to_reply_id=0&root_referer=https%3A%2F%2Fwww.tiktok.com%2F%40tiktok%3Flang%3Dzh-Hans&screen_height=1440&screen_width=2560&text=hi&text_extra=%5B%5D&tz_name=Asia%2FShanghai&user_is_login=true&verifyFp=verify_x&webcast_language=zh-Hans&X-Dynosaur=D&msToken=mtok&X-Bogus=B&X-Gnarly=G"
+ },
+ "post_creator_poi_list": {
+  "body": "{\"page_num\":1,\"page_size\":10,\"search_params\":{\"search_id\":\"\",\"creation_id\":\"\",\"last_search_id\":\"\"},\"web_params\":{\"aid\":1988,\"app_name\":\"tiktok_web\",\"channel\":\"tiktok_web\",\"device_platform\":\"web_pc\",\"device_id\":\"7000000000000000002\",\"region\":\"SG\",\"priority_region\":\"SG\",\"referer\":\"\",\"cookie_enabled\":true,\"screen_width\":2560,\"screen_height\":1440,\"browser_language\":\"zh-CN\",\"browser_platform\":\"Win32\",\"browser_name\":\"Mozilla\",\"browser_version\":\"5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36\",\"browser_online\":true,\"verifyFp\":\"verify_x\",\"app_language\":\"zh-Hans\",\"webcast_language\":\"zh-Hans\",\"tz_name\":\"Asia/Shanghai\",\"is_fullscreen\":false,\"history_len\":\"20\"}}",
+  "headers": [
+   "sec-ch-ua-platform",
+   "referer",
+   "user-agent",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "content-type",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "cookie",
+   "origin",
+   "content-length",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "POST",
+  "url": "https://www.tiktok.com/tiktok/v1/creator/poi/list?aid=1988"
+ },
+ "post_csp_pa_prompt": {
+  "body": "",
+  "headers": [
+   "sec-ch-ua-platform",
+   "referer",
+   "user-agent",
+   "sec-ch-ua",
+   "content-type",
+   "sec-ch-ua-mobile",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "content-length",
+   "cookie",
+   "origin",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "POST",
+  "url": "https://www.tiktok.com/tiktok/v1/csp/pa_prompt?WebIdLastTime=1700000000&aid=1988&app_language=zh-Hans&app_name=tiktok_web&browser_language=zh-CN&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%20NT%2010.0%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F153.0.0.0%20Safari%2F537.36&channel=tiktok_web&cookie_enabled=true&data_collection_enabled=true&device_id=7000000000000000002&device_platform=web_pc&focus_state=true&from_page=fyp&history_len=3&is_fullscreen=false&is_page_visible=true&odinId=7000000000000000003&os=windows&priority_region=SG&referer=https%3A%2F%2Fwww.tiktok.com%2F&region=SG&root_referer=https%3A%2F%2Fwww.tiktok.com%2F&screen_height=1440&screen_width=2560&tz_name=Asia%2FShanghai&user_is_login=true&verifyFp=verify_x&webcast_language=zh-Hans"
+ },
+ "post_epiphron_feature_upload": {
+  "body": "{\"base_info\":{\"room_id\":\"7300000000000000001\",\"owner_id\":\"6800000000000000001\",\"user_id\":\"6800000000000000001\",\"local_timeregi_stamp\":\"1700000000\",\"device_id\":\"7000000000000000002\",\"durationc\":\"30000\"},\"biz_params\":{\"webapp_watch_duration\":\"10\"}}",
+  "headers": [
+   "sec-ch-ua-platform",
+   "referer",
+   "user-agent",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "content-type",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "cookie",
+   "origin",
+   "content-length",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "POST",
+  "url": "https://webcast.tiktok.com/webcast/epiphron/feature/upload/?WebIdLastTime=1700000000&aid=1988&app_language=zh-Hans&app_name=tiktok_web&browser_language=zh-CN&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%20NT%2010.0%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F153.0.0.0%20Safari%2F537.36&channel=tiktok_web&cookie_enabled=true&data_collection_enabled=true&device_id=7000000000000000002&device_platform=web_pc&focus_state=true&from_page=&history_len=6&is_fullscreen=false&is_page_visible=true&os=windows&priority_region=SG&referer=https%3A%2F%2Fwww.tiktok.com%2Flive&region=SG&root_referer=&screen_height=1440&screen_width=2560&tz_name=Asia%2FShanghai&user_is_login=true&verifyFp=verify_x&webcast_language=zh-Hans&X-Dynosaur=D&msToken=mtok&X-Bogus=B&X-Gnarly=G"
+ },
+ "post_follow_user": {
+  "error": "ValueError"
+ },
+ "post_item_collect": {
+  "body": "",
+  "headers": [
+   "tt-ticket-guard-client-data",
+   "sec-ch-ua-platform",
+   "referer",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "tt-csrf-token",
+   "user-agent",
+   "content-type",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "content-length",
+   "cookie",
+   "origin",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "POST",
+  "url": "https://www.tiktok.com/api/item/collect/?WebIdLastTime=1700000000&action=1&aid=1988&app_language=zh-Hans&app_name=tiktok_web&browser_language=zh-CN&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%20NT%2010.0%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F153.0.0.0%20Safari%2F537.36&channel=tiktok_web&cookie_enabled=true&data_collection_enabled=true&device_id=7000000000000000002&device_platform=web_pc&focus_state=true&from_page=video&history_len=3&is_fullscreen=false&is_page_visible=true&itemId=7100000000000000001&odinId=7000000000000000003&os=windows&priority_region=SG&referer=https%3A%2F%2Fwww.tiktok.com%2F%40tiktok%3Flang%3Dzh-Hans&region=SG&root_referer=https%3A%2F%2Fwww.tiktok.com%2F%40tiktok%3Flang%3Dzh-Hans&screen_height=1440&screen_width=2560&secUid=MS4wSEC&tz_name=Asia%2FShanghai&user_is_login=true&verifyFp=verify_x&webcast_language=zh-Hans&X-Dynosaur=D&msToken=mtok&X-Bogus=B&X-Gnarly=G"
+ },
+ "post_item_digg": {
+  "body": "",
+  "headers": [
+   "tt-ticket-guard-client-data",
+   "sec-ch-ua-platform",
+   "referer",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "tt-csrf-token",
+   "user-agent",
+   "content-type",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "content-length",
+   "cookie",
+   "origin",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "POST",
+  "url": "https://www.tiktok.com/api/commit/item/digg/?WebIdLastTime=1700000000&aid=1988&app_language=zh-Hans&app_name=tiktok_web&aweme_id=7100000000000000001&browser_language=zh-CN&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%20NT%2010.0%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F153.0.0.0%20Safari%2F537.36&channel=tiktok_web&cookie_enabled=true&data_collection_enabled=true&device_id=7000000000000000002&device_platform=web_pc&focus_state=true&from_page=video&history_len=3&is_fullscreen=false&is_page_visible=true&odinId=7000000000000000003&os=windows&priority_region=SG&referer=https%3A%2F%2Fwww.tiktok.com%2F%40tiktok%3Flang%3Dzh-Hans&region=SG&root_referer=https%3A%2F%2Fwww.tiktok.com%2F%40tiktok%3Flang%3Dzh-Hans&screen_height=1440&screen_width=2560&type=1&tz_name=Asia%2FShanghai&user_is_login=true&verifyFp=verify_x&webcast_language=zh-Hans&X-Dynosaur=D&msToken=mtok&X-Bogus=B&X-Gnarly=G"
+ },
+ "post_live_chat": {
+  "body": "{\"room_id\":\"7300000000000000001\",\"content\":\"hi\",\"emotes_with_index\":\"\",\"input_type\":0,\"client_start_timestamp_millisecond\":1700000000123}",
+  "headers": [
+   "tt-ticket-guard-client-data",
+   "sec-ch-ua-platform",
+   "referer",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "user-agent",
+   "x-secsdk-csrf-token",
+   "content-type",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "content-length",
+   "cookie",
+   "origin",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "POST",
+  "url": "https://webcast.tiktok.com/webcast/room/chat/?WebIdLastTime=1700000000&aid=1988&app_language=zh-Hans&app_name=tiktok_web&browser_language=zh-CN&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%20NT%2010.0%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F153.0.0.0%20Safari%2F537.36&channel=tiktok_web&client_start_timestamp_millisecond=1700000000123&content=hi&cookie_enabled=true&data_collection_enabled=true&device_id=7000000000000000002&device_platform=web_pc&emotes_with_index=&focus_state=true&from_page=&history_len=6&input_type=0&is_fullscreen=false&is_page_visible=true&os=windows&priority_region=SG&referer=&region=SG&room_id=7300000000000000001&root_referer=&screen_height=1440&screen_width=2560&tz_name=Asia%2FShanghai&user_is_login=true&verifyFp=verify_x&webcast_language=zh-Hans&X-Dynosaur=D&msToken=mtok&X-Bogus=B&X-Gnarly=G"
+ },
+ "post_live_effect_assets": {
+  "body": "download_assets_from=3&effect_ids=1&video_types=h264_encrypt",
+  "headers": [
+   "sec-ch-ua-platform",
+   "referer",
+   "user-agent",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "content-type",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "cookie",
+   "origin",
+   "content-length",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "POST",
+  "url": "https://webcast.tiktok.com/webcast/assets/effects/?WebIdLastTime=1700000000&aid=1988&app_language=zh-Hans&app_name=tiktok_web&browser_language=zh-CN&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%20NT%2010.0%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F153.0.0.0%20Safari%2F537.36&channel=tiktok_web&cookie_enabled=true&data_collection_enabled=true&device_id=7000000000000000002&device_platform=web_pc&focus_state=true&from_page=&history_len=4&is_fullscreen=false&is_page_visible=true&os=windows&priority_region=SG&referer=&region=SG&root_referer=&screen_height=1440&screen_width=2560&tz_name=Asia%2FShanghai&user_is_login=true&verifyFp=verify_x&webcast_language=zh-Hans&X-Dynosaur=D&msToken=mtok&X-Bogus=B&X-Gnarly=G"
+ },
+ "post_live_like": {
+  "body": "{\"to_uid\":\"6800000000000000001\",\"count\":1,\"room_id\":\"7300000000000000001\",\"enter_from\":\"live\"}",
+  "headers": [
+   "sec-ch-ua-platform",
+   "referer",
+   "user-agent",
+   "sec-ch-ua",
+   "content-type",
+   "sec-ch-ua-mobile",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "content-length",
+   "cookie",
+   "origin",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "POST",
+  "url": "https://webcast.tiktok.com/webcast/room/like/?WebIdLastTime=1700000000&aid=1988&app_language=zh-Hans&app_name=tiktok_web&browser_language=zh-CN&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%20NT%2010.0%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F153.0.0.0%20Safari%2F537.36&channel=tiktok_web&cookie_enabled=true&data_collection_enabled=true&device_id=7000000000000000002&device_platform=web_pc&focus_state=true&from_page=&history_len=6&is_fullscreen=false&is_page_visible=true&os=windows&priority_region=SG&referer=&region=SG&root_referer=&screen_height=1440&screen_width=2560&tz_name=Asia%2FShanghai&user_is_login=true&verifyFp=verify_x&webcast_language=zh-Hans&X-Dynosaur=D&msToken=mtok&X-Bogus=B&X-Gnarly=G"
+ },
+ "post_popup_callback": {
+  "skipped": "needs non-dummy args"
+ },
+ "post_prefetch_explore_item_list": {
+  "error": "BrowserEvidenceError"
+ },
+ "post_project": {
+  "skipped": "needs non-dummy args"
+ },
+ "post_project_create": {
+  "body": null,
+  "headers": [
+   "sec-ch-ua-platform",
+   "referer",
+   "user-agent",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "cookie",
+   "origin",
+   "content-length",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "POST",
+  "url": "https://www.tiktok.com/api/v1/web/project/create/?creation_id=ROO_abcdefghijklmnopq&type=1&aid=1988"
+ },
+ "post_recharge_check_external_entry": {
+  "body": "",
+  "headers": [
+   "sec-ch-ua-platform",
+   "referer",
+   "user-agent",
+   "sec-ch-ua",
+   "content-type",
+   "sec-ch-ua-mobile",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "content-length",
+   "cookie",
+   "origin",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "POST",
+  "url": "https://webcast.tiktok.com/webcast/wallet_api_tiktok/recharge/check_external_entry?WebIdLastTime=1700000000&aid=1988&app_language=zh-Hans&app_name=tiktok_web&browser_language=zh-CN&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%20NT%2010.0%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F153.0.0.0%20Safari%2F537.36&channel=tiktok_web&cookie_enabled=true&data_collection_enabled=true&device_id=7000000000000000002&device_platform=web_pc&focus_state=true&from_page=user&history_len=2&is_experiment_group=false&is_fullscreen=false&is_page_visible=true&odinId=7000000000000000003&os=windows&page_source=0&priority_region=SG&referer=https%3A%2F%2Fwww.tiktok.com%2F%40someone&region=SG&root_referer=https%3A%2F%2Fwww.tiktok.com%2F%40someone&screen_height=1440&screen_width=2560&tz_name=Asia%2FShanghai&user_is_login=true&verifyFp=verify_x&webcast_language=zh-Hans&X-Dynosaur=D&msToken=mtok&X-Bogus=B&X-Gnarly=G"
+ },
+ "post_recommend_feed": {
+  "skipped": "needs non-dummy args"
+ },
+ "post_screen_time_upload": {
+  "body": "{\"upload_timestamp\":1700000000,\"upload_type\":3,\"time_usage\":\"10\",\"dual_channel_enabled\":true}",
+  "headers": [
+   "sec-ch-ua-platform",
+   "referer",
+   "user-agent",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "content-type",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "cookie",
+   "origin",
+   "content-length",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "POST",
+  "url": "https://www.tiktok.com/tiktok/v1/screen_time/upload/?WebIdLastTime=1700000000&aid=1988&app_language=zh-Hans&app_name=tiktok_web&browser_language=zh-CN&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%20NT%2010.0%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F153.0.0.0%20Safari%2F537.36&channel=tiktok_web&cookie_enabled=true&data_collection_enabled=true&device_id=7000000000000000002&device_platform=web_pc&dual_channel_enabled=true&focus_state=true&from_page=user&history_len=2&is_fullscreen=false&is_page_visible=true&odinId=7000000000000000003&os=windows&priority_region=SG&referer=https%3A%2F%2Fwww.tiktok.com%2F%40tiktok%3Flang%3Dzh-Hans&region=SG&root_referer=https%3A%2F%2Fwww.tiktok.com%2F%40tiktok%3Flang%3Dzh-Hans&screen_height=1440&screen_width=2560&time_usage=%2210%22&tz_name=Asia%2FShanghai&upload_timestamp=1700000000&upload_type=3&user_is_login=true&verifyFp=verify_x&webcast_language=zh-Hans"
+ },
+ "request_captured": {
+  "skipped": "needs non-dummy args"
+ },
+ "search_general": {
+  "body": null,
+  "headers": [
+   "sec-ch-ua-platform",
+   "referer",
+   "user-agent",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "cookie",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "GET",
+  "url": "https://www.tiktok.com/api/search/general/full/?WebIdLastTime=1700000000&aid=1988&app_language=zh-Hans&app_name=tiktok_web&browser_language=zh-CN&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%20NT%2010.0%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F153.0.0.0%20Safari%2F537.36&channel=tiktok_web&client_ab_versions=70508271%2C72437276%2C73720540%2C75360573%2C75657507%2C75843653%2C75878361%2C76074824%2C76122410%2C76179551%2C76403724%2C76499369%2C76626930%2C76651230%2C76669176%2C76713103%2C76740102%2C76792575%2C76805936%2C76813520%2C76815102%2C76826749%2C76839930%2C76840792%2C76887350%2C76889673%2C76907405%2C76933422%2C76945954%2C76950455%2C77005875%2C77011497%2C77014490%2C77056281%2C77064650%2C77071444%2C77093404%2C77120364%2C77141446%2C77150562%2C77155134%2C70138197%2C70156809%2C70405643%2C71057832%2C71200802%2C71381811%2C71803300%2C72360691%2C72408100%2C72854054%2C72892778%2C73171280%2C73208420%2C73989921%2C74276218%2C74844724%2C75330961&cookie_enabled=true&count=12&cursor=0&data_collection_enabled=true&device_id=7000000000000000002&device_platform=web_pc&device_type=web_h265&focus_state=true&from_page=search&history_len=2&is_fullscreen=false&is_non_personalized_search=0&is_page_visible=true&keyword=cats&odinId=7000000000000000003&os=windows&offset=0&priority_region=SG&referer=&region=SG&root_referer=&screen_height=1440&screen_width=2560&tz_name=Asia%2FShanghai&user_is_login=true&verifyFp=verify_x&web_search_code=%7B%22tiktok%22%3A%7B%22client_params_x%22%3A%7B%22search_engine%22%3A%7B%22ies_mt_user_live_video_card_use_libra%22%3A1%2C%22mt_search_general_user_live_card%22%3A1%7D%7D%2C%22search_server%22%3A%7B%7D%7D%7D&webcast_language=zh-Hans&X-Dynosaur=D&msToken=mtok&X-Bogus=B&X-Gnarly=G"
+ },
+ "search_live_room": {
+  "body": null,
+  "headers": [
+   "sec-ch-ua-platform",
+   "referer",
+   "user-agent",
+   "sec-ch-ua",
+   "sec-ch-ua-mobile",
+   "accept",
+   "accept-encoding",
+   "accept-language",
+   "cookie",
+   "origin",
+   "priority",
+   "sec-fetch-dest",
+   "sec-fetch-mode",
+   "sec-fetch-site"
+  ],
+  "method": "GET",
+  "url": "https://webcast.tiktok.com/webcast/room/search/?WebIdLastTime=1700000000&aid=1988&app_language=zh-Hans&app_name=tiktok_web&browser_language=zh-CN&browser_name=Mozilla&browser_online=true&browser_platform=Win32&browser_version=5.0%20%28Windows%20NT%2010.0%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F153.0.0.0%20Safari%2F537.36&channel=tiktok_web&cookie_enabled=true&data_collection_enabled=true&device_id=7000000000000000002&device_platform=web_pc&focus_state=true&from_page=search&get_hot_event_rooms=v0&history_len=2&is_fullscreen=false&is_page_visible=true&odinId=7000000000000000003&os=windows&priority_region=SG&query=cats&referer=&region=SG&root_referer=&screen_height=1440&screen_width=2560&tz_name=Asia%2FShanghai&user_is_login=true&verifyFp=verify_x&webcast_language=zh-Hans&X-Dynosaur=D&msToken=mtok&X-Bogus=B&X-Gnarly=G"
+ },
+ "send_im_message": {
+  "error": "BrowserEvidenceError"
+ }
+}
