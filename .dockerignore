@@ -17,3 +17,14 @@ static/node_modules/
 .env
 .env.*
 .tiktok-runtime*.json
+# Local captures carry live session cookies; `COPY signing` must not see them.
+signing/evidence_*.json
+*.network-request
+*.network-response
+*credentials*
+*secrets*
+.omc/
+.ruff_cache/
+.pytest_cache/
+docs/
+tests/

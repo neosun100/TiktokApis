@@ -48,3 +48,12 @@ signing/evidence_cookie_current.json
 # TikTok Shop's env directory is the checked-in browser shim, not a venv.
 !reverse/tiktok_shop_bsid/env/
 !reverse/tiktok_shop_bsid/env/*.js
+*credentials*
+*secrets*
+.omc/
+.ruff_cache/
+.pytest_cache/
+# Local browser-capture workspace (raw HAR / CDP dumps carry live cookies).
+captures/
+# Working audit notes (line numbers drift; not a source of truth).
+docs/audit/

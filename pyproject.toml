@@ -1,0 +1,42 @@
+[project]
+name = "tiktok-apis"
+version = "0.2.0.dev0"
+description = "Evidence-driven TikTok Web API client (fail-closed browser-wire alignment)."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "beautifulsoup4>=4.12,<5",
+    # bbpb is the maintained fork of blackboxprotobuf (same import name).
+    # The original 1.0.1 pins protobuf==3.10.0 and makes the set unsolvable.
+    "bbpb>=1.0",
+    "cryptography>=42,<47",
+    "curl_cffi>=0.13,<1",
+    "imageio-ffmpeg>=0.5,<1",
+    "Pillow>=11,<13",
+    "protobuf>=4.21,<7",
+    "requests>=2.31,<3",
+    "websocket-client>=1.8,<2",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8",
+    "ruff>=0.6",
+]
+
+[tool.uv]
+package = false
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = "-ra --strict-markers"
+markers = [
+    "live: hits real TikTok endpoints; skipped unless TIKTOK_LIVE=1 and a runtime profile exists",
+    "node: needs a local Node.js runtime for the bundled WebMssdk runners",
+]
+
+[tool.ruff]
+line-length = 110
+target-version = "py311"
+extend-exclude = ["static/Tiktok_Request_pb2.py"]

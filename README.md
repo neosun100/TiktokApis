@@ -2,7 +2,7 @@
   <img src="./author/logo.svg" width="320" alt="TikTok APIs logo">
   <p>
     <a href="https://www.python.org/"><img src="https://img.shields.io/badge/Python-3.11%2B-3776AB" alt="Python 3.11+"></a>
-    <a href="https://nodejs.org/"><img src="https://img.shields.io/badge/Node.js-18%2B-339933" alt="Node.js 18+"></a>
+    <a href="https://nodejs.org/"><img src="https://img.shields.io/badge/Node.js-20%2B-339933" alt="Node.js 20+"></a>
   </p>
 
   # 🎵 TikTok APIs
@@ -27,10 +27,10 @@
 
 ## 🚀 快速开始
 
-需要 Python 3.11+；直播/私信 WebSocket 与 Shop BSID 的本地签名另需 Node.js 18+。在项目根目录安装：
+需要 Python 3.11+ 与 [uv](https://docs.astral.sh/uv/)；直播/私信 WebSocket 与 Shop BSID 的本地签名另需 Node.js 20+。在项目根目录安装锁定依赖：
 
 ```bash
-python -m pip install -r requirements.txt
+uv sync
 ```
 
 本项目是库；根目录的 `demo.py` 提供私密发布示例，默认只做本地预检。当前唯一已实现的认证入口是 `TiktokAuth.from_cookie`；账密、二维码、短信登录只是明确抛出 `NotImplementedError` 的占位接口。
@@ -83,14 +83,14 @@ photos = api.creator_publish_photos(["1.jpg", "2.jpg"], "图集文案")
 先预检文件、登录态字段与 ticket-guard 本地纯算，不发网络请求：
 
 ```bash
-python demo.py video ./video.mp4 --text "我的视频"
+uv run python demo.py video ./video.mp4 --text "我的视频"
 ```
 
 确认资料正确后，显式加 `--publish` 才上传并发布；默认可见范围为**仅自己**：
 
 ```bash
-python demo.py --publish video ./video.mp4 --text "我的视频"
-python demo.py --publish photos ./1.jpg ./2.jpg --text "我的图集" --title "标题"
+uv run python demo.py --publish video ./video.mp4 --text "我的视频"
+uv run python demo.py --publish photos ./1.jpg ./2.jpg --text "我的图集" --title "标题"
 ```
 
 可用 `--profile 路径` 指定其他本地资料文件。预检只能证明资料结构与本地签名材料可用，不能代替服务器验证登录；实际发布仍会由接口层检查当前请求的全部字段和签名长度。发布中途失败可能已经上传部分媒体，demo 不会自动重试。
