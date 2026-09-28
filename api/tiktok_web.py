@@ -32,7 +32,13 @@ from urllib.parse import quote, urlencode, urlparse
 
 from bs4 import BeautifulSoup
 
-from builder.auth import BrowserEvidenceError, TiktokAuth
+from builder.auth import TiktokAuth
+from builder.errors import (
+    BrowserEvidenceError,
+    BusinessError,
+    TransportError,
+    VerificationRequired,
+)
 from builder.header import HeaderBuilder, HeaderType
 from builder.params import Params
 from signing.protobuf import (
@@ -184,8 +190,9 @@ class TiktokWebAPI:
         return self.auth
 
     @staticmethod
-    def _json_response(response, *, allow_empty: bool = False):
-        response.raise_for_status()
+    def _json_response(response, *, allow_empty: bool = False, path: str = "",
+                       check_business: bool = True):
+        http_client.ensure_ok(response)
         if allow_empty and not getattr(response, "content", b""):
             # `/webcast/room/chat/` currently returns HTTP 200 with an empty
             # CORS response (Chrome reports net::ERR_FAILED).  Preserve that
@@ -196,9 +203,63 @@ class TiktokWebAPI:
                 "empty_response": True,
             }
         try:
-            return response.json()
-        except ValueError as exc:
-            raise RuntimeError(f"TikTok 返回的不是 JSON: {response.text[:300]}") from exc
+            result = response.json()
+        except ValueError:
+            # The body can echo request data; report its shape, not content.
+            content_type = str((getattr(response, "headers", None) or {}).get("content-type", ""))
+            raise TransportError(
+                f"TikTok 返回的不是 JSON (content-type={content_type!r}, "
+                f"{len(getattr(response, 'content', b'') or b'')} bytes)",
+                url=path or str(getattr(response, "url", "")),
+                http_status=int(getattr(response, "status_code", 0) or 0),
+            ) from None
+        if check_business:
+            TiktokWebAPI._raise_for_business(
+                result, path=path or str(getattr(response, "url", "")),
+                headers=getattr(response, "headers", None),
+            )
+        return result
+
+    # Body/header markers of TikTok's interactive verification (bdturing /
+    # verify-center).  Seen in public TikTok web clients; each needs a fresh
+    # Chrome capture before it may be narrowed or extended.
+    _VERIFY_BODY_KEYS = ("verify_center_decision_conf", "decision_conf", "verify_ticket")
+    _VERIFY_HEADER_MARK = "bdturing"
+
+    @classmethod
+    def _raise_for_business(cls, result, *, path: str, headers=None) -> None:
+        """Turn HTTP-200 business failures into :class:`BusinessError`."""
+        if not isinstance(result, Mapping):
+            return
+        header_keys = [str(key).lower() for key in (headers or {}).keys()] if headers else []
+        log_id = ""
+        log_pb = result.get("log_pb")
+        if isinstance(log_pb, Mapping):
+            log_id = str(log_pb.get("impr_id") or "")
+        extra = result.get("extra")
+        if not log_id and isinstance(extra, Mapping):
+            log_id = str(extra.get("logid") or "")
+        verify = (any(cls._VERIFY_HEADER_MARK in key for key in header_keys)
+                  or any(key in result for key in cls._VERIFY_BODY_KEYS))
+        metadata = result.get("ResponseMetadata")
+        if isinstance(metadata, Mapping) and isinstance(metadata.get("Error"), Mapping):
+            error = metadata["Error"]
+            raise BusinessError(path=path, code=error.get("Code") or error.get("CodeN"),
+                                message=str(error.get("Message") or ""),
+                                log_id=str(metadata.get("RequestId") or ""), payload=result)
+        if "status_code" not in result:
+            if verify:
+                raise VerificationRequired(path=path, code=None, payload=result)
+            return
+        code = result.get("status_code")
+        if code is None or str(code) == "0":
+            if verify:
+                raise VerificationRequired(path=path, code=code, payload=result)
+            return
+        error_type = VerificationRequired if verify else BusinessError
+        raise error_type(path=path, code=code,
+                         message=str(result.get("status_msg") or result.get("message") or ""),
+                         log_id=log_id, payload=result)
 
     @staticmethod
     def _ticket_timestamp(client_data: str) -> int:
@@ -342,7 +403,7 @@ class TiktokWebAPI:
                       ticket_guard_tt_csrf_header: bool = True,
                       content_type_before_mobile: bool = False,
                       header_order: tuple[str, ...] | None = None,
-                      allow_empty: bool = False):
+                      allow_empty: bool = False, check_business: bool = True):
         response = self._request_response(
             auth, method=method, path=path, params=params, referer=referer,
             signed=signed, body=body, origin=origin, form=form, accept=accept,
@@ -354,7 +415,8 @@ class TiktokWebAPI:
             content_type_before_mobile=content_type_before_mobile,
             header_order=header_order,
         )
-        return self._json_response(response, allow_empty=allow_empty)
+        return self._json_response(response, allow_empty=allow_empty, path=path,
+                                   check_business=check_business)
 
     def get_upload_auth(self, *, signed: bool = True, auth=None,
                         referer: str = f"{origin}/tiktokstudio/upload?from=webapp&tab=video"):
@@ -773,7 +835,7 @@ class TiktokWebAPI:
             "POST", url, headers=request_headers, data=raw, timeout=self.timeout,
         )
         auth.apply_set_cookie(response.headers)
-        response.raise_for_status()
+        http_client.ensure_ok(response)
         if not getattr(response, "content", b""):
             raise BrowserEvidenceError(
                 "私信 protobuf 响应为空，拒绝伪造 JSON 或成功状态"
@@ -1807,7 +1869,7 @@ class TiktokWebAPI:
                 "POST", f"https://{host}/upload/v1/{store_id}?speedtest",
                 headers=headers, data=payload, timeout=self.timeout,
             )
-            response.raise_for_status()
+            http_client.ensure_ok(response)
             return time.perf_counter() - started, host
 
         ranked = []
@@ -2081,7 +2143,7 @@ class TiktokWebAPI:
             "HEAD", f"{self.origin}/api/v1/video/transcode/enable/",
             headers=headers, timeout=self.timeout,
         )
-        response.raise_for_status()
+        http_client.ensure_ok(response)
         auth.apply_set_cookie(response.headers)
         value = response.headers.get("x-ware-csrf-token", "")
         parts = str(value).split(",")
@@ -5564,7 +5626,7 @@ class TiktokWebAPI:
             auth, method="GET", path="/webcast/im/fetch/", params=params,
             referer=referer, origin=self.origin, accept="*/*",
         )
-        response.raise_for_status()
+        http_client.ensure_ok(response)
         return response.content
 
     @staticmethod
@@ -5914,7 +5976,7 @@ class TiktokWebAPI:
             headers=HeaderBuilder.build(HeaderType.DOC, auth, referer=user_url).get(),
             timeout=self.timeout,
         )
-        response.raise_for_status()
+        http_client.ensure_ok(response)
         return response.text
 
     @staticmethod
@@ -6010,7 +6072,7 @@ class TiktokWebAPI:
             str(product_url), headers=headers, timeout=self.timeout,
         )
         auth.apply_set_cookie(response.headers)
-        response.raise_for_status()
+        http_client.ensure_ok(response)
         return self._shop_product_detail_from_html(
             response.text, expected_product_id=match.group(1),
         )
@@ -6117,12 +6179,10 @@ class TiktokWebAPI:
             signed_url, headers=headers, data=body_bytes, timeout=self.timeout,
         )
         auth.apply_set_cookie(response.headers)
-        result = self._json_response(response)
+        result = self._json_response(response, path=signed_url)
         if result.get("code") != 0 or not isinstance(result.get("data"), Mapping):
-            raise RuntimeError(
-                "TikTok Shop 评价接口未返回 code=0 data："
-                f"code={result.get('code')!r}, message={result.get('message')!r}"
-            )
+            raise BusinessError(path=signed_url, code=result.get("code"),
+                                message=str(result.get("message") or ""), payload=result)
         return dict(result["data"])
 
     def get_all_shop_product_reviews(
@@ -6236,7 +6296,7 @@ class TiktokWebAPI:
             headers=HeaderBuilder.build(HeaderType.DOC, auth, referer=live_url).get(),
             timeout=self.timeout,
         )
-        response.raise_for_status()
+        http_client.ensure_ok(response)
         soup = BeautifulSoup(response.text, "html.parser")
         state = soup.find("script", attrs={"id": "SIGI_STATE"})
         if not state or not state.text:

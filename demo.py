@@ -13,7 +13,8 @@ from pathlib import Path
 import sys
 
 from api.tiktok_web import TiktokWebAPI
-from builder.auth import BrowserEvidenceError, TiktokAuth
+from builder.auth import TiktokAuth
+from builder.errors import BrowserEvidenceError, TiktokError
 
 
 PROFILE_FIELDS = frozenset({
@@ -140,9 +141,14 @@ def main(argv: list[str] | None = None) -> int:
             result = api.creator_publish(paths[0], args.text)
         else:
             result = api.creator_publish_photos(paths, args.text, title=args.title)
+    except TiktokError as exc:
+        # TiktokError messages are redacted by construction (host/path only).
+        print(f"发布未完成：{exc}。媒体可能已部分上传；请检查后再决定是否重试。",
+              file=sys.stderr)
+        return 1
     except Exception as exc:
-        # HTTP exceptions can embed signed URLs. Never print their message,
-        # request body, Cookie, or security-sdk key material to a console log.
+        # Foreign exceptions may embed signed URLs, request bodies or key
+        # material; print only the type.
         print(
             f"发布未完成（{type(exc).__name__}）。媒体可能已部分上传；"
             "请私下检查错误后再决定是否重试。",

@@ -11,11 +11,8 @@ from collections import OrderedDict
 from typing import Iterable, Mapping, Optional
 from urllib.parse import unquote
 
+from .errors import BrowserEvidenceError
 from .signer import SignerError, TiktokSigner, required_signature_keys
-
-
-class BrowserEvidenceError(RuntimeError):
-    """The request cannot match the browser wire contract."""
 
 
 class CookieDict(OrderedDict):
