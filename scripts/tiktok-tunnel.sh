@@ -32,12 +32,20 @@ check() {
 case "${1:-start}" in
   start)
     if running; then
-      echo "already running: 127.0.0.1:${PORT} -> ${HOST}"
-    else
-      ssh -o BatchMode=yes -o ExitOnForwardFailure=yes -o ServerAliveInterval=30 \
-          -o ServerAliveCountMax=3 -f -N -D "127.0.0.1:${PORT}" "$HOST"
-      echo "started: 127.0.0.1:${PORT} -> ${HOST}"
+      if check >/dev/null 2>&1; then
+        echo "already running: 127.0.0.1:${PORT} -> ${HOST}"
+        check
+        exit 0
+      fi
+      # The process can outlive its connection (network blip; ServerAlive
+      # needs 30s x 3 to notice).  A tunnel that cannot reach TikTok is dead.
+      echo "running but not reachable; restarting" >&2
+      pkill -f "$PATTERN" || true
+      sleep 1
     fi
+    ssh -o BatchMode=yes -o ExitOnForwardFailure=yes -o ServerAliveInterval=15 \
+        -o ServerAliveCountMax=3 -f -N -D "127.0.0.1:${PORT}" "$HOST"
+    echo "started: 127.0.0.1:${PORT} -> ${HOST}"
     check
     ;;
   status)
